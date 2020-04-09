@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.goodSort.dao.GoodSortDao">
+    <!--统计商品分类数量-->
+    <select id="countGoodSortAcct" parameterType="com.xzsd.pc.goodSort.entity.GoodSortInfo" resultType="int">
+        select count(classify_id)
+        from t_info_goods_classify
+        where is_delete = 0
+        and classify_id= #{classifyId}
+    </select>
+
+    <!--统计删除商品目录子类数量-->
+    <select id="countGoodSorts" parameterType="com.xzsd.pc.goodSort.entity.GoodSortInfo" resultType="int">
+        select count(*)
+        from t_info_goods_classify
+        where is_delete = 0
+        and classify_parent= #{classifyId}
+    </select>
+
+    <!--新增商品分类-->
+    <insert id="addGoodsClassify" parameterType="com.xzsd.pc.goodSort.entity.GoodSortInfo">
+        insert into t_info_goods_classify
+        (classify_name,
+        classify_comment,
+        classify_parent,
+        is_delect,
+        create_user,
+        create_time,
+        version
+        )
+        values
+        (#{classifyName},
+        #{classifyComment},
+        #{classifyParent},
+        0,
+        #{createUser},
+        now(),
+        0)
+    </insert>
+
+    <!--获取商品分类信息-->
+    <select id="getGoodsClassify" parameterType="java.lang.String" resultType="com.xzsd.pc.goodSort.entity.GoodSortInfo">
+        select
+            classify_name,
+            classify_comment
+        from t_info_goods_classify
+        where classify_id = #{classifyId}
+        and is_delete = 0
+    </select>
+
+    <!--商品分类列表-->
+    <select id="listAllGoodsClassify" parameterType="com.xzsd.pc.goodSort.entity.GoodSortInfo"
+            resultType="com.xzsd.pc.goodSort.entity.GoodSortInfo">
+        select
+            a.classify_id,
+            a.classify_name,
+            a.version,
+            (select
+                b.classify_id,
+                b.classify_name,
+                b.version
+            from t_info_goods_classify b
+            where is_delete = 0
+            and b.classify_parent = a.classify_id
+            order by update_time desc)
+        from t_info_goods_classify a
+        where is_delete = 0
+        and classify_parent = 0
+        order by update_time desc
+    </select>
+
+    <!--修改商品分类信息-->
+    <update id="updateGoodsClassify" parameterType="com.xzsd.pc.goodSort.entity.GoodSortInfo">
+        update t_info_goods_classify
+        set
+            user_acct = #{classifyName},
+            user_password = #{classifyComment},
+            update_time = now(),
+            update_user = #{updateUser},
+            version = version + 1
+        where classify_id = #{classifyId}
+        and version = #{version}
+    </update>
+
+    <!--删除商品分类-->
+    <update id="deleteGoodsClassify" parameterType="com.xzsd.pc.goodSort.entity.GoodSortInfo">
+        update t_info_goods_classify
+        set
+        is_delete = 1,
+        update_time = now(),
+        update_user = #{userId}
+        where classify_id =#{classifyId}
+    </update>
+</mapper>

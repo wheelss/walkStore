@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.rotation.dao.RotationDao">
+
+    <!--新增轮播图-->
+    <insert id="addSlideshowHome" parameterType="com.xzsd.pc.rotation.entity.RotationInfo">
+        insert into t_info_slideshow_home
+        (slideshow_id,
+        slideshow_num,
+        slideshow_path,
+        start_time,
+        end_time,
+        goods_id,
+        is_delete,
+        create_user,
+        create_time,
+        version,
+        slideshow_state_id)
+        values
+        (#{slideshowId},
+        #{slideshowNum},
+        #{slideshowPath},
+        #{startTime},
+        #{endTime},
+        #{goodsId},
+        0,
+        #{createUser},
+        now(),
+        0,
+        0)
+    </insert>
+
+    <!--删除轮播图-->
+    <update id="deleteSlideshowHome" parameterType="com.xzsd.pc.rotation.entity.RotationInfo">
+        update t_info_slideshow_home
+        set
+            is_delete = 1,
+            update_time = now(),
+            update_user = #{updateUser}
+        where slideshow_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!--修改轮播图状态-->
+    <update id="updateSlideshowHomeState" parameterType="java.util.List">
+        <foreach collection="listUpdate" item="item" index="index" open="" separator=";" close="">
+            update t_info_slideshow_home
+            <set>
+                slideshow_state_id = #{item.slideshowStateId},
+                update_time = now(),
+                update_user = #{item.updateUser,jdbcType=VARCHAR},
+                version = version + 1
+            </set>
+            <where>
+                slideshow_id = #{item.slideshowId,jdbcType=VARCHAR}
+                AND version = #{item.version}
+            </where>
+        </foreach>
+    </update>
+
+    <!--轮播图列表-->
+    <select id="listSlideshowHome" parameterType="com.xzsd.pc.rotation.entity.RotationInfo"
+            resultType="com.xzsd.pc.rotation.entity.RotationInfo">
+        select
+            slideshow_num slideshowNum,
+            slideshow_path slideshowPath,
+            slideshow_state_id slideshowStateId,
+            start_time startTime,
+            end_time endTime,
+            slideshow_id slideshowId,
+            version
+        from t_info_slideshow_home
+        where is_delete = 0
+        <if test="slideshowStateId != null and slideshowStateId != ''">
+            and slideshow_state_id like concat('%', #{slideshowStateId}, '%')
+        </if>
+        order by update_time desc
+    </select>
+
+    <!--商品列表-->
+    <select id="listGoods" parameterType="com.xzsd.pc.good.entity.GoodInfo"
+            resultType="com.xzsd.pc.good.entity.GoodInfo">
+        select
+            goods_id goodsId,
+            goods_name goodsName,
+            goods_state_id goodsStateId,
+            one_classify_name oneClassifyName,
+            two_classify_name twoClassifyName
+        from t_info_goods
+        where is_delete = 0
+        <if test="goodsName != null and goodsName != ''">
+            and goods_name like concat('%', #{goodsName}, '%')
+        </if>
+        <if test="goodsId != null and goodsId != ''">
+            and goods_id like concat('%', #{goodsId}, '%')
+        </if>
+        order by update_time desc
+    </select>
+
+</mapper>
