@@ -27,6 +27,16 @@ public class HotGoodsService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addHotGoods(HotGoodsInfo hotGoodsInfo) {
+        //检验排序重复
+        int countSort = hotGoodsDao.countSort(hotGoodsInfo);
+        if (0 != countSort) {
+            return AppResponse.bizError("排序已存在，请重新输入！");
+        }
+        //检验商品重复
+        int countGood = hotGoodsDao.countGood(hotGoodsInfo);
+        if (0 != countGood) {
+            return AppResponse.bizError("商品已被选择，请重新输入！");
+        }
         //新增轮播图
         hotGoodsInfo.setHotGoodsId(StringUtil.getCommonCode(2));
         int count = hotGoodsDao.addHotGoods(hotGoodsInfo);
@@ -81,6 +91,16 @@ public class HotGoodsService {
         int countUserAcct = hotGoodsDao.countHotGoodAcct(hotGoodsInfo);
         if (0 == countUserAcct) {
             return AppResponse.bizError("商品不存在");
+        }
+        //检验排序重复
+        int countSort = hotGoodsDao.countSort(hotGoodsInfo);
+        if (0 != countSort) {
+            return AppResponse.bizError("排序已存在，请重新输入！");
+        }
+        //检验商品重复
+        int countGood = hotGoodsDao.countGood(hotGoodsInfo);
+        if (0 != countGood) {
+            return AppResponse.bizError("商品已被选择，请重新输入！");
         }
         // 修改热门位商品信息
         int count = hotGoodsDao.updateHotGoods(hotGoodsInfo);

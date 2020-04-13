@@ -106,6 +106,7 @@
             two_classify_name twoClassifyName
         from t_info_goods
         where is_delete = 0
+        where goods_state_id = 1
         <if test="goodsName != null and goodsName != ''">
             and goods_name like concat('%', #{goodsName}, '%')
         </if>

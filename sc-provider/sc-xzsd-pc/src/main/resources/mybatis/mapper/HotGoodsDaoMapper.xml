@@ -9,6 +9,22 @@
         and hot_goods_id = #{hotGoodsId}
     </select>
 
+    <!--统计排序数量-->
+    <select id="countSort" parameterType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo" resultType="int">
+        select count(*)
+        from t_info_hot_goods
+        where is_delete = 0
+        and hot_goods_num= #{hotGoodsNum}
+    </select>
+
+    <!--统计商品数量-->
+    <select id="countGood" parameterType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo" resultType="int">
+        select count(*)
+        from t_info_hot_goods
+        where is_delete = 0
+        and goods_id= #{goodsId}
+    </select>
+
     <!--新增热门位商品-->
     <insert id="addHotGoods" parameterType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo">
         insert into t_info_hot_goods

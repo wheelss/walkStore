@@ -16,7 +16,20 @@ public interface HotGoodsDao {
      * @return
      */
     int countHotGoodAcct(HotGoodsInfo hotGoodsInfo);
-
+    /**
+     * 统计排序数量
+     *
+     * @param hotGoodsInfo 热门位信息
+     * @return
+     */
+    int countSort(HotGoodsInfo hotGoodsInfo);
+    /**
+     * 统计商品数量
+     *
+     * @param hotGoodsInfo 热门位信息
+     * @return
+     */
+    int countGood(HotGoodsInfo hotGoodsInfo);
     /**
      * 新增热门位商品
      *

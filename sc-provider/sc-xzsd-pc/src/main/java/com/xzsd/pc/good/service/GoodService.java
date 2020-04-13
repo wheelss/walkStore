@@ -158,4 +158,21 @@ public class GoodService {
         }
         return appResponse;
     }
+
+    /**
+     * demo 查询商品分类列表
+     *
+     * @param classifyId
+     * @return
+     * @Author xiekai
+     * @Date 2020-03-26
+     */
+    public AppResponse listGoodsClassify(String classifyId) {
+
+        int count = goodDao.listGoodsClassify(classifyId);
+        if (0 == count) {
+            return AppResponse.bizError("删除失败，请重试！");
+        }
+        return AppResponse.success("查询成功！");
+    }
 }

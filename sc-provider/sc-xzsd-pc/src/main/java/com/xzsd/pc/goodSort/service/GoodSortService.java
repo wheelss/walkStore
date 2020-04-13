@@ -13,12 +13,6 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * 用户
- *
- * @author xiekai
- * @time 2020-3-25
- */
 @Service
 public class GoodSortService {
     @Resource

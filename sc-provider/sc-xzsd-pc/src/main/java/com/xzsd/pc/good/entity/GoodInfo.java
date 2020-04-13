@@ -25,13 +25,38 @@ public class GoodInfo {
      */
     private String goodsName;
     /**
-     * 一级分类
+     * 一级分类名称
      */
     private String oneClassifyName;
     /**
-     * 二级分类
+     * 二级分类名称
      */
     private String twoClassifyName;
+    /**
+     * 一级分类id
+     */
+    private String oneClassifyId;
+    /**
+     * 二级分类id
+     */
+    private String twoClassifyId;
+
+    public String getOneClassifyId() {
+        return oneClassifyId;
+    }
+
+    public void setOneClassifyId(String oneClassifyId) {
+        this.oneClassifyId = oneClassifyId;
+    }
+
+    public String getTwoClassifyId() {
+        return twoClassifyId;
+    }
+
+    public void setTwoClassifyId(String twoClassifyId) {
+        this.twoClassifyId = twoClassifyId;
+    }
+
     /**
      * 广告词
      */

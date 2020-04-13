@@ -45,12 +45,25 @@ public class ClientInfo {
      */
     private String email;
     /**
-     * 角色 超级管理员0，管理员1，店长2，司机3，客户4
+     * 当前登录角色 超级管理员0，管理员1，店长2，司机3，客户4
      */
     private int role;
     /**
      * 作废标记 0为存在，1为作废
      */
+    /**
+     * 当前登录人
+     */
+    private String nowUserId;
+
+    public String getNowUserId() {
+        return nowUserId;
+    }
+
+    public void setNowUserId(String nowUserId) {
+        this.nowUserId = nowUserId;
+    }
+
     private int isDelete;
     /**
      * 创建时间

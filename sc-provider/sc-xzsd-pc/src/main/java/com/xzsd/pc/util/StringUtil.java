@@ -682,7 +682,10 @@ public class StringUtil {
         String suffix = RandomUtil.radmonkey(num);
         return prefix + suffix;
     }
-
+    public static String getShortCode(int num) {
+        String suffix = RandomUtil.radmonkey(num);
+        return suffix;
+    }
     /**
      * 部门：软件开发事业部
      * 功能：去字符串的前后空格

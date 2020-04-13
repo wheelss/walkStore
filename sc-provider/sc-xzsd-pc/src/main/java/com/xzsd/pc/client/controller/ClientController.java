@@ -1,6 +1,7 @@
 package com.xzsd.pc.client.controller;
 
 
+import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.client.entity.ClientInfo;
 import com.xzsd.pc.client.service.ClientService;
 import com.xzsd.pc.user.controller.UserController;
@@ -27,6 +28,8 @@ public class ClientController {
      */
     @RequestMapping(value = "listClient")
     public AppResponse listClient(ClientInfo clientInfo) {
+        String userId = SecurityUtils.getCurrentUserId();
+        clientInfo.setNowUserId(userId);
         try {
             return clientService.listClient(clientInfo);
         } catch (Exception e) {

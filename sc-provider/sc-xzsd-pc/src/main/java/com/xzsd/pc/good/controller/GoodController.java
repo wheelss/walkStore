@@ -38,7 +38,7 @@ public class GoodController {
     @PostMapping("addGoods")
     public AppResponse addGoods(GoodInfo goodInfo) {
         String userId = SecurityUtils.getCurrentUserId();
-        goodInfo.setUpdateUser(userId);
+        goodInfo.setCreateUser(userId);
         try {
             AppResponse appResponse = goodService.addGoods(goodInfo);
             return appResponse;
@@ -115,7 +115,7 @@ public class GoodController {
      * @author xiekai
      * @Date 2020-03-26
      */
-    @RequestMapping(value = "listGoodsPage")
+    @RequestMapping(value = "listGoods")
     public AppResponse listGoodsPage(GoodInfo goodInfo) {
         try {
             return goodService.listGoodsPage(goodInfo);
@@ -146,6 +146,23 @@ public class GoodController {
         }
     }
 
-
+    /**
+     * demo 分类下拉框列表
+     *
+     * @param classifyId
+     * @return AppResponse
+     * @author xiekai
+     * @Date 2020-03-26
+     */
+    @RequestMapping(value = "listGoodsClassify")
+    public AppResponse listGoodsClassify(String classifyId) {
+        try {
+            return goodService.listGoodsClassify(classifyId);
+        } catch (Exception e) {
+            logger.error("查询商品分类列表异常", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
 
 }

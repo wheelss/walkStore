@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.pc.rotation.dao.RotationDao">
 
+    <!--统计排序数量-->
+    <select id="countSort" parameterType="com.xzsd.pc.rotation.entity.RotationInfo" resultType="int">
+        select count(*)
+        from t_info_slideshow_home
+        where is_delete = 0
+        and slideshow_num= #{slideshowNum}
+    </select>
+
+    <!--统计排序数量-->
+    <select id="countGood" parameterType="com.xzsd.pc.rotation.entity.RotationInfo" resultType="int">
+        select count(*)
+        from t_info_slideshow_home
+        where is_delete = 0
+        and goods_id= #{goodsId}
+    </select>
+
     <!--新增轮播图-->
     <insert id="addSlideshowHome" parameterType="com.xzsd.pc.rotation.entity.RotationInfo">
         insert into t_info_slideshow_home
@@ -90,6 +106,7 @@
             two_classify_name twoClassifyName
         from t_info_goods
         where is_delete = 0
+        where goods_state_id = 1
         <if test="goodsName != null and goodsName != ''">
             and goods_name like concat('%', #{goodsName}, '%')
         </if>
