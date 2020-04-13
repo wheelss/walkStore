@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.driver.dao.DriverDao">
+    <!--统计门店数量-->
+    <select id="countStore" parameterType="com.xzsd.pc.driver.entity.DriverInfo" resultType="int">
+        select count(*)
+        from t_info_driver
+        where is_delete = 0
+        and driver_id= #{driverId}
+    </select>
+
+    <!--新增司机到司机表-->
+    <insert id="addDriver" parameterType="com.xzsd.pc.driver.entity.DriverInfo">
+        insert into t_info_driver
+        (driver_id,
+        province_id,
+        city_id,
+        area_id,
+        is_delete,
+        create_time,
+        create_user,
+        version
+        )
+        values
+        (#{driver_id},
+        #{provinceId},
+        #{cityId},
+        #{areaId},
+        0,
+        now(),
+        #{createUser},
+        0)
+    </insert>
+
+    <!--新增司机到用户表-->
+    <insert id="addDriverUser" parameterType="com.xzsd.pc.driver.entity.DriverInfo">
+        insert into t_sys_user
+        (user_id,
+        user_name,
+        phone,
+        user_acct,
+        user_password,
+        id_card,
+        role,
+        is_delete,
+        create_time,
+        create_user,
+        version
+        )
+        values
+        (#{driver_id},
+        #{userName},
+        #{phone},
+        #{userAcct},
+        #{userPassword},
+        #{idCard},
+        3,
+        0,
+        now(),
+        #{createUser},
+        0)
+    </insert>
+
+    <!--获取司机信息-->
+    <select id="getDriver" parameterType="java.lang.String" resultType="com.xzsd.pc.driver.entity.DriverInfo">
+        select
+            a.user_name driverName,
+            a.phone phone,
+            a.user_id userAcct,
+            a.business_code userPassword,
+            a.    idCard
+            b.area_name provinceName,
+            c.area_name cityName,
+            d.area_name areaName,
+            a.address address,
+            e.user_name userName,
+            a.inviteCode inviteCode
+        from t_info_store a,
+        t_info_area_level b,
+        t_info_area_level c,
+        t_info_area_level d,
+        t_sys_user e
+        where a.store_id = #{storeId}
+        and a.is_delete = 0
+        and a.province_id = b.area_id
+        and a.city_id= c.area_id
+        and a.area_id = d.area_id
+        and a.user_id = e.user_id
+    </select>
+</mapper>
