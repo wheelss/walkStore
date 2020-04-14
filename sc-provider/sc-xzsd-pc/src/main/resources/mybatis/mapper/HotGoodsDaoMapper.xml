@@ -51,7 +51,9 @@
     <select id="getHotGoods" parameterType="java.lang.String" resultType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo">
         select
            hot_goods_num hotGoodsNum,
-           goods_id goodsId
+           goods_id goodsId,
+           version,
+           hot_goods_id
         from t_info_hot_goods
         where hot_goods_id = #{hotGoodsId}
         and is_delete = 0

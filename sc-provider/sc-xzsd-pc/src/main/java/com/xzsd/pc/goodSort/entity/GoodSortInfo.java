@@ -1,5 +1,7 @@
 package com.xzsd.pc.goodSort.entity;
 
+import java.util.List;
+
 /**
  * 用户实体类
  *
@@ -32,6 +34,19 @@ public class GoodSortInfo {
      * 父级编码
      */
     private String classifyParent;
+
+    /**
+     *子节点
+     */
+    private List<GoodSortInfo> treeNode;
+
+    public List<GoodSortInfo> getTreeNode() {
+        return treeNode;
+    }
+
+    public void setTreeNode(List<GoodSortInfo> treeNode) {
+        this.treeNode = treeNode;
+    }
 
     public int getPageSize() {
         return pageSize;

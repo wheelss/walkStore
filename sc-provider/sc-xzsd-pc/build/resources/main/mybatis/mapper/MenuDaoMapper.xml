@@ -37,7 +37,8 @@
             resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
         a.menu_id menuName,
-        a.menu_name menuName
+        a.menu_name menuName,
+        version
         from t_sys_menu a
         where a.is_delete = 0
         order by update_time desc
@@ -79,4 +80,28 @@
         where menu_id = #{menuId}
     </update>
 
+    <!--管理员菜单列表-->
+    <select id="listMenuHomeAdmin" parameterType="com.xzsd.pc.menu.entity.MenuInfo"
+            resultType="com.xzsd.pc.menu.entity.MenuInfo">
+        select
+        a.menu_id menuName,
+        a.menu_name menuName
+        from t_sys_menu a
+        where a.is_delete = 0
+        order by update_time desc
+    </select>
+
+    <!--店长菜单列表-->
+    <select id="listMenuHome" parameterType="com.xzsd.pc.menu.entity.MenuInfo"
+            resultType="com.xzsd.pc.menu.entity.MenuInfo">
+        select
+        a.menu_id menuName,
+        a.menu_name menuName
+        from t_sys_menu a
+        where a.is_delete = 0
+        where menu_name = "客户管理"
+        and menu_name = "订单管理"
+        and menu_name = "门店管理"
+        order by update_time desc
+    </select>
 </mapper>

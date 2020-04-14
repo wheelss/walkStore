@@ -83,7 +83,7 @@ public class DriverService {
         }
     }
     /**
-     * demo 修改门店
+     * demo 修改司机
      *
      * @param driverInfo
      * @return
@@ -112,7 +112,7 @@ public class DriverService {
         return appResponse;
     }
     /**
-     * 删除门店
+     * 删除司机
      *
      * @param driverId
      * @return

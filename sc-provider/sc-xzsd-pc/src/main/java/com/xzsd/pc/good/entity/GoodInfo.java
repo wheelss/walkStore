@@ -96,7 +96,7 @@ public class GoodInfo {
     /**
      * 商品图片路径
      */
-    private String goodsImagePath;
+    private String imagePath;
     /**
      * 浏览量
      */
@@ -262,12 +262,12 @@ public class GoodInfo {
         this.goodsShelfTime = goodsShelfTime;
     }
 
-    public String getGoodsImagePath() {
-        return goodsImagePath;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setGoodsImagePath(String goodsImagePath) {
-        this.goodsImagePath = goodsImagePath;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public int getGoodsViewsNum() {

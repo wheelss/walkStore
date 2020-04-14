@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xzsd.pc.good.dao.GoodDao;
 import com.xzsd.pc.good.entity.GoodInfo;
+import com.xzsd.pc.goodSort.entity.GoodSortInfo;
 import com.xzsd.pc.util.AppResponse;
 import com.xzsd.pc.util.RedisOperator;
 import com.xzsd.pc.util.StringUtil;
@@ -67,11 +68,13 @@ public class GoodService {
     public AppResponse deleteGoods(String goodsId, String updateUser) {
         List<String> listCode = Arrays.asList(goodsId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
-        // 删除商品
+        // 删除商品表
         int count = goodDao.deleteGoods(listCode, updateUser);
         if (0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }
+        //删除轮播图表
+
         return appResponse;
     }
 
@@ -162,17 +165,13 @@ public class GoodService {
     /**
      * demo 查询商品分类列表
      *
-     * @param classifyId
+     * @param goodSortInfo
      * @return
      * @Author xiekai
-     * @Date 2020-03-26
+     * @Date 2020-04-13
      */
-    public AppResponse listGoodsClassify(String classifyId) {
-
-        int count = goodDao.listGoodsClassify(classifyId);
-        if (0 == count) {
-            return AppResponse.bizError("删除失败，请重试！");
-        }
-        return AppResponse.success("查询成功！");
+    public AppResponse listGoodsClassify(GoodSortInfo goodSortInfo) {
+        List<GoodSortInfo> goodSortInfoList = goodDao.listGoodsClassify(goodSortInfo);
+        return AppResponse.success("查询成功！",goodSortInfoList);
     }
 }

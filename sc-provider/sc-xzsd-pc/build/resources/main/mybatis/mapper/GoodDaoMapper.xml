@@ -186,5 +186,16 @@
         </foreach>
     </update>
 
-
+    <!--商品分类列表-->
+    <select id="listGoodsClassify" parameterType="com.xzsd.pc.goodSort.entity.GoodSortInfo"
+            resultType="com.xzsd.pc.goodSort.entity.GoodSortInfo">
+        select
+            classify_id classifyId,
+            classify_name classifyName
+        from
+        t_info_goods_classify
+        where is_delete = 0
+        and classify_parent = #{classifyId}
+        order by update_time desc
+    </select>
 </mapper>

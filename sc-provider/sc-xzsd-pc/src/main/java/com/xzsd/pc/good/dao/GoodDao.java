@@ -1,6 +1,7 @@
 package com.xzsd.pc.good.dao;
 
 import com.xzsd.pc.good.entity.GoodInfo;
+import com.xzsd.pc.goodSort.entity.GoodSortInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -67,4 +68,12 @@ public interface GoodDao {
      * @return 修改结果
      */
     int updateGoodsShelfState(@Param(value = "listUpdate") List<GoodInfo> listUpdate);
+
+    /**
+     * 查询商品分类列表
+     *
+     * @param goodSortInfo 分类信息
+     * @return 所有分类信息
+     */
+    List<GoodSortInfo> listGoodsClassify(GoodSortInfo goodSortInfo);
 }

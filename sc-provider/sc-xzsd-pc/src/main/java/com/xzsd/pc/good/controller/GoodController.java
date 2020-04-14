@@ -3,6 +3,7 @@ package com.xzsd.pc.good.controller;
 import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.good.entity.GoodInfo;
 import com.xzsd.pc.good.service.GoodService;
+import com.xzsd.pc.goodSort.entity.GoodSortInfo;
 import com.xzsd.pc.util.AppResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,15 +150,15 @@ public class GoodController {
     /**
      * demo 分类下拉框列表
      *
-     * @param classifyId
+     * @param goodSortInfo
      * @return AppResponse
      * @author xiekai
-     * @Date 2020-03-26
+     * @Date 2020-04-13
      */
     @RequestMapping(value = "listGoodsClassify")
-    public AppResponse listGoodsClassify(String classifyId) {
+    public AppResponse listGoodsClassify(GoodSortInfo goodSortInfo) {
         try {
-            return goodService.listGoodsClassify(classifyId);
+            return goodService.listGoodsClassify(goodSortInfo);
         } catch (Exception e) {
             logger.error("查询商品分类列表异常", e);
             System.out.println(e.toString());

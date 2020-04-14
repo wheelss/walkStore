@@ -36,7 +36,7 @@ public interface UserDao {
      * @param listCode 选中的用户编号集合
      * @return
      */
-    int deleteUser(@Param("listCode") List<String> listCode);
+    int deleteUser(@Param("listCode") List<String> listCode, @Param("updateUser") String updateUser);
 
     /**
      * 修改用户信息

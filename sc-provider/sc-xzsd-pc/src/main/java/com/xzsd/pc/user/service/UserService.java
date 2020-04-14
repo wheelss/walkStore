@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xzsd.pc.user.dao.UserDao;
 import com.xzsd.pc.user.entity.UserInfo;
 import com.xzsd.pc.util.AppResponse;
+import com.xzsd.pc.util.PasswordUtils;
 import com.xzsd.pc.util.StringUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,9 @@ public class UserService {
         if (0 != countUserAcct) {
             return AppResponse.bizError("用户账号已存在，请重新输入！");
         }
-
+        //密码加密
+        String pwd = PasswordUtils.generatePassword(userInfo.getUserPassword());
+        userInfo.setUserPassword(pwd);
         // 新增用户
         int count = userDao.addUser(userInfo);
         if (0 == count) {
@@ -57,11 +60,11 @@ public class UserService {
      * @Date 2020-03-25
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse deleteUser(String userId) {
+    public AppResponse deleteUser(String userId,String updateUser) {
         List<String> listCode = Arrays.asList(userId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
         // 删除用户
-        int count = userDao.deleteUser(listCode);
+        int count = userDao.deleteUser(listCode,updateUser);
         if (0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }

@@ -53,6 +53,19 @@ public class UserInfo {
      */
     private int role;
     /**
+     * 图片路径
+     */
+    private String image_path;
+
+    public String getImage_path() {
+        return image_path;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
+    }
+
+    /**
      * 作废标记 0为存在，1为作废
      */
     private int isDelete;

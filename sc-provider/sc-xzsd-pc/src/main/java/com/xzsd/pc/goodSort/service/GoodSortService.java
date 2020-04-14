@@ -57,7 +57,7 @@ public class GoodSortService {
 
 
     /**
-     * demo 查询商品分类列表（分页）
+     * demo 查询商品分类列表
      *
      * @param goodSortInfo
      * @return
@@ -65,11 +65,8 @@ public class GoodSortService {
      * @Date 2020-03-26
      */
     public AppResponse listAllGoodsClassify(GoodSortInfo goodSortInfo) {
-
-        PageHelper.startPage(goodSortInfo.getPageNum(), goodSortInfo.getPageSize());
-        List<GoodSortInfo> goodInfoList = goodSortDao.listAllGoodsClassify(goodSortInfo);
-        PageInfo<GoodSortInfo> pageData = new PageInfo<GoodSortInfo>(goodInfoList);
-        return AppResponse.success("查询成功！", pageData);
+        List<GoodSortInfo> goodInfoList = goodSortDao.getNodeTree(goodSortInfo);
+        return AppResponse.success("查询成功！", goodInfoList);
     }
 
     /**

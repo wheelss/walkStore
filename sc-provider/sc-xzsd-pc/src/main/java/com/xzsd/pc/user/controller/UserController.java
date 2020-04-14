@@ -1,6 +1,7 @@
 package com.xzsd.pc.user.controller;
 
 
+import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.user.entity.UserInfo;
 import com.xzsd.pc.user.service.UserService;
 import com.xzsd.pc.util.AppResponse;
@@ -37,6 +38,8 @@ public class UserController {
      */
     @PostMapping("addUser")
     public AppResponse addUser(UserInfo userInfo) {
+        String userId = SecurityUtils.getCurrentUserId();
+        userInfo.setCreateUser(userId);
         try {
             AppResponse appResponse = userService.addUser(userInfo);
             return appResponse;
@@ -56,8 +59,9 @@ public class UserController {
      */
     @PostMapping("deleteUser")
     public AppResponse deleteUser(String userId) {
+        String userIds = SecurityUtils.getCurrentUserId();
         try {
-            return userService.deleteUser(userId);
+            return userService.deleteUser(userId,userIds);
         } catch (Exception e) {
             logger.error("用户删除错误", e);
             System.out.println(e.toString());
@@ -74,6 +78,8 @@ public class UserController {
      */
     @PostMapping("updateUser")
     public AppResponse updateUser(UserInfo userInfo) {
+        String userId = SecurityUtils.getCurrentUserId();
+        userInfo.setUpdateUser(userId);
         try {
             return userService.updateUser(userInfo);
         } catch (Exception e) {
@@ -109,7 +115,7 @@ public class UserController {
      * @author xiekai
      * @Date 2020-03-26
      */
-    @RequestMapping(value = "listUsersPage")
+    @RequestMapping(value = "listUsers")
     public AppResponse listUsersPage(UserInfo userInfo) {
         try {
             return userService.listUsersPage(userInfo);

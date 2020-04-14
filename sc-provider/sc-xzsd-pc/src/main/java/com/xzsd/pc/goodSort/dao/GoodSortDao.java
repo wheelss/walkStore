@@ -51,7 +51,7 @@ public interface GoodSortDao {
      * @param goodSortInfo 商品分类信息
      * @return 所有商品分类信息
      */
-    List<GoodSortInfo> listAllGoodsClassify(GoodSortInfo goodSortInfo);
+    List<GoodSortInfo> getNodeTree(GoodSortInfo goodSortInfo);
 
     /**
      * 修改商品分类信息

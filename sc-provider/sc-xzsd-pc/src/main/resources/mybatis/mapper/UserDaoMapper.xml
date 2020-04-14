@@ -18,13 +18,14 @@
         user_password,
         sex,
         phone,
-        email,
+        mail,
         idcard,
         role,
         is_delete,
         create_user,
         create_time,
-        version)
+        version,
+        user_image)
         values
         (#{userId},
         #{userAcct},
@@ -38,7 +39,8 @@
         0,
         #{createUser},
         now(),
-        0)
+        0,
+        #{imagePath})
     </insert>
 
     <!--删除用户-->
@@ -63,9 +65,10 @@
             user_name = #{userName},
             sex = #{sex},
             phone = #{phone},
-            email = #{email},
+            mail = #{email},
             idcard = #{idCard},
             role = #{role},
+            user_image = #{imagePath},
             update_time = now(),
             update_user = #{updateUser},
             version = version + 1
@@ -82,9 +85,11 @@
         user_name userName,
         sex,
         phone,
-        email,
+        mail,
         idcard idCard,
         role,
+        version,
+        user_image userImage
         from t_sys_user
         where user_id = #{userId}
         and is_delete = 0
@@ -100,7 +105,7 @@
         a.role,
         a.sex sex,
         a.phone,
-        a.email,
+        a.mail,
         a.idcard idCard
         from t_sys_user a
         where a.is_delete = 0

@@ -73,7 +73,9 @@
             d.area_name areaName,
             a.address address,
             e.user_name userName,
-            a.inviteCode inviteCode
+            a.inviteCode inviteCode,
+            a.version
+            a.store_id storeId
         from t_info_store a,
         t_info_area_level b,
         t_info_area_level c,
@@ -181,7 +183,7 @@
         and version = #{version}
     </update>
 
-    <!--删除商品-->
+    <!--删除门店-->
     <update id="deleteStore" parameterType="com.xzsd.pc.store.entity.StoresInfo">
         update t_info_store
         set

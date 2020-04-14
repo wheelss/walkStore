@@ -49,24 +49,40 @@
     </select>
 
     <!--商品分类列表-->
-    <select id="listAllGoodsClassify" parameterType="com.xzsd.pc.goodSort.entity.GoodSortInfo"
-            resultType="com.xzsd.pc.goodSort.entity.GoodSortInfo">
-        select
-            a.classify_id,
-            a.classify_name,
-            a.version,
-            (select
-                b.classify_id,
-                b.classify_name,
-                b.version
-            from t_info_goods_classify b
-            where is_delete = 0
-            and b.classify_parent = a.classify_id
-            order by update_time desc)
-        from t_info_goods_classify a
-        where is_delete = 0
-        and classify_parent = 0
-        order by update_time desc
+    <resultMap id="BaseTreeResultMap" type="com.xzsd.pc.goodSort.entity.GoodSortInfo">
+        <result column="classify_id" property="classifyId"/>
+        <result column="classify_name" property="classifyName"/>
+        <result column="version" property="version"/>
+        <result column="classify_parent" property="classifyParent"/>
+        <collection column="classify_id" property="treeNode" javaType="java.util.ArrayList"
+                    ofType="com.xzsd.pc.goodSort.entity.GoodSortInfo" select="getNextNodeTree"/>
+    </resultMap>
+
+    <resultMap id="NextTreeResultMap" type="com.xzsd.pc.goodSort.entity.GoodSortInfo">
+        <result column="classify_id" property="classifyId"/>
+        <result column="classify_name" property="classifyName"/>
+        <result column="version" property="version"/>
+        <result column="classify_parent" property="classifyParent"/>
+        <collection column="classify_id" property="treeNode" javaType="java.util.ArrayList"
+                    ofType="com.xzsd.pc.goodSort.entity.GoodSortInfo" select="getNextNodeTree"/>
+    </resultMap>
+
+    <select id="getNextNodeTree" resultMap="NextTreeResultMap">
+        SELECT
+        classify_id,
+        classify_name,
+        version
+        FROM t_info_goods_classify
+        WHERE classify_parent = #{classifyId}
+    </select>
+
+    <select id="getNodeTree" resultMap="BaseTreeResultMap">
+        SELECT
+        classify_id,
+        classify_name,
+        version
+        FROM t_info_goods_classify
+        WHERE classify_parent = '0'
     </select>
 
     <!--修改商品分类信息-->
