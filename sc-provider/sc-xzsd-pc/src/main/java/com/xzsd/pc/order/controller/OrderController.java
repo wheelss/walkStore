@@ -60,4 +60,23 @@ public class OrderController {
             throw e;
         }
     }
+
+    /**
+     * 查询订单详情
+     *
+     * @param orderId
+     * @return AppResponse
+     * @author xiekai
+     * @Date 2020-03-25
+     */
+    @RequestMapping(value = "getListOrder")
+    public AppResponse getListOrder(String orderId) {
+        try {
+            return orderService.getListOrder(orderId);
+        } catch (Exception e) {
+            logger.error("商品查询错误", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
 }

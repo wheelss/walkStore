@@ -3,6 +3,7 @@ package com.xzsd.pc.order.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xzsd.pc.order.dao.OrderDao;
+import com.xzsd.pc.order.entity.OrderDeepenInfo;
 import com.xzsd.pc.order.entity.OrderInfo;
 import com.xzsd.pc.util.AppResponse;
 import org.springframework.stereotype.Service;
@@ -40,9 +41,9 @@ public class OrderService {
         List<String> listVersion = Arrays.asList(orderInfo.getVersion().split(","));
         List<OrderInfo> listUpdate = new ArrayList<>();
         int orderStateId = orderInfo.getOrderState();
-        String updateUser =orderInfo.getUpdateUser();
-        for (int i = 0 ; i < listOrderId.size() ; i++){
-            OrderInfo orderInfo1 =new OrderInfo();
+        String updateUser = orderInfo.getUpdateUser();
+        for (int i = 0; i < listOrderId.size(); i++) {
+            OrderInfo orderInfo1 = new OrderInfo();
             orderInfo1.setOrderId(listOrderId.get(i));
             orderInfo1.setVersion(listVersion.get(i));
             orderInfo1.setOrderState(orderStateId);
@@ -56,5 +57,17 @@ public class OrderService {
             appResponse = AppResponse.bizError("修改订单状态失败，请重试！");
         }
         return appResponse;
+    }
+
+    /**
+     * 查询订单详情
+     * @param orderId
+     * @return
+     * @Author xiekai
+     * @Date 2020-03-26
+     */
+    public AppResponse getListOrder(String orderId) {
+        OrderDeepenInfo orderDeepenInfo = orderDao.getListOrder(orderId);
+        return AppResponse.success("查询成功！", orderDeepenInfo);
     }
 }
