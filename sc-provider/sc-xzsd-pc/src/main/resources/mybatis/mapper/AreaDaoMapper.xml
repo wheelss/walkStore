@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.area.dao.AreaDao">
+
+    <!--省市区列表-->
+    <select id="listArea" parameterType="com.xzsd.pc.area.entity.AreaInfo"
+            resultType="com.xzsd.pc.area.entity.AreaInfo">
+        select
+            area_id areaId,
+            area_name areaName
+        from
+            t_info_area_level
+        where is_delete = 0
+        and parent_level_id = #{parentLevelId}
+        order by update_time desc
+    </select>
+</mapper>
