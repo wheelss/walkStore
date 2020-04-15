@@ -19,7 +19,7 @@ public class MenuController {
     @Resource
     private MenuService menuService;
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
 
     /**
      * 新增菜单

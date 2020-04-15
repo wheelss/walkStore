@@ -51,7 +51,9 @@
     <select id="getHotGoods" parameterType="java.lang.String" resultType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo">
         select
            hot_goods_num hotGoodsNum,
-           goods_id goodsId
+           goods_id goodsId,
+           version,
+           hot_goods_id
         from t_info_hot_goods
         where hot_goods_id = #{hotGoodsId}
         and is_delete = 0
@@ -97,19 +99,21 @@
     <!--获取热门位商品展示数量-->
     <select id="getHotGoodsShowNum" resultType="int">
         select
-           hot_goods_show_num hotGoodsShowNum
-        from t_info_hot_goods
+           public_type hotGoodsShowNum
+        from t_sys_dictionary
+        where dict_name = 'hot_goods_show_num'
     </select>
 
     <!--修改热门位商品展示数量-->
     <update id="updateHotGoodsShowNum" parameterType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo">
-        update t_info_hot_goods
+        update t_sys_dictionary
         set
-            hot_goods_show_num = #{hotGoodsShowNum},
+            public_type = #{hotGoodsShowNum},
             update_time = now(),
             update_user = #{updateUser},
             version = version + 1
         where version = #{version}
+        and dict_name = 'hot_goods_show_num'
     </update>
 
     <!--删除热门位商品-->

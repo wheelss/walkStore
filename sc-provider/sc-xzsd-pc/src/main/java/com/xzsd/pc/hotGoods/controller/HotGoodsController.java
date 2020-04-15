@@ -19,7 +19,7 @@ public class HotGoodsController {
     @Resource
     private HotGoodsService hotGoodsService;
 
-    private static final Logger logger = LoggerFactory.getLogger(RotationController.class);
+    private static final Logger logger = LoggerFactory.getLogger(HotGoodsController.class);
 
 
     /**

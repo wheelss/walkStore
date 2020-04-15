@@ -3,7 +3,6 @@ package com.xzsd.app.register.controller;
 import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.app.register.entity.RegisterInfo;
 import com.xzsd.app.register.service.RegisterService;
-import com.xzsd.app.user.controller.UserController;
 import com.xzsd.app.util.AppResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,7 @@ import javax.annotation.Resource;
 public class RegisterController {
     @Resource
     private RegisterService registerService;
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
 
     /**
      * 新增用户

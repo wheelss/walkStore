@@ -2,7 +2,6 @@ package com.xzsd.app.clientHome.controller;
 
 import com.xzsd.app.clientHome.entity.HotGoodInfo;
 import com.xzsd.app.clientHome.service.ClientHomeService;
-import com.xzsd.app.user.controller.UserController;
 import com.xzsd.app.util.AppResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,7 @@ import javax.annotation.Resource;
 public class ClientHomeController {
     @Resource
     private ClientHomeService clientHomeService;
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClientHomeController.class);
 
     /**
      * 查询首页轮播图

@@ -1,7 +1,6 @@
 package com.xzsd.pc.store.controller;
 
 import com.neusoft.security.client.utils.SecurityUtils;
-import com.xzsd.pc.good.controller.GoodController;
 import com.xzsd.pc.store.entity.StoresInfo;
 import com.xzsd.pc.store.service.StoresService;
 import com.xzsd.pc.util.AppResponse;
@@ -19,7 +18,7 @@ public class StoresController {
     @Resource
     private StoresService storesService;
 
-    private static final Logger logger = LoggerFactory.getLogger(GoodController.class);
+    private static final Logger logger = LoggerFactory.getLogger(StoresController.class);
 
     /**
      * 新增门店

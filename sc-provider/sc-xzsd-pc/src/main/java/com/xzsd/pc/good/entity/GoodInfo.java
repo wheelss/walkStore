@@ -137,6 +137,18 @@ public class GoodInfo {
      * 版本
      */
     private String version;
+    /**
+     * 商品评价等级
+     */
+    private double goodsEvaluateScore;
+
+    public double getGoodsEvaluateScore() {
+        return goodsEvaluateScore;
+    }
+
+    public void setGoodsEvaluateScore(double goodsEvaluateScore) {
+        this.goodsEvaluateScore = goodsEvaluateScore;
+    }
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;

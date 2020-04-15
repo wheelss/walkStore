@@ -1,8 +1,8 @@
 package com.xzsd.app.cos.service;
 
 import com.neusoft.core.restful.AppResponse;
-import com.xzsd.pc.cos.entity.CosInfo;
-import com.xzsd.pc.util.COSClientUtil;
+import com.xzsd.app.cos.entity.CosInfo;
+import com.xzsd.app.util.COSClientUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

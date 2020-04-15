@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 public class AreaController {
     @Resource
     private AreaService areaService;
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AreaController.class);
 
     /**
      * 省市区列表

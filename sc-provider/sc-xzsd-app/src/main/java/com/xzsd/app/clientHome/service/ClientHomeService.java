@@ -38,10 +38,8 @@ public class ClientHomeService {
         //获取热门位商品展示数量
         int num = clientHomeDao.getSlideshowNumber();
         hotGoodInfo.setHotGoodsShowNum(num);
-        //分页
-        PageHelper.startPage(hotGoodInfo.getPageNum(), hotGoodInfo.getPageSize());
+        //查询热门位商品
         List<HotGoodInfo> listHotGoods = clientHomeDao.listHotGoods(hotGoodInfo);
-        PageInfo<HotGoodInfo> pageData = new PageInfo<HotGoodInfo>(listHotGoods);
-        return AppResponse.success("查询热门位商品成功", pageData);
+        return AppResponse.success("查询热门位商品成功", listHotGoods);
     }
 }

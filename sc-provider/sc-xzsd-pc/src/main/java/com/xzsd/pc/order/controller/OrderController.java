@@ -21,7 +21,7 @@ public class OrderController {
     @Resource
     private OrderService orderService;
 
-    private static final Logger logger = LoggerFactory.getLogger(GoodSortController.class);
+    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
 
     /**

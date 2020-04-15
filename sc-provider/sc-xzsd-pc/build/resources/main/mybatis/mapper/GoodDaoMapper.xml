@@ -47,7 +47,7 @@
         #{goodsOriginalCost},
         #{goodsPrice},
         #{goodsAdvertise},
-        #{goodsImagePath},
+        #{imagePath},
         0,
         3,
         0,
@@ -87,7 +87,7 @@
             goods_original_cost = #{goodsOriginalCost},
             goods_price = #{goodsPrice},
             goods_advertise = #{goodsAdvertise},
-            goods_image_path = #{goodsImagePath},
+            goods_image_path = #{imagePath},
             goods_author = #{goodsAuthor},
             goods_press = #{goodsPress},
             update_time = now(),
@@ -112,7 +112,9 @@
             a.goods_advertise goodsAdvertise,
             a.goods_image_path goodsImagePath,
             a.goods_author goodsAuthor,
-            a.goods_press goodsPress
+            a.goods_press goodsPress,
+            a.version,
+            a.goods_id goodsId
         from t_info_goods a,
              t_info_goods_classify b,
              t_info_goods_classify c

@@ -1,7 +1,6 @@
 package com.xzsd.app.userInformation.controller;
 
 import com.neusoft.security.client.utils.SecurityUtils;
-import com.xzsd.app.user.controller.UserController;
 import com.xzsd.app.userInformation.entity.UserInformationInfo;
 import com.xzsd.app.userInformation.service.UserInformationService;
 import com.xzsd.app.util.AppResponse;
@@ -19,7 +18,7 @@ import javax.annotation.Resource;
 public class UserInformationController {
     @Resource
     private UserInformationService userInformationService;
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserInformationController.class);
 
     /**
      * 查询用户详情

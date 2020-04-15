@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 public class DriverController {
     @Resource
     private DriverService driverService;
-    private static final Logger logger = LoggerFactory.getLogger(GoodController.class);
+    private static final Logger logger = LoggerFactory.getLogger(DriverController.class);
     /**
      * 新增司机
      *
