@@ -32,8 +32,8 @@
         is_delete,
         create_user,
         create_time,
-        version
-        )
+        version,
+        user_image)
         values
         (#{userId},
         #{userAcct},
@@ -47,7 +47,8 @@
         0,
         #{createUser},
         now(),
-        0
+        0,
+        #{imagePath}
         )
     </insert>
 

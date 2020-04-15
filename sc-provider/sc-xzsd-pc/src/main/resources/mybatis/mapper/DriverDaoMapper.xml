@@ -70,8 +70,8 @@
             a.phone phone,
             a.user_acct userAcct,
             a.user_password userPassword,
-            a.user_image userImage
-            a.id_card idCard
+            a.user_image userImage,
+            a.id_card idCard,
             b.area_name provinceName,
             c.area_name cityName,
             d.area_name areaName,
