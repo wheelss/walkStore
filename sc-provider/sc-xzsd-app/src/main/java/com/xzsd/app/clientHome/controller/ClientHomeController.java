@@ -1,5 +1,6 @@
 package com.xzsd.app.clientHome.controller;
 
+import com.xzsd.app.clientHome.entity.HotGoodInfo;
 import com.xzsd.app.clientHome.service.ClientHomeService;
 import com.xzsd.app.user.controller.UserController;
 import com.xzsd.app.util.AppResponse;
@@ -41,9 +42,9 @@ public class ClientHomeController {
      * @time 2020-4-14
      */
     @PostMapping("listHotGoods")
-    public AppResponse listHotGoods(HotGoods hotGoods){
+    public AppResponse listHotGoods(HotGoodInfo hotGoodInfo){
         try {
-            return clientHomeService.listHotGoods(hotGoods);
+            return clientHomeService.listHotGoods(hotGoodInfo);
         }catch (Exception e){
             logger.error("查询首页热门位商品失败");
             System.out.println(e.toString());

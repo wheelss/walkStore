@@ -99,7 +99,7 @@
     <!--获取热门位商品展示数量-->
     <select id="getHotGoodsShowNum" resultType="int">
         select
-           dict_name hotGoodsShowNum
+           public_type hotGoodsShowNum
         from t_sys_dictionary
         where dict_name = 'hot_goods_show_num'
     </select>
