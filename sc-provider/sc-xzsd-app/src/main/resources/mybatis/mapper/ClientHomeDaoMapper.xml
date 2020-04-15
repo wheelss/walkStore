@@ -12,10 +12,10 @@
     <!--查询首页轮播图-->
     <select id="getListSlideshow" resultType="com.xzsd.app.clientHome.entity.RotationInfo">
         select
-        image_url as slideshowPath,
-        goods_id as goodsId
-        from t_sys_slide
-        where slide_status = 1
+            slideshow_path slideshowPath,
+            goods_id goodsId
+        from t_info_slideshow_home
+        where slideshow_state_id = 1
         and is_delete = 0
         and now() between start_time and end_time
     </select>
@@ -24,13 +24,14 @@
     <select id="getListHotGoods" parameterType="com.xzsd.app.clientHome.entity.HotGoodInfo"
             resultType="com.xzsd.app.clientHome.entity.HotGoodInfo">
         select
-        t1.goods_id as goodsId,
-        t2.goods_name as goodsName,
-        t2.goods_image as goodsImagePath,
-        t2.selling_price as goodsPrice
-        from t_hot_goods t1, t_goods_info t2
-        where t1.goods_id = t2.id
-        order by t1.sort asc
-        limit #{showNumber}
+        a.goods_id goodsId,
+        b.goods_name goodsName,
+        b.goods_image_path goodsImagePath,
+        b.goods_price goodsPrice
+        from t_info_hot_goods a,
+             t_info_goods b
+        where a.goods_id = b.goods_id
+        order by a.slideshow_num asc
+        limit #{hotGoodsShowNum}
     </select>
 </mapper>
