@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.clientShopCart.dao.ClientShopCartDao">
+    <!--新增购物车-->
+    <insert id="addShoppingCart" parameterType="com.xzsd.app.clientShopCart.entity.ClientShopCartInfo">
+        insert into t_info_shopping_cart(
+            shop_cart_id,
+            user_id,
+            goods_id,
+            cart_goods_count,
+            is_delete,
+            create_time,
+            create_user,
+            version
+            )
+        values (
+            #{shopCartId},
+            #{userId},
+            #{goodsId},
+            #{cartGoodsCount},
+            0,
+            now(),
+            #{userId},
+            0
+            )
+    </insert>
+
+    <!--查询购物车列表-->
+    <select id="listShoppingCarts" parameterType="com.xzsd.app.clientShopCart.entity.ClientShopCartInfo"
+            resultType="com.xzsd.app.clientShopCart.entity.ClientShopCartInfo">
+        select
+        a.goods_id goodsId,
+        b.goods_name goodsName,
+        b.goods_image_path goodsImagePath,
+        b.goods_price goodsPrice,
+        b.shop_cart_id shopCartId,
+        b.cart_goods_count cartGoodsCount
+        from t_info_shopping_cart a,
+             t_info_goods b
+        where a.goods_id = b.goods_id
+        and a.user_id = #{userId}
+        and a.is_delete = 0
+        and b.is_delete = 0
+        order by a.create_time desc
+    </select>
+    <!--修改购物车购买数量-->
+    <update id="updateShoppingCart" parameterType="com.xzsd.app.clientShopCart.entity.ClientShopCartInfo">
+        update t_info_shopping_cart
+        set
+            cart_goods_count = #{cartGoodsCount},
+            update_user = #{userId},
+            update_time = now(),
+            version = version + 1
+        where shop_cart_id = #{shopCartId}
+    </update>
+    <!--删除购物车-->
+    <update id="deleteShoppingCart" parameterType="java.lang.String">
+        update t_info_shopping_cart
+        set
+        is_delete = 1,
+        update_user = #{userId},
+        update_time = now(),
+        version = version + 1
+        where shop_cart_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>
