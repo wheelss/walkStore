@@ -19,7 +19,7 @@
         where is_delete = 0
         and goods_id = #{goodsId}
     </select>
-    <!--查询商品评价映射-->
+    <!--查询商品评价映射(未完成)-->
     <resultMap id="goodsEvaluation" type="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo">
         <result  column="user_acct" property="userAcct"/>
         <result property="evaluate_content" column="evaluateContent"/>
@@ -29,7 +29,7 @@
             <result property="image_path" column="imagePath"/>
         </collection>
     </resultMap>
-    <!--查询商品评价列表-->
+    <!--查询商品评价列表(未完成)-->
     <select id="listGoodsEvaluates" parameterType="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo"
             resultMap="goodsEvaluation">
         select
