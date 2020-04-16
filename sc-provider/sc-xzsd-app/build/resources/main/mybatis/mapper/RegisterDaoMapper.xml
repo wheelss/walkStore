@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.register.dao.RegisterDao">
+    <!--统计用户账号数量-->
+    <select id="countUserAcct" parameterType="com.xzsd.app.register.entity.RegisterInfo" resultType="int">
+        select count(user_account)
+        from t_sys_user
+        where is_delete = 0
+        and user_account = #{userAccount}
+    </select>
+    <!--统计手机数量-->
+    <select id="countPhone" parameterType="com.xzsd.app.register.entity.RegisterInfo" resultType="int">
+        select count(phone)
+        from t_sys_user
+        where is_delete = 0
+        and phone = #{phone}
+        and role = 4
+    </select>
+
+    <!--新增用户到user表-->
+    <insert id="addUser" parameterType="com.xzsd.app.register.entity.RegisterInfo">
+        insert into t_sys_user
+        (user_id,
+        user_acct,
+        user_name,
+        user_password,
+        sex,
+        phone,
+        mail,
+        idcard,
+        role,
+        is_delete,
+        create_user,
+        create_time,
+        version,
+        user_image)
+        values
+        (#{userId},
+        #{userAcct},
+        #{userName},
+        #{userPassword},
+        #{sex},
+        #{phone},
+        #{email},
+        #{idCard},
+        4,
+        0,
+        #{createUser},
+        now(),
+        0,
+        #{imagePath}
+        )
+    </insert>
+
+    <!--新增用户到client表-->
+    <insert id="addUserClient" parameterType="com.xzsd.app.register.entity.RegisterInfo">
+        insert into t_info_client
+        (user_id,
+        invite_code,
+        is_delete,
+        create_user,
+        create_time,
+        version
+        )
+        values
+        (#{userId},
+        #{inviteCode},
+        0,
+        #{createUser},
+        now(),
+        0
+        )
+    </insert>
+
+
+</mapper>
