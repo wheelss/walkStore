@@ -69,11 +69,13 @@ public class DriverService {
      */
     public AppResponse listDrivers(DriverInfo driverInfo)  {
         if ((driverInfo.getRole() == 0) ||(driverInfo.getRole() == 1)){
+            //角色是管理员或者超级管理员
             PageHelper.startPage(driverInfo.getPageNum(), driverInfo.getPageSize());
             List<DriverInfo> goodInfoList = driverDao.listDrivers(driverInfo);
             PageInfo<DriverInfo> pageData = new PageInfo<DriverInfo>(goodInfoList);
             return AppResponse.success("查询成功！", pageData);
         }else{
+            //角色是司机
             String userId = SecurityUtils.getCurrentUserId();
             driverInfo.setDriverId(userId);
             PageHelper.startPage(driverInfo.getPageNum(), driverInfo.getPageSize());
@@ -104,6 +106,7 @@ public class DriverService {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");
             return appResponse;
         }
+        //修改user表
         int counts = driverDao.updateDriverUser(driverInfo);
         if (0 == counts) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");
