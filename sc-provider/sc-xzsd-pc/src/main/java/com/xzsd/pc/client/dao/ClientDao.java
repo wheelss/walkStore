@@ -5,7 +5,9 @@ import com.xzsd.pc.client.entity.ClientInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
+/**
+ * 查询客户
+ */
 @Mapper
 public interface ClientDao {
 

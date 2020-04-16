@@ -10,7 +10,7 @@
             t.user_acct as account,
             t.user_password as password,
             t.user_name as name,
-            t.is_deleted as locked
+            t.is_delete as locked
         FROM t_sys_user t
         WHERE t.user_acct = #{username}
     </select>

@@ -47,7 +47,6 @@ public class GoodService {
         if (0 != countUserAcct) {
             return AppResponse.bizError("商品已存在，请重新输入！");
         }
-
         // 新增商品
         int count = goodDao.addGoods(goodInfo);
         if (0 == count) {
@@ -74,7 +73,6 @@ public class GoodService {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }
         //删除轮播图表
-
         return appResponse;
     }
 
@@ -125,7 +123,6 @@ public class GoodService {
      * @Date 2020-03-26
      */
     public AppResponse listGoodsPage(GoodInfo goodInfo) {
-
         PageHelper.startPage(goodInfo.getPageNum(), goodInfo.getPageSize());
         List<GoodInfo> goodInfoList = goodDao.listGoodsPage(goodInfo);
         PageInfo<GoodInfo> pageData = new PageInfo<GoodInfo>(goodInfoList);

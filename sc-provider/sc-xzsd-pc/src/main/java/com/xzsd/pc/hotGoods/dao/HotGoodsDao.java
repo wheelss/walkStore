@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 热门位商品
+ */
 @Mapper
 public interface HotGoodsDao {
     /**

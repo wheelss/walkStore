@@ -7,10 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 商品分类
- *
- * @author
- * @time 2020-3-25
+ * 商品分类增删改查
  */
 @Mapper
 public interface GoodSortDao {

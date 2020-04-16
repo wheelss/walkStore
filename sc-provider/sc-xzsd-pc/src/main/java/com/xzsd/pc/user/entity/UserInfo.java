@@ -55,14 +55,14 @@ public class UserInfo {
     /**
      * 图片路径
      */
-    private String image_path;
+    private String imagePath;
 
-    public String getImage_path() {
-        return image_path;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage_path(String image_path) {
-        this.image_path = image_path;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     /**

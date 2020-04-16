@@ -5,7 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+/**
+ * 司机模块
+ */
 @Mapper
 public interface DriverDao {
     /**
@@ -51,14 +53,14 @@ public interface DriverDao {
      */
     List<DriverInfo> listDriver(DriverInfo driverInfo);
     /**
-     * 修改司机信息
+     * 修改司机表司机信息
      *
      * @param driverInfo 司机信息
      * @return 修改结果
      */
     int updateDriver(DriverInfo driverInfo);
     /**
-     * 修改司机信息
+     * 修改用户表司机信息
      *
      * @param driverInfo 司机信息
      * @return 修改结果

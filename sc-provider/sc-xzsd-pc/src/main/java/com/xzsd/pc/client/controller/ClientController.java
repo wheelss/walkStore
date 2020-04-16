@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-
+/**
+ * 查询客户
+ */
 @RestController
 @RequestMapping("/client")
 public class ClientController {

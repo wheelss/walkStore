@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 查询省市区
+ */
 @RestController
 @RequestMapping("/selectCombox")
 public class AreaController {
@@ -36,5 +39,4 @@ public class AreaController {
             throw e;
         }
     }
-
 }

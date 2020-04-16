@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-
+/**
+ * 司机模块
+ */
 @RestController
 @RequestMapping("/driver")
 public class DriverController {
@@ -21,7 +23,6 @@ public class DriverController {
     private static final Logger logger = LoggerFactory.getLogger(DriverController.class);
     /**
      * 新增司机
-     *
      * @param driverInfo
      * @return
      * @author xiekai

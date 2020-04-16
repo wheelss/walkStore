@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * 用户管理增删改查
- *
- * @author xiekai
- * @time 2020-3-25
+ * 商品分类增删改查
  */
 @RestController
 @RequestMapping("/goodsClassify")

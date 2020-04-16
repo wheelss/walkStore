@@ -82,10 +82,9 @@ public class UserService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateUser(UserInfo userInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 校验账号是否存在
         int countUserAcct = userDao.countUserAcct(userInfo);
-        if (0 == countUserAcct) {
-            return AppResponse.bizError("用户账号不存在！");
+        if (0 != countUserAcct) {
+            return AppResponse.bizError("用户账号已存在，请重新输入！");
         }
         // 修改用户信息
         int count = userDao.updateUser(userInfo);

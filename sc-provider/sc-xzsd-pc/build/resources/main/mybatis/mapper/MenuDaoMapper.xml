@@ -99,9 +99,7 @@
         a.menu_name menuName
         from t_sys_menu a
         where a.is_delete = 0
-        where menu_name = '客户管理'
-        and menu_name = '订单管理'
-        and menu_name = '门店管理'
+        where menu_name in ('客户管理', '订单管理','门店管理')
         order by update_time desc
     </select>
 </mapper>

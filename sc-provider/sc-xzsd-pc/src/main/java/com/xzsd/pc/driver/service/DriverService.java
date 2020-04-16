@@ -13,14 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ * 司机模块
+ */
 @Service
 public class DriverService {
     @Resource
     private DriverDao driverDao;
     /**
      * 新增司机
-     *
      * @param driverInfo
      * @return
      * @author xiekai
@@ -58,7 +59,6 @@ public class DriverService {
         DriverInfo driverInfo = driverDao.getDriver(driverId);
         return AppResponse.success("查询成功！", driverInfo);
     }
-
     /**
      * demo 查询司机列表（分页）
      *

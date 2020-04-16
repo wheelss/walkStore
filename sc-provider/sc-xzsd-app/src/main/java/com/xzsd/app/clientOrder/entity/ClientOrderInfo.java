@@ -13,7 +13,7 @@ public class ClientOrderInfo {
     /**
      * 订单详情id
      */
-    private String orderDetailsId;
+    private String orderGoodsId;
     /**
      * 商品id
      */
@@ -23,21 +23,17 @@ public class ClientOrderInfo {
      */
     private String goodsPrice;
     /**
-     * 单个商品购买数量
+     * 客户选择的商品数量，与编号对应
      */
     private String clientGoodsNum;
     /**
      * 单个商品购买数量乘与商品价格
      */
-    private String totalGoodsPrice;
+    private String theGoodsAllPrice;
     /**
      * 订单状态
      */
     private String orderStateId;
-    /**
-     * 搜索关键字
-     */
-    private String keyword;
     /**
      * 一页多少条
      */
@@ -55,7 +51,7 @@ public class ClientOrderInfo {
      */
     private String orderAllCost;
     /**
-     * 总购买数
+     * 订单总购买数
      */
     private int orderAllGoodsCount;
     /**
@@ -83,14 +79,6 @@ public class ClientOrderInfo {
         this.orderId = orderId;
     }
 
-    public String getOrderDetailsId() {
-        return orderDetailsId;
-    }
-
-    public void setOrderDetailsId(String orderDetailsId) {
-        this.orderDetailsId = orderDetailsId;
-    }
-
     public String getGoodsId() {
         return goodsId;
     }
@@ -115,28 +103,12 @@ public class ClientOrderInfo {
         this.clientGoodsNum = clientGoodsNum;
     }
 
-    public String getTotalGoodsPrice() {
-        return totalGoodsPrice;
-    }
-
-    public void setTotalGoodsPrice(String totalGoodsPrice) {
-        this.totalGoodsPrice = totalGoodsPrice;
-    }
-
     public String getOrderStateId() {
         return orderStateId;
     }
 
     public void setOrderStateId(String orderStateId) {
         this.orderStateId = orderStateId;
-    }
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
     }
 
     public int getPageSize() {
@@ -209,5 +181,21 @@ public class ClientOrderInfo {
 
     public void setStoreId(String storeId) {
         this.storeId = storeId;
+    }
+
+    public String getOrderGoodsId() {
+        return orderGoodsId;
+    }
+
+    public void setOrderGoodsId(String orderGoodsId) {
+        this.orderGoodsId = orderGoodsId;
+    }
+
+    public String getTheGoodsAllPrice() {
+        return theGoodsAllPrice;
+    }
+
+    public void setTheGoodsAllPrice(String theGoodsAllPrice) {
+        this.theGoodsAllPrice = theGoodsAllPrice;
     }
 }

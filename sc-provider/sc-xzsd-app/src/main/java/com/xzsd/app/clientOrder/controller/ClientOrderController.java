@@ -28,10 +28,10 @@ public class ClientOrderController {
      */
     @PostMapping("addOrder")
     public AppResponse addOrder(ClientOrderInfo clientOrderInfo){
+        //获取当前登录人
+        String userId = SecurityUtils.getCurrentUserId();
+        clientOrderInfo.setUserId(userId);
         try {
-            //获取登录id
-            String userId = SecurityUtils.getCurrentUserId();
-            clientOrderInfo.setUserId(userId);
             return clientOrderService.addOrder(clientOrderInfo);
         }catch (Exception e){
             logger.error("新增订单失败");

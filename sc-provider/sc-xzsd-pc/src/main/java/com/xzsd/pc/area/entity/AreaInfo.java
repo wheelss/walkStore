@@ -12,12 +12,10 @@ public class AreaInfo {
      * 区域名字
      */
     private String areaName;
-
     /**
      *1表示省级，2表示市，3表示区/县级
      */
     private String parentArea;
-
     /**
      *上一级的id，省级的上一级是全0
      */

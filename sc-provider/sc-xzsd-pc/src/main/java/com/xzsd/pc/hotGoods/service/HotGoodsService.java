@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ * 热门位商品
+ */
 @Service
 public class HotGoodsService {
     @Resource
@@ -69,7 +71,6 @@ public class HotGoodsService {
      * @Date 2020-04-09
      */
     public AppResponse listHotGoods(HotGoodsInfo hotGoodsInfo) {
-
         PageHelper.startPage(hotGoodsInfo.getPageNum(), hotGoodsInfo.getPageSize());
         List<HotGoodsInfo> goodInfoList = hotGoodsDao.listHotGoods(hotGoodsInfo);
         PageInfo<HotGoodsInfo> pageData = new PageInfo<HotGoodsInfo>(goodInfoList);

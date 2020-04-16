@@ -22,15 +22,12 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/goods")
 public class GoodController {
-
     private static final Logger logger = LoggerFactory.getLogger(GoodController.class);
-
     @Resource
     private GoodService goodService;
 
     /**
      * 新增商品
-     *
      * @param goodInfo
      * @return
      * @author xiekai

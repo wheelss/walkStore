@@ -1,6 +1,68 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.clientOrder.dao.ClientOrderDao">
+    <!--增加数据到订单表-->
+    <insert id="addOrder" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
+        insert into t_order_info(
+            id,
+            user_id,
+            total_price,
+            total_count,
+            order_status,
+            defray_status,
+            store_id,
+            defray_time,
+            is_delete,
+            create_time,
+            create_user,
+            update_time,
+            version
+        )
+        values (
+            #{orderId},
+            #{userId},
+            #{orderAllCost},
+            #{orderAllGoodsCount},
+            0,
+            0,
+            #{storeId},
+            now(),
+            0,
+            now(),
+            #{userId},
+            now(),
+            0
+        )
+    </insert>
 
-</beans>
+    <!--增加数据到订单明细表-->
+    <insert id="addOrders" parameterType="java.util.List">
+        insert into t_order_details(
+        id,
+        order_id,
+        goods_id,
+        user_id,
+        buy_number,
+        total_price,
+        is_delete,
+        create_time,
+        create_user,
+        update_time,
+        version
+        )
+        values
+        <foreach item="item" index="index" collection="orderInfoList" open="" separator="," close="">
+            (#{item.orderDetailsId, jdbcType=VARCHAR},
+            #{item.orderId, jdbcType=VARCHAR},
+            #{item.goodsId, jdbcType=VARCHAR},
+            #{item.userId, jdbcType=VARCHAR},
+            #{item.clientGoodsNum},
+            #{item.totalGoodsPrice},
+            0,
+            now(),
+            #{item.userId, jdbcType=VARCHAR},
+            now(),
+            0)
+        </foreach>
+    </insert>
+</mapper>
