@@ -12,14 +12,6 @@ import java.util.List;
 @Mapper
 public interface GoodSortDao {
     /**
-     * 统计商品分类数量
-     *
-     * @param goodSortInfo 商品分类信息
-     * @return
-     */
-    int countGoodSortAcct(GoodSortInfo goodSortInfo);
-
-    /**
      * 统计删除商品目录子类数量
      *
      * @param classifyId 分类id

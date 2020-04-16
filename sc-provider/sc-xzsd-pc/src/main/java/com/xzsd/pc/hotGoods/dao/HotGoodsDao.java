@@ -13,13 +13,6 @@ import java.util.Map;
 @Mapper
 public interface HotGoodsDao {
     /**
-     * 统计热门位商品数量
-     *
-     * @param hotGoodsInfo 热门位商品信息
-     * @return
-     */
-    int countHotGoodAcct(HotGoodsInfo hotGoodsInfo);
-    /**
      * 统计排序数量
      *
      * @param hotGoodsInfo 热门位信息

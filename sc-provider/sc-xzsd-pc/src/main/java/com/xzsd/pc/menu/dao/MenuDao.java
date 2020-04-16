@@ -9,14 +9,6 @@ import java.util.List;
 @Mapper
 public interface MenuDao {
     /**
-     * 统计菜单id数量
-     *
-     * @param menuInfo 菜单信息
-     * @return
-     */
-    int countMenu(MenuInfo menuInfo);
-
-    /**
      * 新增菜单
      *
      * @param menuInfo 菜单信息

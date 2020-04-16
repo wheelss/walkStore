@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.pc.good.dao.GoodDao">
-    <!--统计商品数量-->
-    <select id="countGoodAcct" parameterType="com.xzsd.pc.good.entity.GoodInfo" resultType="int">
-        select count(isbn)
-        from t_info_goods
-        where is_delete = 0
-        and goods_id= #{goodsId}
-    </select>
-
     <!--新增商品-->
     <insert id="addGoods" parameterType="com.xzsd.pc.good.entity.GoodInfo">
         insert into t_info_goods

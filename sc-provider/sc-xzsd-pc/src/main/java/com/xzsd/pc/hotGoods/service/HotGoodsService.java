@@ -88,11 +88,6 @@ public class HotGoodsService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateHotGoods(HotGoodsInfo hotGoodsInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 校验账号是否存在
-        int countUserAcct = hotGoodsDao.countHotGoodAcct(hotGoodsInfo);
-        if (0 == countUserAcct) {
-            return AppResponse.bizError("商品不存在");
-        }
         //检验排序重复
         int countSort = hotGoodsDao.countSort(hotGoodsInfo);
         if (0 != countSort) {

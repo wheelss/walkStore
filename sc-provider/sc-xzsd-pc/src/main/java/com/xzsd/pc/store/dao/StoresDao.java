@@ -9,13 +9,6 @@ import java.util.List;
 @Mapper
 public interface StoresDao {
     /**
-     * 统计门店数量
-     *
-     * @param storesInfo 门店信息
-     * @return
-     */
-    int countStore(StoresInfo storesInfo);
-    /**
      * 统计店长账号数量
      *
      * @param storesInfo 门店信息

@@ -42,11 +42,6 @@ public class GoodService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addGoods(GoodInfo goodInfo) {
         goodInfo.setGoodsId(StringUtil.getCommonCode(2));
-        //检验商品是否存在
-        int countUserAcct = goodDao.countGoodAcct(goodInfo);
-        if (0 != countUserAcct) {
-            return AppResponse.bizError("商品已存在，请重新输入！");
-        }
         // 新增商品
         int count = goodDao.addGoods(goodInfo);
         if (0 == count) {
@@ -87,11 +82,6 @@ public class GoodService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateGoods(GoodInfo goodInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 校验账号是否存在
-        int countUserAcct = goodDao.countGoodAcct(goodInfo);
-        if (0 == countUserAcct) {
-            return AppResponse.bizError("商品不存在");
-        }
         // 修改商品信息
         int count = goodDao.updateGoods(goodInfo);
         if (0 == count) {

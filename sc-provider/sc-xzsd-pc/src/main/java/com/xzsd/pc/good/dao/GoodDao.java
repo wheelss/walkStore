@@ -16,14 +16,6 @@ import java.util.List;
 @Mapper
 public interface GoodDao {
     /**
-     * 统计商品数量
-     *
-     * @param goodInfo 商品信息
-     * @return
-     */
-    int countGoodAcct(GoodInfo goodInfo);
-
-    /**
      * 新增商品
      *
      * @param goodInfo 商品信息

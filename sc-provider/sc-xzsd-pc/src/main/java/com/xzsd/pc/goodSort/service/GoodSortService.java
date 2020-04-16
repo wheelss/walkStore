@@ -31,12 +31,6 @@ public class GoodSortService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addGoodsClassify(GoodSortInfo goodSortInfo) {
         goodSortInfo.setClassifyId(StringUtil.getCommonCode(2));
-        //检验商品分类是否存在
-        int countGoodSortAcct = goodSortDao.countGoodSortAcct(goodSortInfo);
-        if (0 != countGoodSortAcct) {
-            return AppResponse.bizError("商品分类已存在，请重新输入！");
-        }
-
         // 新增商品分类
         int count = goodSortDao.addGoodsClassify(goodSortInfo);
         if (0 == count) {
@@ -80,11 +74,6 @@ public class GoodSortService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateGoodsClassify(GoodSortInfo goodSortInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 校验账号是否存在
-        int countUserAcct = goodSortDao.countGoodSortAcct(goodSortInfo);
-        if (0 == countUserAcct) {
-            return AppResponse.bizError("用户账号不存在！");
-        }
         // 修改分类信息
         int count = goodSortDao.updateGoodsClassify(goodSortInfo);
         if (0 == count) {
@@ -103,6 +92,7 @@ public class GoodSortService {
     public AppResponse deleteGoodsClassify(String classifyId,String userId) {
         AppResponse appResponse = AppResponse.success("删除成功！");
         int counts = goodSortDao.countGoodSorts(classifyId);
+        //查看一级分类下是否有二级分类
         if(counts != 0){
             appResponse = AppResponse.bizError("删除失败，删除目录有二级分类");
         }

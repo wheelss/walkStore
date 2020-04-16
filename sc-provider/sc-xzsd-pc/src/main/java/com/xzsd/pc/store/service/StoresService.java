@@ -31,11 +31,6 @@ public class StoresService {
     public AppResponse addStore(StoresInfo storesInfo) {
         storesInfo.setStoreId(StringUtil.getCommonCode(2));
         storesInfo.setInviteCode(StringUtil.getShortCode(6));
-        //检验门店是否存在
-        int countStore = storesDao.countStore(storesInfo);
-        if (0 != countStore) {
-            return AppResponse.bizError("门店已存在，请重新输入！");
-        }
         //检验店长编号是否存在
         int countUserId = storesDao.countUserId(storesInfo);
         if (0 == countUserId) {
@@ -46,7 +41,6 @@ public class StoresService {
         if (0 != countUserUsed) {
             return AppResponse.bizError("店长已被绑定，请重新输入！");
         }
-
         // 新增门店
         int count = storesDao.addStore(storesInfo);
         if (0 == count) {
@@ -103,11 +97,6 @@ public class StoresService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateStore(StoresInfo storesInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 校验门店是否存在
-        int countStore = storesDao.countStore(storesInfo);
-        if (0 == countStore) {
-            return AppResponse.bizError("门店不存在");
-        }
         //检验店长编号是否存在
         int countUserId = storesDao.countUserId(storesInfo);
         if (0 == countUserId) {

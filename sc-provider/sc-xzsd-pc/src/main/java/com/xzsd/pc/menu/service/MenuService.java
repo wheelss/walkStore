@@ -28,14 +28,8 @@ public class MenuService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addMenu(MenuInfo menuInfo) {
-
         menuInfo.setMenuId(StringUtil.getCommonCode(2));
-        int countMenu = menuDao.countMenu(menuInfo);
-        if (0 != countMenu) {
-            return AppResponse.bizError("用户账号已存在，请重新输入！");
-        }
-
-        // 新增用户
+        // 新增菜单
         int count = menuDao.addMenu(menuInfo);
         if (0 == count) {
             return AppResponse.bizError("新增失败，请重试！");
@@ -83,12 +77,7 @@ public class MenuService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateMenu(MenuInfo menuInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 校验账号是否存在
-        int countMenu = menuDao.countMenu(menuInfo);
-        if (0 == countMenu) {
-            return AppResponse.bizError("用户账号不存在！");
-        }
-        // 修改用户信息
+        // 修改菜单信息
         int count = menuDao.updateMenu(menuInfo);
         if (0 == count) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");
@@ -109,7 +98,7 @@ public class MenuService {
     public AppResponse deleteMenu(String menuId, String updateUser) {
         //List<String> listCode = Arrays.asList(menuId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
-        // 删除商品
+        // 删除菜单
         int count = menuDao.deleteMenu(menuId, updateUser);
         if (0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");

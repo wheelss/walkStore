@@ -10,7 +10,7 @@
         and slideshow_num= #{slideshowNum}
     </select>
 
-    <!--统计排序数量-->
+    <!--统计商品数量-->
     <select id="countGood" parameterType="com.xzsd.pc.rotation.entity.RotationInfo" resultType="int">
         select count(*)
         from t_info_slideshow_home

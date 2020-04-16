@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.pc.hotGoods.dao.HotGoodsDao">
-    <!--统计热门位商品数量-->
-    <select id="countHotGoodAcct" parameterType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo" resultType="int">
-        select count(*)
-        from t_info_hot_goods
-        where is_delete = 0
-        and hot_goods_id = #{hotGoodsId}
-    </select>
-
     <!--统计排序数量-->
     <select id="countSort" parameterType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo" resultType="int">
         select count(*)

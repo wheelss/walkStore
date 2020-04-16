@@ -30,11 +30,6 @@ public class DriverService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addDriver(DriverInfo driverInfo) {
         driverInfo.setDriverId(StringUtil.getCommonCode(2));
-        //检验司机是否存在
-        int countDriver = driverDao.countDriver(driverInfo);
-        if (0 != countDriver) {
-            return AppResponse.bizError("司机已存在，请重新输入！");
-        }
         // 新增司机到司机表
         int count = driverDao.addDriver(driverInfo);
         if (0 == count) {
@@ -95,11 +90,6 @@ public class DriverService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateDriver(DriverInfo driverInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 校验司机是否存在
-        int countDriver = driverDao.countDriver(driverInfo);
-        if (0 == countDriver) {
-            return AppResponse.bizError("司机不存在");
-        }
         // 修改司机表信息
         int count = driverDao.updateDriver(driverInfo);
         if (0 == count) {
