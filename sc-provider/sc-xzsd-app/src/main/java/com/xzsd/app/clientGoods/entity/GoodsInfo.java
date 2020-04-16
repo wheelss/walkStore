@@ -114,6 +114,16 @@ public class GoodsInfo {
      */
     private double goodsEvaluateScore;
 
+    private String goodsImagePath;
+
+    public String getGoodsImagePath() {
+        return goodsImagePath;
+    }
+
+    public void setGoodsImagePath(String goodsImagePath) {
+        this.goodsImagePath = goodsImagePath;
+    }
+
     public double getGoodsEvaluateScore() {
         return goodsEvaluateScore;
     }

@@ -68,4 +68,20 @@ public class ClientGoodsController {
             throw e;
         }
     }
+    /**
+     * 查询二级商品分类及商品
+     * @return
+     * @author xiekai
+     * @time 2020-4-16
+     */
+    @PostMapping("listGetClassGoods")
+    public AppResponse listGetClassGoods(String classifyId){
+        try {
+            return clientGoodsService.listGetClassGoods(classifyId);
+        }catch (Exception e){
+            logger.error("查询二级商品分类及商品失败");
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
 }

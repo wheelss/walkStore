@@ -83,7 +83,7 @@ public class GoodSortService {
         if (0 == countUserAcct) {
             return AppResponse.bizError("用户账号不存在！");
         }
-        // 修改用户信息
+        // 修改分类信息
         int count = goodSortDao.updateGoodsClassify(goodSortInfo);
         if (0 == count) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");
@@ -93,7 +93,7 @@ public class GoodSortService {
     }
 
     /**
-     * 删除轮播图
+     * 删除分类
      * @param classifyId
      * @return
      */
@@ -104,7 +104,7 @@ public class GoodSortService {
         if(counts != 0){
             appResponse = AppResponse.bizError("删除失败，删除目录有二级分类");
         }
-        // 删除轮播图
+        // 删除分类
         int count = goodSortDao.deleteGoodsClassify(classifyId,userId);
         if (0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");

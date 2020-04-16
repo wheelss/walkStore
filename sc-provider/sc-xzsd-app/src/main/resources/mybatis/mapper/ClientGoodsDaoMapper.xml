@@ -66,7 +66,42 @@
         where is_delete = 0
         and classify_parent = '0'
         order by create_time desc
+        <!--查询商品二级分类级商品信息(二级分类映射)-->
     </select>
-
-
+    <resultMap id="BaseTreeResultMap" type="com.xzsd.app.clientGoods.entity.GoodSortInfo">
+        <result column="classify_id" property="twoClassifyId"/>
+        <result column="classify_name" property="classifyName"/>
+        <collection column="classify_id" property="goodsList" javaType="java.util.ArrayList"
+                    ofType="com.xzsd.app.clientGoods.entity.GoodSortInfo" select="getNextNodeTree"/>
+    </resultMap>
+    <!--查询商品二级分类级商品信息(商品映射)-->
+    <resultMap id="NextTreeResultMap" type="com.xzsd.app.clientGoods.entity.GoodsInfo">
+        <result column="goods_id" property="goodsId"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="goods_image_path" property="goodsImagePath"/>
+        <result column="goods_price" property="goodsPrice"/>
+        <result column="two_classify_id" property="twoClassifyId"/>
+        <collection column="two_classify_id" property="goodsList" javaType="java.util.ArrayList"
+                    ofType="com.xzsd.app.clientGoods.entity.GoodsInfo" select="getNextNodeTree"/>
+    </resultMap>
+    <!--查询二级分类-->
+    <select id="listGetClassGoods" resultMap="BaseTreeResultMap">
+        SELECT
+        classify_id,
+        classify_name
+        FROM t_info_goods_classify
+        WHERE classify_parent = #{classifyId}
+        and is_delete = 0
+    </select>
+    <!--查询二级分类商品-->
+    <select id="getNextNodeTree" resultMap="NextTreeResultMap">
+        SELECT
+            a.goods_id,
+            a.goods_name,
+            a.goods_image_path,
+            a.goods_price
+        FROM t_info_goods a
+        WHERE a.two_classify_id = #{twoClassifyId}
+        and a.is_delete = 0
+    </select>
 </mapper>

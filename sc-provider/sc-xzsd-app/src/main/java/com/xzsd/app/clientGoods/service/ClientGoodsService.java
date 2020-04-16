@@ -8,6 +8,7 @@ import com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo;
 import com.xzsd.app.clientGoods.entity.GoodsInfo;
 import com.xzsd.app.util.AppResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -55,4 +56,19 @@ public class ClientGoodsService {
 
         return AppResponse.success("查询一级商品分类成功", oneClassifyList);
     }
+    /**
+     * 查询二级商品分类及商品
+     * @return
+     * @author xiekai
+     * @time 2020-4-16
+     */
+    public AppResponse listGetClassGoods(String classifyId){
+        List<GoodSortInfo> twoClassifyList = clientGoodsDao.listGetClassGoods(classifyId);
+        if(twoClassifyList.size() == 0){
+            return AppResponse.bizError("查询二级商品分类及商品失败");
+        }
+        return AppResponse.success("查询二级商品分类及商品成功", twoClassifyList);
+    }
+
+
 }

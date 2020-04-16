@@ -19,6 +19,19 @@ public class GoodSortInfo {
      */
     private List<GoodsInfo> goodsList;
 
+    /**
+     *二级分类id
+     */
+    private String twoClassifyId;
+
+    public String getTwoClassifyId() {
+        return twoClassifyId;
+    }
+
+    public void setTwoClassifyId(String twoClassifyId) {
+        this.twoClassifyId = twoClassifyId;
+    }
+
     public String getClassifyId() {
         return classifyId;
     }
