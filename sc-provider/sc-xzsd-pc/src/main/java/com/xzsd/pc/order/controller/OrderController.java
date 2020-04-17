@@ -33,6 +33,8 @@ public class OrderController {
      */
     @RequestMapping(value = "listOrderPage")
     public AppResponse listOrderPage(OrderInfo orderInfo) {
+        String userId = SecurityUtils.getCurrentUserId();
+        orderInfo.setNowUserId(userId);
         try {
             return orderService.listOrderPage(orderInfo);
         } catch (Exception e) {

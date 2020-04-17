@@ -52,6 +52,30 @@ public class OrderInfo {
      * 收件人电话
      */
     private String recipientPhone;
+    /**
+     * 当前登录角色
+     */
+    private int role;
+    /**
+     * 当前登录人
+     */
+    private String nowUserId;
+
+    public String getNowUserId() {
+        return nowUserId;
+    }
+
+    public void setNowUserId(String nowUserId) {
+        this.nowUserId = nowUserId;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
 
     public int getPageSize() {
         return pageSize;

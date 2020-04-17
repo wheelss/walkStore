@@ -18,6 +18,12 @@ public interface OrderDao {
      */
     List<OrderInfo> listOrderPage(OrderInfo orderInfo);
     /**
+     * 获取店长订单信息
+     * @param orderInfo 订单信息
+     * @return 所有订单信息
+     */
+    List<OrderInfo> listOrderPages(OrderInfo orderInfo);
+    /**
      * 修改订单状态
      * @return 修改结果
      */

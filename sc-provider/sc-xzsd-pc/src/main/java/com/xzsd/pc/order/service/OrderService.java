@@ -24,10 +24,19 @@ public class OrderService {
      * @return
      */
     public AppResponse listOrderPage(OrderInfo orderInfo) {
-        PageHelper.startPage(orderInfo.getPageNum(), orderInfo.getPageSize());
-        List<OrderInfo> goodInfoList = orderDao.listOrderPage(orderInfo);
-        PageInfo<OrderInfo> pageData = new PageInfo<OrderInfo>(goodInfoList);
-        return AppResponse.success("查询成功！", pageData);
+        if(orderInfo.getRole() == 0 || orderInfo.getRole() == 1) {
+            //当角色是管理员时查看全部订单
+            PageHelper.startPage(orderInfo.getPageNum(), orderInfo.getPageSize());
+            List<OrderInfo> goodInfoList = orderDao.listOrderPage(orderInfo);
+            PageInfo<OrderInfo> pageData = new PageInfo<OrderInfo>(goodInfoList);
+            return AppResponse.success("查询成功！", pageData);
+        }else{
+            //当角色是店长时只看门下订单
+            PageHelper.startPage(orderInfo.getPageNum(), orderInfo.getPageSize());
+            List<OrderInfo> goodInfoList = orderDao.listOrderPages(orderInfo);
+            PageInfo<OrderInfo> pageData = new PageInfo<OrderInfo>(goodInfoList);
+            return AppResponse.success("查询成功！", pageData);
+        }
     }
     /**
      * demo 修改轮播图状态
