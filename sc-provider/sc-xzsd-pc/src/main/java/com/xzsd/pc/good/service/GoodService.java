@@ -52,7 +52,6 @@ public class GoodService {
 
     /**
      * 删除商品
-     *
      * @param goodsId
      * @return
      * @Author xiekai
@@ -62,12 +61,35 @@ public class GoodService {
     public AppResponse deleteGoods(String goodsId, String updateUser) {
         List<String> listCode = Arrays.asList(goodsId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
+        //搜索轮播图表
+        List<String> RgoodsIdList = goodDao.RgoodsIdList(listCode);
+        //搜索热门位商品表
+        List<String> HgoodsIdList = goodDao.HgoodsIdList(listCode);
+        //剔除轮播图表有的商品
+        for (String s2 : listCode) {
+            for (String s1 : RgoodsIdList) {
+                if (s2.equals(s1)) {
+                        s2 = "-1" ;
+                }
+                }
+            }
+        //剔除热门位商品表有的商品
+        for (String s2 : listCode) {
+            for (String s1 : HgoodsIdList) {
+                if (s2.equals(s1)) {
+                    s2 = "-1" ;
+                }
+            }
+        }
         // 删除商品表
         int count = goodDao.deleteGoods(listCode, updateUser);
+        if(RgoodsIdList.size() != 0 || HgoodsIdList.size() != 0){
+            appResponse = AppResponse.success("删除成功！有部分商品已被热门位商品或轮播图绑定了未被删除!");
+        }
         if (0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }
-        //删除轮播图表
+
         return appResponse;
     }
 

@@ -16,6 +16,14 @@ import java.util.List;
 @Mapper
 public interface GoodDao {
     /**
+     * 搜索轮播图表
+     */
+    List<String> RgoodsIdList(@Param("listCode") List<String> listCode);
+    /**
+     * 搜索热门位商品表
+     */
+    List<String> HgoodsIdList(@Param("listCode") List<String> listCode);
+    /**
      * 新增商品
      *
      * @param goodInfo 商品信息
