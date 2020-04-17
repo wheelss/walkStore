@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.manangerOrder.dao.ManagerOrderDao">
+    <!--修改店长订单状态-->
+    <update id="updateManangerOrderState" parameterType="com.xzsd.app.manangerOrder.entity.ManagerOrderInfo">
+        update t_info_order
+        set
+            order_state = #{orderStateId},
+            update_user = #{userId},
+            update_time = now(),
+            version = version + 1
+        where order_id = #{orderId}
+        and version = #{version}
+    </update>
+</mapper>
