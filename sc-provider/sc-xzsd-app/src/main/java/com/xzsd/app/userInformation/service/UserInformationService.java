@@ -19,19 +19,19 @@ public class UserInformationService {
      * @Author xiekai
      * @time 2020-04-14
      */
-    public AppResponse getUser(String UserId){
-        int role = userInformationDao.getRole(UserId);
+    public AppResponse getUser(String userId){
+        int role = userInformationDao.getRole(userId);
         UserInformationInfo userInformationInfo = null;
         if(role == 2){
             //店长
-            userInformationInfo = userInformationDao.getStore(UserId);
+            userInformationInfo = userInformationDao.getStore(userId);
             userInformationInfo.setAddress(userInformationInfo.getProvinceName() + userInformationInfo.getCityName() + userInformationInfo.getAreaName() + userInformationInfo.getAddress());
         }else if(role == 3){
             //司机
-            userInformationInfo = userInformationDao.getDriver(UserId);
+            userInformationInfo = userInformationDao.getDriver(userId);
         }else if(role == 4){
             //客户
-            userInformationInfo = userInformationDao.getCustomer(UserId);
+            userInformationInfo = userInformationDao.getCustomer(userId);
         }
         if(userInformationInfo == null){
             return AppResponse.bizError("查询用户个人信息失败！");

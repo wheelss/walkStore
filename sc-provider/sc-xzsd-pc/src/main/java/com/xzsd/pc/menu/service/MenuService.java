@@ -1,7 +1,5 @@
 package com.xzsd.pc.menu.service;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.xzsd.pc.menu.dao.MenuDao;
 import com.xzsd.pc.menu.entity.MenuInfo;
 import com.xzsd.pc.util.AppResponse;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -46,11 +43,8 @@ public class MenuService {
      * @Date 2020-04-09
      */
     public AppResponse listMenu(MenuInfo menuInfo) {
-        PageHelper.startPage(menuInfo.getPageNum(), menuInfo.getPageSize());
         List<MenuInfo> menuInfoList = menuDao.listMenu(menuInfo);
-        // 包装Page对象
-        PageInfo<MenuInfo> pageData = new PageInfo<MenuInfo>(menuInfoList);
-        return AppResponse.success("查询成功！", pageData);
+        return AppResponse.success("查询成功！", menuInfoList);
     }
 
     /**
@@ -116,11 +110,11 @@ public class MenuService {
      */
     public AppResponse listMenuHome(MenuInfo menuInfo) {
         if( menuInfo.getRole() == 0 || menuInfo.getRole() == 1){
-            List<MenuInfo> menuInfoList = menuDao.listMenuHomeAdmin(menuInfo);
-            return AppResponse.success("查询成功！",menuInfoList);
+            List<MenuInfo> menuList = menuDao.listMenuHomeAdmin(menuInfo);
+            return AppResponse.success("查询成功！",menuList);
         }else{
-            List<MenuInfo> menuInfoList = menuDao.listMenuHome(menuInfo);
-            return AppResponse.success("查询成功！",menuInfoList);
+            List<MenuInfo> menuList = menuDao.listMenuHome(menuInfo);
+            return AppResponse.success("查询成功！",menuList);
         }
 
     }

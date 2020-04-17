@@ -86,6 +86,9 @@ public class UserService {
         if (0 != countUserAcct) {
             return AppResponse.bizError("用户账号已存在，请重新输入！");
         }
+        //密码加密
+        String pwd = PasswordUtils.generatePassword(userInfo.getUserPassword());
+        userInfo.setUserPassword(pwd);
         // 修改用户信息
         int count = userDao.updateUser(userInfo);
         if (0 == count) {

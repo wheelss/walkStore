@@ -38,6 +38,44 @@
         order by update_time desc
     </select>
 
+    <!--店长订单列表-->
+    <select id="listOrderPages" parameterType="com.xzsd.pc.order.entity.OrderInfo"
+            resultType="com.xzsd.pc.order.entity.OrderInfo">
+        select
+        a.order_id orderId,
+        a.order_all_cost orderPrice,
+        a.order_state orderStateId,
+        a.store_id storeId,
+        a.recipient_name userName,
+        a.recipient_phone phone,
+        a.pay_time payTime,
+        a.version
+        from t_info_order a,
+            t_info_store b
+        where is_delete = 0
+        and a.store_id = b.store_id
+        and b.user_id = #{nowUserId}
+        <if test="userName != null and userName != ''">
+            and recipient_name like concat('%', #{userName}, '%')
+        </if>
+        <if test="phone != null and phone != ''">
+            and recipient_phone like concat('%', #{phone}, '%')
+        </if>
+        <if test="orderId != null and orderId != ''">
+            and order_id like concat('%', #{orderId}, '%')
+        </if>
+        <if test="orderStateId != null and orderStateId != ''">
+            and order_state like concat('%', #{orderStateId}, '%')
+        </if>
+        <if test="beginTime != null and beginTime !=''">
+            and to_char(pay_time,'yyyy-MM-dd') &gt;=  #{beginTime}
+        </if>
+        <if test="endTime != null and endTime !=''">
+            and to_char(pay_time,'yyyy-MM-dd') &lt;=  #{endTime}
+        </if>
+        order by update_time desc
+    </select>
+
     <!--修改订单状态-->
     <update id="updateOrderState" parameterType="java.util.List">
         <foreach collection="listUpdate" item="item" index="index" open="" separator=";" close="">

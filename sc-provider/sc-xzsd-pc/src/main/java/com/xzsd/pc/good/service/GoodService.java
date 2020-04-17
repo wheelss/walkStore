@@ -66,18 +66,18 @@ public class GoodService {
         //搜索热门位商品表
         List<String> HgoodsIdList = goodDao.HgoodsIdList(listCode);
         //剔除轮播图表有的商品
-        for (String s2 : listCode) {
+        for (int i = 0 ; i < listCode.size() ; i++) {
             for (String s1 : RgoodsIdList) {
-                if (s2.equals(s1)) {
-                        s2 = "-1" ;
+                if (listCode.get(i).equals(s1)) {
+                    listCode.set(i, "-1");
                 }
                 }
             }
         //剔除热门位商品表有的商品
-        for (String s2 : listCode) {
+        for (int i = 0 ; i < listCode.size() ; i++) {
             for (String s1 : HgoodsIdList) {
-                if (s2.equals(s1)) {
-                    s2 = "-1" ;
+                if (listCode.get(i).equals(s1)) {
+                    listCode.set(i, "-1");
                 }
             }
         }

@@ -3,7 +3,7 @@
 <mapper namespace="com.xzsd.pc.user.dao.UserDao">
     <!--统计用户账号数量-->
     <select id="countUserAcct" parameterType="com.xzsd.pc.user.entity.UserInfo" resultType="int">
-        select count(user_acct)
+        select count(*)
         from t_sys_user
         where is_delete = 0
         and user_acct = #{userAcct}

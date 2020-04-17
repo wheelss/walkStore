@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.pc.store.dao.StoresDao">
-    <!--统计门店数量-->
-    <select id="countStore" parameterType="com.xzsd.pc.store.entity.StoresInfo" resultType="int">
-        select count(*)
-        from t_info_store
-        where is_delete = 0
-        and store_id= #{storeId}
-    </select>
 
     <!--统计店长数量-->
     <select id="countUserId" parameterType="com.xzsd.pc.user.entity.UserInfo" resultType="int">

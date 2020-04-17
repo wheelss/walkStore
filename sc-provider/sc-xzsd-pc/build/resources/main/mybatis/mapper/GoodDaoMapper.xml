@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.pc.good.dao.GoodDao">
-    <!--统计商品数量-->
-    <select id="countGoodAcct" parameterType="com.xzsd.pc.good.entity.GoodInfo" resultType="int">
-        select count(isbn)
-        from t_info_goods
+    <!--搜索轮播图表-->
+    <select id="RgoodsIdList" parameterType="java.util.List" resultType="String">
+        select
+        goods_id
+        from t_info_slideshow_home
         where is_delete = 0
-        and goods_id= #{goodsId}
+        and goods_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </select>
-
+    <!--搜索热门位商品表-->
+    <select id="HgoodsIdList" parameterType="java.util.List" resultType="String">
+        select
+        goods_id
+        from t_info_hot_goods
+        where is_delete = 0
+        and goods_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
     <!--新增商品-->
     <insert id="addGoods" parameterType="com.xzsd.pc.good.entity.GoodInfo">
         insert into t_info_goods
@@ -33,7 +47,8 @@
         is_delete,
         create_time,
         create_user,
-        version
+        version,
+        goods_shelf_time
         )
         values
         (#{goodsId},
@@ -57,7 +72,9 @@
         0,
         now(),
         #{createUser},
-        0)
+        0,
+        now()
+        )
     </insert>
 
     <!--删除商品-->
@@ -102,8 +119,8 @@
         select
             a.goods_name goodsName,
             a.isbn isbn,
-            b.one_classify_name oneClassifyName,
-            c.two_classify_name twoClassifyName,
+            b.classify_name oneClassifyName,
+            c.classify_name twoClassifyName,
             a.goods_describe goodsDescibe,
             a.supplier_name supplierName,
             a.goods_inventory goodsInventory,
@@ -134,8 +151,8 @@
             a.goods_original_cost goodsOriginalCost,
             a.goods_price goodsPrice,
             a.goods_sales goodsSales,
-            b.one_classify_name oneClassifyName,
-            c.two_classify_name twoClassifyName,
+            b.classify_name oneClassifyName,
+            c.classify_name twoClassifyName,
             a.goods_advertise goodsAdvertise,
             a.goods_describe goodsDescibe,
             a.goods_state_id goodsStateId,

@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.pc.menu.dao.MenuDao">
-
-    <!--统计菜单id数量-->
-    <select id="countMenu" parameterType="com.xzsd.pc.menu.entity.MenuInfo" resultType="int">
-        select count(menu_id)
-        from t_sys_menu
-        where is_delete = 0
-        and menu_id = #{menuId}
-    </select>
-
-    <!--新增用户-->
+    <!--新增菜单-->
     <insert id="addMenu" parameterType="com.xzsd.pc.menu.entity.MenuInfo">
         insert into t_sys_menu
         (menu_id,
@@ -36,7 +27,7 @@
     <select id="listMenu" parameterType="com.xzsd.pc.menu.entity.MenuInfo"
             resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
-        a.menu_id menuName,
+        a.menu_id menuId,
         a.menu_name menuName,
         version
         from t_sys_menu a
@@ -56,7 +47,7 @@
         and is_delete = 0
     </select>
 
-    <!--修改用户信息-->
+    <!--修改菜单信息-->
     <update id="updateMenu" parameterType="com.xzsd.pc.menu.entity.MenuInfo">
         update t_sys_menu
         set
@@ -84,7 +75,7 @@
     <select id="listMenuHomeAdmin" parameterType="com.xzsd.pc.menu.entity.MenuInfo"
             resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
-        a.menu_id menuName,
+        a.menu_id menuId,
         a.menu_name menuName
         from t_sys_menu a
         where a.is_delete = 0
@@ -95,11 +86,11 @@
     <select id="listMenuHome" parameterType="com.xzsd.pc.menu.entity.MenuInfo"
             resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
-        a.menu_id menuName,
+        a.menu_id menuId,
         a.menu_name menuName
         from t_sys_menu a
         where a.is_delete = 0
-        where menu_name in ('客户管理', '订单管理','门店管理')
+        and menu_name in ('客户管理','订单管理','门店信息管理')
         order by update_time desc
     </select>
 </mapper>

@@ -44,7 +44,7 @@ public class MenuController {
     }
 
     /**
-     * 菜单列表(分页)
+     * 菜单列表
      * @param menuInfo
      * @return AppResponse
      * @author xiekai

@@ -5,14 +5,6 @@ package com.xzsd.pc.menu.entity;
  */
 public class MenuInfo {
     /**
-     * 页码
-     */
-    private int pageSize;
-    /**
-     * 页数
-     */
-    private int pageNum;
-    /**
      * 菜单id
      */
     private String menuId;
@@ -73,22 +65,6 @@ public class MenuInfo {
 
     public void setMenuPath(String menuPath) {
         this.menuPath = menuPath;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
     }
 
     public String getMenuId() {
