@@ -3,19 +3,17 @@
 <mapper namespace="com.xzsd.app.clientOrder.dao.ClientOrderDao">
     <!--增加数据到订单表-->
     <insert id="addOrder" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
-        insert into t_order_info(
-            id,
+        insert into t_info_order(
+            order_id,
             user_id,
-            total_price,
-            total_count,
-            order_status,
-            defray_status,
+            order_all_cost,
+            order_all_goods_count,
+            order_state,
             store_id,
-            defray_time,
+            pay_time,
             is_delete,
             create_time,
             create_user,
-            update_time,
             version
         )
         values (
@@ -24,45 +22,64 @@
             #{orderAllCost},
             #{orderAllGoodsCount},
             0,
-            0,
             #{storeId},
             now(),
             0,
             now(),
             #{userId},
-            now(),
             0
         )
     </insert>
 
     <!--增加数据到订单明细表-->
     <insert id="addOrders" parameterType="java.util.List">
-        insert into t_order_details(
-        id,
+        insert into t_info_order_deepen(
+        order_goods_id,
         order_id,
         goods_id,
         user_id,
-        buy_number,
-        total_price,
+        goods_count,
+        the_goods_all_price,
         is_delete,
         create_time,
         create_user,
-        update_time,
         version
         )
         values
-        <foreach item="item" index="index" collection="orderInfoList" open="" separator="," close="">
-            (#{item.orderDetailsId, jdbcType=VARCHAR},
+        <foreach item="item" index="index" collection="clientOrderInfoList" open="" separator="," close="">
+            (#{item.orderGoodsId, jdbcType=VARCHAR},
             #{item.orderId, jdbcType=VARCHAR},
             #{item.goodsId, jdbcType=VARCHAR},
             #{item.userId, jdbcType=VARCHAR},
             #{item.clientGoodsNum},
-            #{item.totalGoodsPrice},
+            #{item.theGoodsAllPrice},
             0,
             now(),
             #{item.userId, jdbcType=VARCHAR},
-            now(),
             0)
         </foreach>
     </insert>
+
+    <!--修改订单状态-->
+    <update id="updateOrderStatus" parameterType="com.xzsd.app.customerorder.entity.OrderInfo">
+        update t_info_order
+        set
+            order_state = #{orderStateId},
+            update_user = #{userId},
+            update_time = now(),
+            version = version + 1
+        where order_id = #{orderId}
+        and version = #{version}
+    </update>
+    <!--查询订单评价列表-->
+    <select id="listGoodsForEvaluate" parameterType="java.lang.String"
+            resultType="com.xzsd.app.clientOrder.entity.GoodsInfo">
+        select
+        a.goods_id goodsId,
+        b.goods_image_path goodsImagePath
+        from t_info_order_deepen a, t_info_goods b
+        where a.goods_id = b.goods_id
+        and a.order_id = #{orderId}
+        and a.is_delete = 0
+    </select>
 </mapper>

@@ -43,10 +43,6 @@ public class ClientOrderInfo {
      */
     private int pageNum;
     /**
-     * 商品信息集合
-     */
-    private List<GoodsInfo> goodsList;
-    /**
      * 订单总价
      */
     private String orderAllCost;
@@ -127,13 +123,6 @@ public class ClientOrderInfo {
         this.pageNum = pageNum;
     }
 
-    public List<GoodsInfo> getGoodsList() {
-        return goodsList;
-    }
-
-    public void setGoodsList(List<GoodsInfo> goodsList) {
-        this.goodsList = goodsList;
-    }
 
     public String getOrderAllCost() {
         return orderAllCost;

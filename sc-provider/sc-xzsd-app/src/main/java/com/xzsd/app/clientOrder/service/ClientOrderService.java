@@ -1,5 +1,6 @@
 package com.xzsd.app.clientOrder.service;
 
+import com.xzsd.app.clientGoods.entity.GoodsInfo;
 import com.xzsd.app.clientOrder.dao.ClientOrderDao;
 import com.xzsd.app.clientOrder.entity.ClientOrderInfo;
 import com.xzsd.app.util.AppResponse;
@@ -76,5 +77,33 @@ public class ClientOrderService {
         }
         return AppResponse.success("新增订单成功");
     }
-
+    /**
+     *修改订单状态
+     * @param clientOrderInfo
+     * @return
+     * @author xiekai
+     * @time 2020-4-17
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public AppResponse updateOrderState(ClientOrderInfo clientOrderInfo){
+        int count = clientOrderDao.updateOrderState(clientOrderInfo);
+        if(0 == count){
+            return AppResponse.bizError("修改订单状态失败");
+        }
+        return AppResponse.success("修改订单状态成功");
+    }
+    /**
+     *查询订单评价商品信息列表
+     * @param orderId
+     * @return
+     * @author xiekai
+     * @time 2020-4-17
+     */
+    public AppResponse listGoodsForEvaluate(String orderId){
+        List<GoodsInfo> goodsList = clientOrderDao.listGoodsForEvaluate(orderId);
+        if(goodsList.size() == 0){
+            return AppResponse.bizError("查询订单评价列表失败");
+        }
+        return AppResponse.success("查询订单评价列表成功", goodsList);
+    }
 }

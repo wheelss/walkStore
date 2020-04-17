@@ -39,4 +39,41 @@ public class ClientOrderController {
             throw e;
         }
     }
+    /**
+     *修改订单状态
+     * @param clientOrderInfo
+     * @return
+     * @author xiekai
+     * @time 2020-4-17
+     */
+    @PostMapping("updateOrderState")
+    public AppResponse updateOrderState(ClientOrderInfo clientOrderInfo){
+        //获取登录id
+        String userId = SecurityUtils.getCurrentUserId();
+        clientOrderInfo.setUserId(userId);
+        try {
+            return clientOrderService.updateOrderState(clientOrderInfo);
+        }catch (Exception e){
+            logger.error("修改订单状态失败");
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+    /**
+     *查询订单评价商品信息列表
+     * @param orderId
+     * @return
+     * @author xiekai
+     * @time 2020-4-17
+     */
+    @PostMapping("listGoodsForEvaluate")
+    public AppResponse listGoodsForEvaluate(String orderId){
+        try {
+            return clientOrderService.listGoodsForEvaluate(orderId);
+        }catch (Exception e){
+            logger.error("查询订单评价列表失败");
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
 }
