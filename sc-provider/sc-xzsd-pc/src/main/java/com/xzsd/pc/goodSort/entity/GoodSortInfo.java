@@ -38,14 +38,14 @@ public class GoodSortInfo {
     /**
      *子节点
      */
-    private List<GoodSortInfo> treeNode;
+    private List<GoodSortInfo> twoClassifyList;
 
-    public List<GoodSortInfo> getTreeNode() {
-        return treeNode;
+    public List<GoodSortInfo> getTwoClassifyList() {
+        return twoClassifyList;
     }
 
-    public void setTreeNode(List<GoodSortInfo> treeNode) {
-        this.treeNode = treeNode;
+    public void setTwoClassifyList(List<GoodSortInfo> twoClassifyList) {
+        this.twoClassifyList = twoClassifyList;
     }
 
     public int getPageSize() {

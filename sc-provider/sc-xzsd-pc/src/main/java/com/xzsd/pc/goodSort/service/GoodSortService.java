@@ -34,7 +34,7 @@ public class GoodSortService {
         // 新增商品分类
         int count = goodSortDao.addGoodsClassify(goodSortInfo);
         if (0 == count) {
-            return AppResponse.bizError("新增失败，请重试！");
+            return AppResponse.versionError("新增失败，请重试！");
         }
         return AppResponse.success("新增成功！");
     }
@@ -61,8 +61,8 @@ public class GoodSortService {
      * @Date 2020-03-26
      */
     public AppResponse listAllGoodsClassify(GoodSortInfo goodSortInfo) {
-        List<GoodSortInfo> goodInfoList = goodSortDao.getNodeTree(goodSortInfo);
-        return AppResponse.success("查询成功！", goodInfoList);
+        List<GoodSortInfo> oneClassifyList = goodSortDao.getNodeTree(goodSortInfo);
+        return AppResponse.success("查询成功！", oneClassifyList);
     }
 
     /**
@@ -94,12 +94,12 @@ public class GoodSortService {
         int counts = goodSortDao.countGoodSorts(classifyId);
         //查看一级分类下是否有二级分类
         if(counts != 0){
-            appResponse = AppResponse.bizError("删除失败，删除目录有二级分类");
+            appResponse = AppResponse.notFound("删除失败，删除目录有二级分类");
         }
         // 删除分类
         int count = goodSortDao.deleteGoodsClassify(classifyId,userId);
         if (0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }

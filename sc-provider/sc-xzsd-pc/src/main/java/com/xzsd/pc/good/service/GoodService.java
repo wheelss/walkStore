@@ -45,7 +45,7 @@ public class GoodService {
         // 新增商品
         int count = goodDao.addGoods(goodInfo);
         if (0 == count) {
-            return AppResponse.bizError("新增失败，请重试！");
+            return AppResponse.versionError("新增失败，请重试！");
         }
         return AppResponse.success("新增成功！");
     }
@@ -87,7 +87,7 @@ public class GoodService {
             appResponse = AppResponse.success("删除成功！有部分商品已被热门位商品或轮播图绑定了未被删除!");
         }
         if (0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
 
         return appResponse;
@@ -166,7 +166,7 @@ public class GoodService {
         // 修改商品信息
         int count = goodDao.updateGoodsShelfState(listUpdate);
         if (0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }

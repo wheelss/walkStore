@@ -38,18 +38,18 @@ public class RotationService {
         //检验排序重复
         int countSort = rotationDao.countSort(rotationInfo);
         if (0 != countSort) {
-            return AppResponse.bizError("排序已存在，请重新输入！");
+            return AppResponse.versionError("排序已存在，请重新输入！");
         }
         //检验商品重复
         int countGood = rotationDao.countGood(rotationInfo);
         if (0 != countGood) {
-            return AppResponse.bizError("商品已被选择，请重新输入！");
+            return AppResponse.versionError("商品已被选择，请重新输入！");
         }
         //新增轮播图
         rotationInfo.setSlideshowId(StringUtil.getCommonCode(2));
         int count = rotationDao.addSlideshowHome(rotationInfo);
         if (0 == count) {
-            return AppResponse.bizError("新增失败,请重试");
+            return AppResponse.versionError("新增失败,请重试");
         }
         return AppResponse.success("新增成功!");
     }
@@ -68,7 +68,7 @@ public class RotationService {
         // 删除轮播图
         int count = rotationDao.deleteSlideshowHome(listCode, updateUser);
         if (0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }
@@ -83,13 +83,13 @@ public class RotationService {
         List<String> listSlideshowId = Arrays.asList(rotationInfo.getSlideshowId().split(","));
         List<String> listVersion = Arrays.asList(rotationInfo.getVersion().split(","));
         List<RotationInfo> listUpdate = new ArrayList<>();
-        int slideshowStateId = rotationInfo.getSlideshowStateId();
+        int slideshowStateId = Integer.valueOf(rotationInfo.getSlideshowStateId());
         String updateUser =rotationInfo.getUpdateUser();
         for (int i = 0 ; i < listSlideshowId.size() ; i++){
             RotationInfo rotationInfo1 =new RotationInfo();
             rotationInfo1.setSlideshowId(listSlideshowId.get(i));
             rotationInfo1.setVersion(listVersion.get(i));
-            rotationInfo1.setSlideshowStateId(slideshowStateId);
+            rotationInfo1.setSlideshowStateId(String.valueOf(slideshowStateId));
             rotationInfo1.setUpdateUser(updateUser);
             listUpdate.add(rotationInfo1);
         }
@@ -97,25 +97,24 @@ public class RotationService {
         // 修改轮播图状态信息
         int count = rotationDao.updateSlideshowHomeState(listUpdate);
         if (0 == count) {
-            appResponse = AppResponse.bizError("修改轮播图状态失败，请重试！");
+            appResponse = AppResponse.notFound("修改轮播图状态失败，请重试！");
         }
         return appResponse;
     }
 
     /**
      * demo 查询轮播图列表（分页）
-     *
      * @param
      * @return
      * @Author xiekai
      * @Date 2020-03-26
      */
     public AppResponse listSlideshowHome(RotationInfo rotationInfo)  {
-
         PageHelper.startPage(rotationInfo.getPageNum(), rotationInfo.getPageSize());
         List<RotationInfo> RotationInfoList = rotationDao.listSlideshowHome(rotationInfo);
         PageInfo<RotationInfo> pageData = new PageInfo<RotationInfo>(RotationInfoList);
         return AppResponse.success("查询成功！", pageData);
+
     }
 
 

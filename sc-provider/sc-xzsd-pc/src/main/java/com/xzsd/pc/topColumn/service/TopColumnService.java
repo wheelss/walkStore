@@ -21,7 +21,7 @@ public class TopColumnService {
     public AppResponse getTopColumn(String userId){
         TopColumnInfo topColumnInfo = topColumnDao.getTopColumn(userId);
         if(null == topColumnInfo){
-            return AppResponse.bizError("查询顶部栏失败");
+            return AppResponse.notFound("查询顶部栏失败");
         }
         return AppResponse.success("查询顶部栏成功", topColumnInfo);
     }

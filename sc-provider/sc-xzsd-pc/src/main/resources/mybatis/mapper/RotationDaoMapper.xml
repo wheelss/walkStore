@@ -43,7 +43,7 @@
         #{createUser},
         now(),
         0,
-        0)
+        '0')
     </insert>
 
     <!--删除轮播图-->
@@ -64,7 +64,7 @@
         <foreach collection="listUpdate" item="item" index="index" open="" separator=";" close="">
             update t_info_slideshow_home
             <set>
-                slideshow_state_id = #{item.slideshowStateId},
+                slideshow_state_id = #{item.slideshowStateId,jdbcType=VARCHAR},
                 update_time = now(),
                 update_user = #{item.updateUser,jdbcType=VARCHAR},
                 version = version + 1
@@ -99,21 +99,25 @@
     <select id="listGoods" parameterType="com.xzsd.pc.good.entity.GoodInfo"
             resultType="com.xzsd.pc.good.entity.GoodInfo">
         select
-            goods_id goodsId,
-            goods_name goodsName,
-            goods_state_id goodsStateId,
-            one_classify_name oneClassifyName,
-            two_classify_name twoClassifyName
-        from t_info_goods
-        where is_delete = 0
-        where goods_state_id = 1
+            a.goods_id goodsId,
+            a.goods_name goodsName,
+            a.goods_state_id goodsStateId,
+            b.classify_name oneClassifyName,
+            c.classify_name twoClassifyName
+        from t_info_goods a,
+        t_info_goods_classify b,
+        t_info_goods_classify c
+        where a.is_delete = 0
+        and a.goods_state_id = 1
+        and a.one_classify_id = b.classify_id
+        and a.two_classify_id = c.classify_id
         <if test="goodsName != null and goodsName != ''">
-            and goods_name like concat('%', #{goodsName}, '%')
+            and a.goods_name like concat('%', #{goodsName}, '%')
         </if>
         <if test="goodsId != null and goodsId != ''">
-            and goods_id like concat('%', #{goodsId}, '%')
+            and a.goods_id like concat('%', #{goodsId}, '%')
         </if>
-        order by update_time desc
+        order by a.update_time desc
     </select>
 
 </mapper>

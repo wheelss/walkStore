@@ -30,7 +30,7 @@ public class RotationInfo {
     /**
      * 状态
      */
-    private int slideshowStateId;
+    private String slideshowStateId;
 
     public int getPageSize() {
         return pageSize;
@@ -72,11 +72,11 @@ public class RotationInfo {
         this.slideshowNum = slideshowNum;
     }
 
-    public int getSlideshowStateId() {
+    public String getSlideshowStateId() {
         return slideshowStateId;
     }
 
-    public void setSlideshowStateId(int slideshowStateId) {
+    public void setSlideshowStateId(String slideshowStateId) {
         this.slideshowStateId = slideshowStateId;
     }
 

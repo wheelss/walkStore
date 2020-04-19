@@ -29,7 +29,7 @@ public class MenuService {
         // 新增菜单
         int count = menuDao.addMenu(menuInfo);
         if (0 == count) {
-            return AppResponse.bizError("新增失败，请重试！");
+            return AppResponse.versionError("新增失败，请重试！");
         }
         return AppResponse.success("新增成功！");
     }
@@ -90,12 +90,11 @@ public class MenuService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse deleteMenu(String menuId, String updateUser) {
-        //List<String> listCode = Arrays.asList(menuId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
         // 删除菜单
         int count = menuDao.deleteMenu(menuId, updateUser);
         if (0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }
