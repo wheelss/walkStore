@@ -18,7 +18,13 @@ public interface RegisterDao {
      * @return
      */
     int countPhone(RegisterInfo registerInfo);
-
+    /**
+     * 统计店铺邀请码数量
+     *
+     * @param registerInfo 用户信息
+     * @return
+     */
+    int countInviteCode(RegisterInfo registerInfo);
 
     /**
      * 新增用户到user表

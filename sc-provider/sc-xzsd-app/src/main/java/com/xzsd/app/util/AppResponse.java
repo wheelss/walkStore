@@ -209,7 +209,9 @@ public class AppResponse<T> implements Serializable {
     public static AppResponse versionError(String msg) {
         return builder().code(AppResponseStatus.ERROR).msg(msg).build();
     }
-
+    public static <T> AppResponse versionError(String msg, T data) {
+        return builder().code(AppResponseStatus.ERROR).msg(msg).data(data).build();
+    }
     /**
      * 验证码校验失败异常返回体
      *

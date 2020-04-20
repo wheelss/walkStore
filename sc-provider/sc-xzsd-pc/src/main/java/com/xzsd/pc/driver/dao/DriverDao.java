@@ -18,6 +18,13 @@ public interface DriverDao {
      */
     int addDriver(DriverInfo driverInfo) ;
     /**
+     * 统计用户账号数量
+     *
+     * @param driverInfo 用户信息
+     * @return
+     */
+    int countUserAcct(DriverInfo driverInfo);
+    /**
      * 新增司机到用户表
      *
      * @param driverInfo 司机信息

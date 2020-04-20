@@ -74,6 +74,18 @@ public class RegisterInfo {
      * 版本号
      */
     private String version;
+    /**
+     * 用户头像
+     */
+    private String userImage;
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
+    }
 
     public int getIsDelete() {
         return isDelete;

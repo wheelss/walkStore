@@ -115,10 +115,7 @@ public class HotGoodsService {
     public AppResponse getHotGoodsShowNum() {
         AppResponse appResponse = AppResponse.success("查询成功");
         int count = hotGoodsDao.getHotGoodsShowNum();
-        if(0 == count){
-            appResponse = AppResponse.versionError("查询失败");
-        }
-        return appResponse;
+        return AppResponse.success("查询成功",count);
     }
 
     /**

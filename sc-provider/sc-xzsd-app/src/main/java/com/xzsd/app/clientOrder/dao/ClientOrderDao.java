@@ -1,7 +1,7 @@
 package com.xzsd.app.clientOrder.dao;
 
-import com.xzsd.app.clientGoods.entity.GoodsInfo;
 import com.xzsd.app.clientOrder.entity.ClientOrderInfo;
+import com.xzsd.app.clientOrder.entity.GoodsInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -9,6 +9,24 @@ import java.util.List;
 
 @Mapper
 public interface ClientOrderDao {
+    /**
+     * 获取客户店铺邀请码
+     * @param clientOrderInfo 订单信息
+     * @return
+     */
+    String getInviteCode(ClientOrderInfo clientOrderInfo);
+    /**
+     *获取商品库存
+     * @param listGoodsId 商品id集合
+     * @return
+     */
+    List<GoodsInfo> getInventory(@Param("listGoodsId") List<String> listGoodsId);
+    /**
+     *更新商品库存,销售量,商品状态
+     * @param goodsInfo
+     * @return
+     */
+    int update(GoodsInfo goodsInfo);
     /**
      *增加数据到订单表
      * @param clientOrderInfo

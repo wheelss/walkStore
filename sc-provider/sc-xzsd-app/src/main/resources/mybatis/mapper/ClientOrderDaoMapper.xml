@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.app.clientOrder.dao.ClientOrderDao">
+    <!--获取店铺邀请码-->
+    <select id="getInviteCode" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo" resultType="String">
+        select
+            invite_code
+        from t_info_client
+        where is_delete = 0
+        and user_id = #{userId}
+    </select>
+    <!--获取商品库存-->
+    <select id="getInviteCode" parameterType="java.util.List" resultType="com.xzsd.app.clientOrder.entity.GoodsInfo">
+        select
+            goods_inventory
+        from t_info_goods
+        where is_delete = 0
+        and goods_id =
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
     <!--增加数据到订单表-->
     <insert id="addOrder" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
         insert into t_info_order(
@@ -59,7 +78,21 @@
             0)
         </foreach>
     </insert>
-
+    <!--更新商品库存,销售量,商品状态-->
+    <update id="update" parameterType="com.xzsd.app.customer.order.entity.OrderInfo">
+        update t_info_order
+        set
+        <if test="goodsStateId == 0">
+            goods_state_id = #{goodsStateId},
+        </if>
+        goods_inventory = #{goodsInventory},
+        goods_sales = goods_sales + #{goodsCount},
+        update_user = #{userId},
+        update_time = now(),
+        version = version + 1
+        where is_delete = 0
+        and goods_id = #{goodsId}
+    </update>
     <!--修改订单状态-->
     <update id="updateOrderStatus" parameterType="com.xzsd.app.customerorder.entity.OrderInfo">
         update t_info_order

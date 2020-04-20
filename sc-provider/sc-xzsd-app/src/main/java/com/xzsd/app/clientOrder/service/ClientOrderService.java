@@ -1,8 +1,8 @@
 package com.xzsd.app.clientOrder.service;
 
-import com.xzsd.app.clientGoods.entity.GoodsInfo;
 import com.xzsd.app.clientOrder.dao.ClientOrderDao;
 import com.xzsd.app.clientOrder.entity.ClientOrderInfo;
+import com.xzsd.app.clientOrder.entity.GoodsInfo;
 import com.xzsd.app.util.AppResponse;
 import com.xzsd.app.util.StringUtil;
 import org.springframework.stereotype.Service;
@@ -26,6 +26,11 @@ public class ClientOrderService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addOrder(ClientOrderInfo clientOrderInfo){
+        //检验是否绑定店铺邀请码
+        String inviteCode = clientOrderDao.getInviteCode(clientOrderInfo);
+        if("".equals(inviteCode)){
+            return AppResponse.versionError("未绑定邀请码");
+        }
         //生成订单id
         clientOrderInfo.setOrderId(StringUtil.getCommonCode(2));
         //分割商品id字符
@@ -34,6 +39,8 @@ public class ClientOrderService {
         List<String> listGoodsPrice = Arrays.asList(clientOrderInfo.getGoodsPrice().split(","));
         //分割商品数量字符
         List<String> listGoodsCount = Arrays.asList(clientOrderInfo.getClientGoodsNum().split(","));
+        //获取商品库存
+        List<GoodsInfo> listInventory = clientOrderDao.getInventory(listGoodsId);
         //订单明细表list
         List<ClientOrderInfo> clientOrderInfoList = new ArrayList<>();
         //这个商品总数量
@@ -42,6 +49,23 @@ public class ClientOrderService {
         int theGoodsAllPrice = 0;
         //遍历商品,计算出商品价格和购买数量
         for (int i = 0; i < listGoodsId.size() ; i++) {
+            //判断当前商品购买数量是否超过商品库存
+            if(listInventory.get(i).getGoodsInventory() < Integer.valueOf(listGoodsCount.get(i))){
+                return AppResponse.versionError("购买数量超过库存",listInventory.get(i).getGoodsName());
+            }
+            //库存数量减去当前购买的数量
+            listInventory.get(i).setGoodsInventory(listInventory.get(i).getGoodsInventory() - Integer.valueOf(listGoodsCount.get(i)));
+            //库存为0时,设置商品状态为售罄
+            if(listInventory.get(i).getGoodsInventory() == 0){
+                listInventory.get(i).setGoodsStateId(0);
+            }
+            //赋值为当前商品购买数量
+            listInventory.get(i).setGoodsCount(Integer.valueOf(listGoodsCount.get(i)));
+            //更新商品库存,销售量,商品状态
+            int update = clientOrderDao.update(listInventory.get(i));
+            if(0 == update){
+                return AppResponse.versionError("下单失败,请重试",listInventory.get(i).getGoodsName());
+            }
             //总数量
             goodsCount = goodsCount + Integer.valueOf(listGoodsCount.get(i));
             //总价格

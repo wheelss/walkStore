@@ -30,6 +30,10 @@ public class DriverService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addDriver(DriverInfo driverInfo) {
         driverInfo.setDriverId(StringUtil.getCommonCode(2));
+        int countUserAcct = driverDao.countUserAcct(driverInfo);
+        if (0 != countUserAcct) {
+            return AppResponse.versionError("用户账号已存在，请重新输入！");
+        }
         // 新增司机到司机表
         int count = driverDao.addDriver(driverInfo);
         if (0 == count) {

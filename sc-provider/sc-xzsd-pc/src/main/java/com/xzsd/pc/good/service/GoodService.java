@@ -65,22 +65,21 @@ public class GoodService {
         List<String> RgoodsIdList = goodDao.RgoodsIdList(listCode);
         //搜索热门位商品表
         List<String> HgoodsIdList = goodDao.HgoodsIdList(listCode);
-        //剔除轮播图表有的商品
+        //剔除其他表表有的商品
         for (int i = 0 ; i < listCode.size() ; i++) {
+            //热门位表
             for (String s1 : RgoodsIdList) {
                 if (listCode.get(i).equals(s1)) {
                     listCode.set(i, "-1");
                 }
                 }
-            }
-        //剔除热门位商品表有的商品
-        for (int i = 0 ; i < listCode.size() ; i++) {
+            //轮播图表
             for (String s1 : HgoodsIdList) {
                 if (listCode.get(i).equals(s1)) {
                     listCode.set(i, "-1");
                 }
             }
-        }
+            }
         // 删除商品表
         int count = goodDao.deleteGoods(listCode, updateUser);
         if(RgoodsIdList.size() != 0 || HgoodsIdList.size() != 0){

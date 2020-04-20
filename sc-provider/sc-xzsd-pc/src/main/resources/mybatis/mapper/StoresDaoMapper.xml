@@ -17,6 +17,9 @@
         from t_info_store
         where is_delete = 0
         and user_id= #{userId}
+        <if test="storeId != null and storeId != ''">
+            and store_id != #{storeId}
+        </if>
     </select>
 
     <!--新增门店-->
@@ -61,6 +64,9 @@
             a.phone phone,
             a.user_id userId,
             a.business_code businessCode,
+            a.province_id provinceId,
+            a.city_id cityId,
+            a.area_id areaId,
             b.area_name provinceName,
             c.area_name cityName,
             d.area_name areaName,

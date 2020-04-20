@@ -27,11 +27,47 @@ public class GoodsInfo {
     /**
      * 商品数量
      */
-    private int cartGoodsCount;
+    private int goodsCount;
     /**
      * 订单id
      */
     private String orderId;
+    /**
+     * 商品状态
+     */
+    private int goodsStateId;
+    /**
+     * 库存
+     */
+    private int goodsInventory;
+    /**
+     * 销售量
+     */
+    private int goodsSales;
+
+    public int getGoodsInventory() {
+        return goodsInventory;
+    }
+
+    public void setGoodsInventory(int goodsInventory) {
+        this.goodsInventory = goodsInventory;
+    }
+
+    public int getGoodsSales() {
+        return goodsSales;
+    }
+
+    public void setGoodsSales(int goodsSales) {
+        this.goodsSales = goodsSales;
+    }
+
+    public int getGoodsStateId() {
+        return goodsStateId;
+    }
+
+    public void setGoodsStateId(int goodsStateId) {
+        this.goodsStateId = goodsStateId;
+    }
 
     public String getGoodsId() {
         return goodsId;
@@ -73,12 +109,12 @@ public class GoodsInfo {
         this.goodsImagePath = goodsImagePath;
     }
 
-    public int getCartGoodsCount() {
-        return cartGoodsCount;
+    public int getGoodsCount() {
+        return goodsCount;
     }
 
-    public void setCartGoodsCount(int cartGoodsCount) {
-        this.cartGoodsCount = cartGoodsCount;
+    public void setGoodsCount(int goodsCount) {
+        this.goodsCount = goodsCount;
     }
 
     public String getOrderId() {

@@ -92,7 +92,7 @@
         <if test="slideshowStateId != null and slideshowStateId != ''">
             and slideshow_state_id like concat('%', #{slideshowStateId}, '%')
         </if>
-        order by update_time desc
+        order by slideshow_num desc
     </select>
 
     <!--商品列表-->
@@ -117,7 +117,7 @@
         <if test="goodsId != null and goodsId != ''">
             and a.goods_id like concat('%', #{goodsId}, '%')
         </if>
-        order by a.update_time desc
+        order by a.slideshow_num desc
     </select>
 
 </mapper>

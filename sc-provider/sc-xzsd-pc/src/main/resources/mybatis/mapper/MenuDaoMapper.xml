@@ -87,7 +87,8 @@
             resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
         a.menu_id menuId,
-        a.menu_name menuName
+        a.menu_name menuName,
+        a.menu_path menuPath
         from t_sys_menu a
         where a.is_delete = 0
         and menu_name in ('客户管理','订单管理','门店信息管理')

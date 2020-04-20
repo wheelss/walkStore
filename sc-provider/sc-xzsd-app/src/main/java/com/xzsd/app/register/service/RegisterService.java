@@ -35,6 +35,13 @@ public class RegisterService {
         if (0 != countPhone) {
             return AppResponse.bizError("手机号已被注册，请重新输入！");
         }
+        //检验是否有此店铺邀请码
+        if(registerInfo.getInviteCode() != null){
+            int countInviteCode = registerDao.countInviteCode(registerInfo);
+            if (0 != countInviteCode) {
+                return AppResponse.bizError("无此店铺邀请码");
+            }
+        }
         //密码加密
         String pwd = PasswordUtils.generatePassword(registerInfo.getUserPassword());
         registerInfo.setUserPassword(pwd);
