@@ -183,6 +183,7 @@
             a.order_state orderStateId,
             c.goods_id goodsId,
             d.goods_image_path goodsImagePath,
+            d.goods_describe goodsDescribe
             d.goods_name goodsName,
             d.goods_price goodsPrice,
             c.goods_count cartGoodsCount,
@@ -206,5 +207,7 @@
                  c.create_time desc ,
                  d.create_time desc
     </select>
+
+
 
 </mapper>

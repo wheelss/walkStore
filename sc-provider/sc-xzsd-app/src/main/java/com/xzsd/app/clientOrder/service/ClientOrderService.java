@@ -1,10 +1,10 @@
 package com.xzsd.app.clientOrder.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xzsd.app.clientOrder.dao.ClientOrderDao;
-import com.xzsd.app.clientOrder.entity.ClientOrderInfo;
-import com.xzsd.app.clientOrder.entity.GoodsInfo;
+import com.xzsd.app.clientOrder.entity.*;
 import com.xzsd.app.util.AppResponse;
 import com.xzsd.app.util.StringUtil;
 import org.springframework.stereotype.Service;
@@ -159,6 +159,77 @@ public class ClientOrderService {
         ClientOrderInfo clientOrderInfo = clientOrderDao.listOrderDeepen(orderId);
         clientOrderInfo.setAddress(clientOrderInfo.getProvinceName() + clientOrderInfo.getCityName() + clientOrderInfo.getAreaName() + clientOrderInfo.getAddress());
         return AppResponse.success("查询订单详情成功！", clientOrderInfo);
+    }
+
+    /**
+     *新增评价列表
+     * @param jsonObject
+     * @return
+     * @author xiekai
+     * @time 2020-4-21
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public AppResponse addGoodsEvaluate(JSONObject jsonObject, String userId){
+        //转成java实体类
+        EvaluationOrder evaluationOrder = jsonObject.toJavaObject(EvaluationOrder.class);
+        //评价商品集合
+        List<EvaluationOrder> evaluationOrderList = new ArrayList<>();
+        //评价商品图片集合
+        List<EvaluationImages> evaluationImagesList = new ArrayList<>();
+        //获取评价商品集合
+        List<EvaluationGoods> evaluateList = evaluationOrder.getEvaluateList();
+        //商品id集合，为更新商品等级
+        List<String> listGoodsId = new ArrayList<>();
+        for (int i = 0; i < evaluateList.size(); i++) {
+            EvaluationOrder evaluationOrderInfo = new EvaluationOrder();
+            //设置评价id
+            String evaluationId = StringUtil.getCommonCode(2);
+            evaluationOrderInfo.setEvaluationId(evaluationId);
+            //设置订单id
+            evaluationOrderInfo.setOrderId(evaluationOrder.getOrderId());
+            //设置评价人
+            evaluationOrderInfo.setUserId(userId);
+            //设置商品id
+            evaluationOrderInfo.setGoodsId(evaluateList.get(i).getGoodsId());
+            listGoodsId.add(evaluateList.get(i).getGoodsId());
+            //设置是商品等级
+            evaluationOrderInfo.setEvaluateScore(evaluateList.get(i).getEvaluateScore());
+            //设置评价内容
+            evaluationOrderInfo.setEvaluateContent(evaluateList.get(i).getEvaluateContent());
+            evaluationOrderList.add(evaluationOrderInfo);
+            List<EvaluationImages> imageList = evaluateList.get(i).getImageList();
+            for(int j = 0; j < imageList.size(); j++){
+                EvaluationImages evaluationImages = new EvaluationImages();
+                //设置商品评价图片表id
+                evaluationImages.setImageId(StringUtil.getCommonCode(2));
+                //设置图片排序
+                evaluationImages.setImageNum(imageList.get(j).getImageNum());
+                //设置图片路径
+                evaluationImages.setImagePath(imageList.get(j).getImagePath());
+                //设置评价表id
+                evaluationImages.setEvaluationId(evaluationId);
+                //设置用户id
+                evaluationImages.setUserId(userId);
+                evaluationImagesList.add(evaluationImages);
+            }
+        }
+        int count = clientOrderDao.addEvaluateOrder(evaluationOrderList);
+        int num = clientOrderDao.addEvaluateOrderGoodsImages(evaluationImagesList);
+        if(0 == count || 0 == num){
+            return AppResponse.versionError("新增评价失败");
+        }
+        //根据评价商品的id查询该商品的星级平均数
+        List<GoodsInfo> goodsInfo = clientOrderDao.getEvaluationGoodsRank(listGoodsId);
+        //更新商品的星级
+        int rank = clientOrderDao.updateGoodsRank(goodsInfo);
+        if(0 == rank){
+            return AppResponse.versionError("更新商品等级失败");
+        }
+        int updateState = clientOrderDao.updateOrderStatus();
+        if (0 == updateState){
+            return AppResponse.versionError("评价失败！请稍后重试！");
+        }
+        return AppResponse.success("新增评价成功");
     }
 }
 

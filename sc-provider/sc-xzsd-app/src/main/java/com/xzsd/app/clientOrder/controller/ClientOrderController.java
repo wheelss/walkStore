@@ -1,5 +1,6 @@
 package com.xzsd.app.clientOrder.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.app.clientOrder.entity.ClientOrderInfo;
 import com.xzsd.app.clientOrder.service.ClientOrderService;
@@ -7,6 +8,7 @@ import com.xzsd.app.util.AppResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -111,6 +113,25 @@ public class ClientOrderController {
             return appResponse;
         }catch (Exception e){
             logger.error("查询订单详情失败");
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+    /**
+     *新增评价列表
+     * @param jsonObject
+     * @return
+     * @author xiekai
+     * @time 2020-4-21
+     */
+    @PostMapping("addGoodsEvaluate")
+    public AppResponse addGoodsEvaluate(@RequestBody JSONObject jsonObject){
+        //获取登录id
+        String userId = SecurityUtils.getCurrentUserId();
+        try {
+            return clientOrderService.addGoodsEvaluate(jsonObject, userId);
+        }catch (Exception e){
+            logger.error("新增订单评价失败");
             System.out.println(e.toString());
             throw e;
         }
