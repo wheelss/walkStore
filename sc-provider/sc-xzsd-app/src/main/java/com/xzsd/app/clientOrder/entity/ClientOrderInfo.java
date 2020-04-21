@@ -66,6 +66,91 @@ public class ClientOrderInfo {
      * 门店id
      */
     private String storeId;
+    /**
+     * 商品列表
+     */
+    private List<GoodsInfo> goodsList;
+    /**
+     * 商品种类数量
+     */
+    private int classCount;
+    /**
+     * 门店地址
+     */
+    private String address;
+    /**
+     * 省名
+     */
+    private String provinceName;
+    /**
+     * 市名
+     */
+    private String cityName;
+    /**
+     * 区名
+     */
+    private String areaName;
+
+    /**
+     *店长id
+     */
+    private String managerId;
+
+    public String getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(String managerId) {
+        this.managerId = managerId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
+    }
+
+    public int getClassCount() {
+        return classCount;
+    }
+
+    public void setClassCount(int classCount) {
+        this.classCount = classCount;
+    }
+
+    public List<GoodsInfo> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(List<GoodsInfo> goodsList) {
+        this.goodsList = goodsList;
+    }
 
     public String getOrderId() {
         return orderId;

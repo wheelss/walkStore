@@ -27,7 +27,7 @@ public class GoodsInfo {
     /**
      * 商品数量
      */
-    private int goodsCount;
+    private int cartGoodsCount;
     /**
      * 订单id
      */
@@ -44,6 +44,18 @@ public class GoodsInfo {
      * 销售量
      */
     private int goodsSales;
+    /**
+     * 总价
+     */
+    private float sumPrice;
+
+    public float getSumPrice() {
+        return sumPrice;
+    }
+
+    public void setSumPrice(float sumPrice) {
+        this.sumPrice = sumPrice;
+    }
 
     public int getGoodsInventory() {
         return goodsInventory;
@@ -109,12 +121,12 @@ public class GoodsInfo {
         this.goodsImagePath = goodsImagePath;
     }
 
-    public int getGoodsCount() {
-        return goodsCount;
+    public int getCartGoodsCount() {
+        return cartGoodsCount;
     }
 
-    public void setGoodsCount(int goodsCount) {
-        this.goodsCount = goodsCount;
+    public void setCartGoodsCount(int cartGoodsCount) {
+        this.cartGoodsCount = cartGoodsCount;
     }
 
     public String getOrderId() {

@@ -76,4 +76,43 @@ public class ClientOrderController {
             throw e;
         }
     }
+
+    /**
+     *查询订单列表
+     * @param clientOrderInfo
+     * @return
+     * @author xiekai
+     * @time 2020-4-21
+     */
+    @PostMapping("listOrder")
+    public AppResponse listOrder(ClientOrderInfo clientOrderInfo){
+        //获取登录id
+        String userId = SecurityUtils.getCurrentUserId();
+        clientOrderInfo.setUserId(userId);
+        try {
+            return clientOrderService.listOrder(clientOrderInfo);
+        }catch (Exception e){
+            logger.error("查询订单列表失败");
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+    /**
+     *查询订单详情
+     * @param orderId
+     * @return
+     * @author xiekai
+     * @time 2020-4-21
+     */
+    @RequestMapping("listOrderDeepen")
+    public AppResponse listOrderDeepen(String orderId){
+        try{
+            AppResponse appResponse = clientOrderService.listOrderDeepen(orderId);
+            return appResponse;
+        }catch (Exception e){
+            logger.error("查询订单详情失败");
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
 }

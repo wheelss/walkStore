@@ -2,17 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.app.clientOrder.dao.ClientOrderDao">
     <!--获取店铺邀请码-->
-    <select id="getInviteCode" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo" resultType="String">
+    <select id="getInviteCode" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo" resultType="java.lang.String">
         select
             invite_code
         from t_info_client
         where is_delete = 0
         and user_id = #{userId}
     </select>
+
     <!--获取商品库存-->
     <select id="getInviteCode" parameterType="java.util.List" resultType="com.xzsd.app.clientOrder.entity.GoodsInfo">
         select
-            goods_inventory
+            goods_id goodsId,
+            goods_inventory goodsInventory,
+            goods_name goodsName,
+            goods_state_id goodsStateId
         from t_info_goods
         where is_delete = 0
         and goods_id =
@@ -20,6 +24,7 @@
             #{item}
         </foreach>
     </select>
+
     <!--增加数据到订单表-->
     <insert id="addOrder" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
         insert into t_info_order(
@@ -78,8 +83,9 @@
             0)
         </foreach>
     </insert>
+
     <!--更新商品库存,销售量,商品状态-->
-    <update id="update" parameterType="com.xzsd.app.customer.order.entity.OrderInfo">
+    <update id="update" parameterType="com.xzsd.app.clientOrder.entity.GoodsInfo">
         update t_info_order
         set
         <if test="goodsStateId == 0">
@@ -93,8 +99,9 @@
         where is_delete = 0
         and goods_id = #{goodsId}
     </update>
+
     <!--修改订单状态-->
-    <update id="updateOrderStatus" parameterType="com.xzsd.app.customerorder.entity.OrderInfo">
+    <update id="updateOrderStatus" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
         update t_info_order
         set
             order_state = #{orderStateId},
@@ -110,9 +117,94 @@
         select
         a.goods_id goodsId,
         b.goods_image_path goodsImagePath
-        from t_info_order_deepen a, t_info_goods b
+        from t_info_order_deepen a,
+             t_info_goods b
         where a.goods_id = b.goods_id
         and a.order_id = #{orderId}
         and a.is_delete = 0
     </select>
+    <!--订单跟商品映射-->
+    <resultMap id="orderMap" type="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
+        <id property="orderId" column="order_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="orderAllCost" column="order_all_cost"/>
+        <result property="orderStateId" column="order_state"/>
+        <result property="orderAllGoodsCount" column="order_all_goods_count"/>
+        <result property="version" column="version"/>
+        <result property="crateTime" column="create_time"/>
+        <collection property="goodsList" ofType="com.xzsd.app.clientOrder.entity.GoodsInfo" select="orderGoods" column="{orderId=order_id}">
+            <result property="goodsId" column="goods_id"/>
+            <result property="goodsImagePath" column="goods_image_path"/>
+            <result property="goodsName" column="goods_name"/>
+            <result property="goodsDescribe" column="goods_describe"/>
+            <result property="goods_price" column="goods_price"/>
+            <result property="cartGoodsCount" column="goods_count"/>
+        </collection>
+    </resultMap>
+    <!--查询订单列表-->
+    <select id="listOrder" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo" resultMap="orderMap">
+        select
+        a.order_id orderId,
+        a.order_all_cost orderAllCost,
+        a.order_state orderStateId,
+        a.order_all_goods_count orderAllGoodsCount,
+        a.version version
+        from t_info_order a
+        where a.is_delete = 0
+        and user_id = #{userId}
+        <if test="orderStateId != null and orderStateId != ''">
+            AND a.order_state = #{orderStateId}
+        </if>
+        order by a.create_time desc
+    </select>
+    <!--查询商品列表-->
+    <select id="orderGoods" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo" resultType="com.xzsd.app.clientOrder.entity.GoodsInfo">
+        select
+            a.goods_count cartGoodsCount,
+            a.goods_id goodsId,
+            b.goods_image_path goodsImagePath,
+            b.goods_name goodsName,
+            b.goods_describe goodsDescribe,
+            b.goods_price goodsPrice
+        from t_info_order_deepen a
+        left join t_info_goods b on (a.goods_id = b.goods_id and b.is_delete = 0)
+        where a.is_delete = 0
+        and a.order_id = #{orderId}
+        order by a.create_time desc ,
+                 b.create_time desc
+    </select>
+    <!--查询订单详情-->
+    <select id="listOrderDeepen" parameterType="java.lang.String" resultMap="orderMap">
+        select
+            a.order_id,
+            a.order_all_cost orderAllCost,
+            a.order_all_goods_count orderAllGoodsCount,
+            b.store_name storeName,
+            b.address,
+            a.order_state orderStateId,
+            c.goods_id goodsId,
+            d.goods_image_path goodsImagePath,
+            d.goods_name goodsName,
+            d.goods_price goodsPrice,
+            c.goods_count cartGoodsCount,
+            a.create_time crateTime,
+            e.area_name provinceName,
+            f.area_name cityName,
+            g.area_name areaName
+        from  t_info_area_level e,
+              t_info_area_level f,
+              t_info_area_level g,
+              t_info_order a
+        left join t_info_store b on (a.store_id = b.store_id and b.is_delete = 0)
+        left join t_info_order_deepen c on (a.order_id = c.order_id and c.is_delete = 0)
+        left join t_info_goods d on (c.goods_id = d.goods_id and d.is_delete = 0)
+        where a.is_delete = 0
+        and a.order_id = #{orderId}
+        and b.province_id = e.area_id
+        and b.city_id = f.area_id
+        and b.area_id = g.area_id
+        order by a.create_time desc ,
+                 c.create_time desc ,
+                 d.create_time desc
+    </select>
+
 </mapper>

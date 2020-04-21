@@ -52,4 +52,22 @@ public interface ClientOrderDao {
      * @return
      */
     List<GoodsInfo> listGoodsForEvaluate(@Param("orderId") String orderId);
+    /**
+     * 查询订单列表
+     * @param clientOrderInfo
+     * @return
+     */
+    List<ClientOrderInfo> listOrder(ClientOrderInfo clientOrderInfo);
+    /**
+     * 查询商品
+     * @param clientOrderInfo
+     * @return
+     */
+    List<GoodsInfo> orderGoods(ClientOrderInfo clientOrderInfo);
+    /**
+     * 查询订单详情
+     * @param orderId
+     * @return
+     */
+    ClientOrderInfo listOrderDeepen(@Param("orderId") String orderId);
 }

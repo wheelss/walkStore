@@ -1,5 +1,7 @@
 package com.xzsd.app.clientOrder.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xzsd.app.clientOrder.dao.ClientOrderDao;
 import com.xzsd.app.clientOrder.entity.ClientOrderInfo;
 import com.xzsd.app.clientOrder.entity.GoodsInfo;
@@ -60,7 +62,7 @@ public class ClientOrderService {
                 listInventory.get(i).setGoodsStateId(0);
             }
             //赋值为当前商品购买数量
-            listInventory.get(i).setGoodsCount(Integer.valueOf(listGoodsCount.get(i)));
+            listInventory.get(i).setCartGoodsCount(Integer.valueOf(listGoodsCount.get(i)));
             //更新商品库存,销售量,商品状态
             int update = clientOrderDao.update(listInventory.get(i));
             if(0 == update){
@@ -130,4 +132,33 @@ public class ClientOrderService {
         }
         return AppResponse.success("查询订单评价列表成功", goodsList);
     }
+    /**
+     *查询订单列表
+     * @param clientOrderInfo
+     * @return
+     * @author xiekai
+     * @time 2020-4-21
+     */
+    public AppResponse listOrder(ClientOrderInfo clientOrderInfo){
+        PageHelper.startPage(clientOrderInfo.getPageNum(), clientOrderInfo.getPageSize());
+        List<ClientOrderInfo> orderList = clientOrderDao.listOrder(clientOrderInfo);
+        PageInfo<ClientOrderInfo> pageData = new PageInfo<>(orderList);
+        for (int i = 0 ; i <orderList.size() ; i++ ){
+            orderList.get(i).setClassCount(orderList.get(i).getGoodsList().size());
+        }
+        return AppResponse.success("查询订单列表成功",pageData);
+    }
+    /**
+     *查询订单详情
+     * @param orderId
+     * @return
+     * @author xiekai
+     * @time 2020-4-21
+     */
+    public AppResponse listOrderDeepen(String orderId) {
+        ClientOrderInfo clientOrderInfo = clientOrderDao.listOrderDeepen(orderId);
+        clientOrderInfo.setAddress(clientOrderInfo.getProvinceName() + clientOrderInfo.getCityName() + clientOrderInfo.getAreaName() + clientOrderInfo.getAddress());
+        return AppResponse.success("查询订单详情成功！", clientOrderInfo);
+    }
 }
+
