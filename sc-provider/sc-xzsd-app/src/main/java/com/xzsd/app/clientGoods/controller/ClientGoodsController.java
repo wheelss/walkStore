@@ -42,10 +42,11 @@ public class ClientGoodsController {
      * @author xiekai
      * @time 2020-4-15
      */
-    @PostMapping("listGoodsEvaluates")
+    @RequestMapping("listGoodsEvaluates")
     public AppResponse listGoodsEvaluates(GoodsEvaluateInfo goodsEvaluateInfo){
         try {
-            return clientGoodsService.listGoodsEvaluates(goodsEvaluateInfo);
+            AppResponse appResponse = clientGoodsService.listGoodsEvaluates(goodsEvaluateInfo);
+            return appResponse;
         }catch (Exception e){
             logger.error("查询商品评价失败");
             System.out.println(e.toString());

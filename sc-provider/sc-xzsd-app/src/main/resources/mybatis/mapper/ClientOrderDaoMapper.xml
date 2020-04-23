@@ -19,7 +19,7 @@
             goods_state_id goodsStateId
         from t_info_goods
         where is_delete = 0
-        and goods_id =
+        and goods_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -207,7 +207,104 @@
                  c.create_time desc ,
                  d.create_time desc
     </select>
-
-
-
+    <!--查询订单评价列表-->
+    <select id="getListOrderEvaluation" parameterType="java.lang.String"
+            resultType="com.xzsd.app.customerorder.entity.GoodsInfo">
+        select
+        t1.goods_id as goodsId,
+        t2.goods_image as goodsImagePath
+        from t_order_details t1, t_goods_info t2
+        where t1.goods_id = t2.id
+        and t1.order_id = #{orderId}
+        and t1.is_delete = 0
+    </select>
+    <!--新增订单商品评价-->
+    <insert id="addGoodsEvaluate" parameterType="java.util.List">
+        insert into t_info_goods_evaluate(
+        evaluate_id,
+        order_id,
+        user_id,
+        goods_id,
+        evaluate_score,
+        evaluate_content,
+        is_delete,
+        create_time,
+        create_user,
+        version
+        )
+        values
+        <foreach item="item" index="index" collection="evaluationOrderList" open="" separator="," close="">
+            (#{item.evaluationId, jdbcType=VARCHAR},
+            #{item.orderId, jdbcType=VARCHAR},
+            #{item.userId, jdbcType=VARCHAR},
+            #{item.goodsId, jdbcType=VARCHAR},
+            #{item.evaluateScore},
+            #{item.evaluateContent, jdbcType=LONGVARCHAR},
+            0,
+            now(),
+            #{item.userId, jdbcType=VARCHAR},
+            0)
+        </foreach>
+    </insert>
+    <!--新增订单商品图片-->
+    <insert id="addGoodsEvaluateImages" parameterType="java.util.List">
+        insert into t_info_evaluate_image(
+        image_id,
+        evaluate_id,
+        image_path,
+        image_num,
+        is_delete,
+        create_time,
+        create_user,
+        version
+        )
+        values
+        <foreach index="index" item="item" collection="evaluationImages" open="" separator="," close="">
+            (#{item.imageId, jdbcType=VARCHAR},
+            #{item.evaluationId, jdbcType=VARCHAR},
+            #{item.imagePath, jdbcType=VARCHAR},
+            #{item.imageNum, jdbcType=VARCHAR},
+            0,
+            now(),
+            #{item.userId, jdbcType=VARCHAR},
+            0)
+        </foreach>
+    </insert>
+    <!--修改已评价订单状态-->
+    <update id="updateOrderStates">
+        update t_info_order
+        set
+            order_state = 5,
+            update_user = #{userId},
+            update_time = now(),
+            version = version + 1
+        where order_id = #{orderId}
+        and version = #{version}
+    </update>
+    <!--查询每个商品的评价等级的平均数-->
+    <select id="getEvaluateScore" parameterType="java.lang.String"
+            resultType="com.xzsd.app.customerorder.entity.GoodsInfo">
+        select
+        goods_id goodsId,
+        avg (evaluate_score) evaluateScoreAvg
+        from t_info_goods_evaluate
+        where is_delete = 0
+        and goods_id in
+        <foreach item="item" index="index" collection="listGoodsId" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        group by goods_id
+    </select>
+    <!--更新商品星级-->
+    <update id="updateGoodsEvaluateScore" parameterType="java.util.List">
+        <foreach item="item" index="index" collection="goodsInfo" open="" separator=";" close="">
+            update t_info_goods
+            set
+                goods_evaluate_score = #{item.evaluateScoreAvg, jdbcType=DOUBLE},
+                version = version + 1
+            <where>
+                goods_id = #{item.goodsId, jdbcType=VARCHAR}
+            </where>
+        </foreach>
+    </update>
 </mapper>

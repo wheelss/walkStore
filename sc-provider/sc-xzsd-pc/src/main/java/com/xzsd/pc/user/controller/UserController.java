@@ -37,7 +37,8 @@ public class UserController {
      * @time 2020-3-25
      */
     @PostMapping("addUser")
-    public AppResponse addUser(UserInfo userInfo) {
+    public AppResponse addUser(UserInfo userInfo,String imagePath) {
+        userInfo.setUserImage(imagePath);
         String userId = SecurityUtils.getCurrentUserId();
         userInfo.setCreateUser(userId);
         try {
@@ -77,7 +78,8 @@ public class UserController {
      * @time 2020-3-25
      */
     @PostMapping("updateUser")
-    public AppResponse updateUser(UserInfo userInfo) {
+    public AppResponse updateUser(UserInfo userInfo,String imagePath) {
+        userInfo.setUserImage(imagePath);
         String userId = SecurityUtils.getCurrentUserId();
         userInfo.setUpdateUser(userId);
         try {

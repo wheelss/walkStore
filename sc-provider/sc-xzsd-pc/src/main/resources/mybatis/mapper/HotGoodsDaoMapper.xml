@@ -109,9 +109,8 @@
             public_type = #{hotGoodsShowNum},
             update_time = now(),
             update_user = #{updateUser},
-            version = version + 1
-        where version = #{version}
-        and dict_name = 'hot_goods_show_num'
+        where
+            dict_name = 'hot_goods_show_num'
     </update>
 
     <!--删除热门位商品-->

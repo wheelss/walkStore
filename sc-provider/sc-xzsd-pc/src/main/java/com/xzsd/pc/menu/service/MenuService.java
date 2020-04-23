@@ -62,7 +62,6 @@ public class MenuService {
 
     /**
      * demo 修改菜单
-     *
      * @param menuInfo
      * @return
      * @Author xiekai
@@ -108,7 +107,7 @@ public class MenuService {
      * @Date 2020-04-13
      */
     public AppResponse listMenuHome(MenuInfo menuInfo) {
-        if( menuInfo.getRole() == 0 || menuInfo.getRole() == 1){
+        if( Integer.valueOf(menuInfo.getRole()) == 0 || Integer.valueOf(menuInfo.getRole()) == '1'){
             List<MenuInfo> menuList = menuDao.listMenuHomeAdmin(menuInfo);
             return AppResponse.success("查询成功！",menuList);
         }else{

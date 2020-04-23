@@ -170,19 +170,19 @@ public class ClientOrderService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addGoodsEvaluate(JSONObject jsonObject, String userId){
-        //转成java实体类
+        //转成实体类
         EvaluationOrder evaluationOrder = jsonObject.toJavaObject(EvaluationOrder.class);
-        //评价商品集合
+        //初始化评价商品集合
         List<EvaluationOrder> evaluationOrderList = new ArrayList<>();
-        //评价商品图片集合
+        //初始化评价商品图片集合
         List<EvaluationImages> evaluationImagesList = new ArrayList<>();
         //获取评价商品集合
-        List<EvaluationGoods> evaluateList = evaluationOrder.getEvaluateList();
-        //商品id集合，为更新商品等级
+        List<EvaluationGoods> evaluateGoodsList = evaluationOrder.getEvaluateList();
+        //商品id集合
         List<String> listGoodsId = new ArrayList<>();
-        for (int i = 0; i < evaluateList.size(); i++) {
+        for (int i = 0; i < evaluateGoodsList.size(); i++) {
             EvaluationOrder evaluationOrderInfo = new EvaluationOrder();
-            //设置评价id
+            //生成评价id
             String evaluationId = StringUtil.getCommonCode(2);
             evaluationOrderInfo.setEvaluationId(evaluationId);
             //设置订单id
@@ -190,14 +190,14 @@ public class ClientOrderService {
             //设置评价人
             evaluationOrderInfo.setUserId(userId);
             //设置商品id
-            evaluationOrderInfo.setGoodsId(evaluateList.get(i).getGoodsId());
-            listGoodsId.add(evaluateList.get(i).getGoodsId());
-            //设置是商品等级
-            evaluationOrderInfo.setEvaluateScore(evaluateList.get(i).getEvaluateScore());
+            evaluationOrderInfo.setGoodsId(evaluateGoodsList.get(i).getGoodsId());
+            listGoodsId.add(evaluateGoodsList.get(i).getGoodsId());
+            //设置商品等级
+            evaluationOrderInfo.setEvaluateScore(evaluateGoodsList.get(i).getEvaluateScore());
             //设置评价内容
-            evaluationOrderInfo.setEvaluateContent(evaluateList.get(i).getEvaluateContent());
+            evaluationOrderInfo.setEvaluateContent(evaluateGoodsList.get(i).getEvaluateContent());
             evaluationOrderList.add(evaluationOrderInfo);
-            List<EvaluationImages> imageList = evaluateList.get(i).getImageList();
+            List<EvaluationImages> imageList = evaluateGoodsList.get(i).getImageList();
             for(int j = 0; j < imageList.size(); j++){
                 EvaluationImages evaluationImages = new EvaluationImages();
                 //设置商品评价图片表id
@@ -213,19 +213,20 @@ public class ClientOrderService {
                 evaluationImagesList.add(evaluationImages);
             }
         }
-        int count = clientOrderDao.addEvaluateOrder(evaluationOrderList);
-        int num = clientOrderDao.addEvaluateOrderGoodsImages(evaluationImagesList);
+        int count = clientOrderDao.addGoodsEvaluate(evaluationOrderList);
+        int num = clientOrderDao.addGoodsEvaluateImages(evaluationImagesList);
         if(0 == count || 0 == num){
             return AppResponse.versionError("新增评价失败");
         }
         //根据评价商品的id查询该商品的星级平均数
-        List<GoodsInfo> goodsInfo = clientOrderDao.getEvaluationGoodsRank(listGoodsId);
+        List<GoodsInfo> goodsInfo = clientOrderDao.getEvaluateScore(listGoodsId);
         //更新商品的星级
-        int rank = clientOrderDao.updateGoodsRank(goodsInfo);
-        if(0 == rank){
+        int level = clientOrderDao.updateGoodsEvaluateScore(goodsInfo);
+        if(0 == level){
             return AppResponse.versionError("更新商品等级失败");
         }
-        int updateState = clientOrderDao.updateOrderStatus();
+        //更新订单状态为已评价
+        int updateState = clientOrderDao.updateOrderStates();
         if (0 == updateState){
             return AppResponse.versionError("评价失败！请稍后重试！");
         }

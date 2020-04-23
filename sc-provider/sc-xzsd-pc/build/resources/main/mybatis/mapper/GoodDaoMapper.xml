@@ -38,7 +38,6 @@
         goods_price,
         goods_advertise,
         goods_image_path,
-        goods_shelf_time,
         goods_state_id,
         goods_views_num,
         goods_author,
@@ -63,8 +62,7 @@
         #{goodsPrice},
         #{goodsAdvertise},
         #{imagePath},
-        0,
-        3,
+        '3',
         0,
         #{goodsAuthor},
         #{goodsPress},
@@ -109,7 +107,8 @@
             goods_press = #{goodsPress},
             update_time = now(),
             update_user = #{updateUser},
-            version = version + 1
+            version = version + 1,
+            is_delete = 0
         where goods_id = #{goodsId}
         and version = #{version}
     </update>
@@ -193,7 +192,7 @@
         <foreach collection="listUpdate" item="item" index="index" open="" separator=";" close="">
             update t_info_goods
             <set>
-                goods_state_id = #{item.goodsStateId},
+                goods_state_id = #{item.goodsStateId,jdbcType=VARCHAR},
                 update_time = now(),
                 update_user = #{item.updateUser,jdbcType=VARCHAR},
                 version = version + 1

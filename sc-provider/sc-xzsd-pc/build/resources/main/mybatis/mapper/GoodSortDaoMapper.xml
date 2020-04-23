@@ -8,6 +8,14 @@
         where is_delete = 0
         and classify_parent= #{classifyId}
     </select>
+    <!--统计删除商品目录子类数量-->
+    <select id="countGoods" parameterType="com.xzsd.pc.goodSort.entity.GoodSortInfo" resultType="int">
+        select
+            count(*)
+        from t_info_goods
+        where is_delete = 0
+        and two_classify_id = #{classifyId}
+    </select>
 
     <!--新增商品分类-->
     <insert id="addGoodsClassify" parameterType="com.xzsd.pc.goodSort.entity.GoodSortInfo">

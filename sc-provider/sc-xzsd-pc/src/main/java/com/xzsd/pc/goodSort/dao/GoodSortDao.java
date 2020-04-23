@@ -18,6 +18,13 @@ public interface GoodSortDao {
      * @return
      */
     int countGoodSorts(@Param("classifyId") String classifyId);
+    /**
+     * 统计删除商品二级分类下商品数量
+     *
+     * @param classifyId 分类id
+     * @return
+     */
+    int countGoods(@Param("classifyId") String classifyId);
 
     /**
      * 新增商品分类

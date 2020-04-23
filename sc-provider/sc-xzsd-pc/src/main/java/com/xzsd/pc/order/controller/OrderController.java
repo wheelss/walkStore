@@ -31,7 +31,7 @@ public class OrderController {
      * @author xiekai
      * @Date 2020-04-08
      */
-    @RequestMapping(value = "listOrderPage")
+    @RequestMapping(value = "listOrders")
     public AppResponse listOrderPage(OrderInfo orderInfo) {
         String userId = SecurityUtils.getCurrentUserId();
         orderInfo.setNowUserId(userId);

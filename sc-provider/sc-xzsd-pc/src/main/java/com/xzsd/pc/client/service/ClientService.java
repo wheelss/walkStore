@@ -26,7 +26,7 @@ public class ClientService {
      * @Date 2020-03-26
      */
     public AppResponse listClient(ClientInfo clientInfo) {
-        if(clientInfo.getRole() == 0 || clientInfo.getRole() == 1){
+        if(Integer.valueOf(clientInfo.getRole()) == 0 || Integer.valueOf(clientInfo.getRole())  == 1){
             //角色为管理员查看全部
             PageHelper.startPage(clientInfo.getPageNum(), clientInfo.getPageSize());
             List<ClientInfo> clientInfoList = clientDao.listClient(clientInfo);

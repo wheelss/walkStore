@@ -7,6 +7,9 @@
         from t_info_hot_goods
         where is_delete = 0
         and hot_goods_num= #{hotGoodsNum}
+        <if test="hotGoodsId != null and hotGoodsId != ''">
+            and hot_goods_id != #{hotGoodsId}
+        </if>
     </select>
 
     <!--统计商品数量-->
@@ -15,6 +18,9 @@
         from t_info_hot_goods
         where is_delete = 0
         and goods_id= #{goodsId}
+        <if test="hotGoodsId != null and hotGoodsId != ''">
+            and hot_goods_id != #{hotGoodsId}
+        </if>
     </select>
 
     <!--新增热门位商品-->
@@ -72,7 +78,7 @@
         <if test="goodsId != null and goodsId != ''">
             and b.goods_id like concat('%', #{goodsId}, '%')
         </if>
-        order by b.update_time desc
+        order by b.hot_goods_num desc
     </select>
 
     <!--修改热门位商品信息-->
@@ -103,9 +109,8 @@
             public_type = #{hotGoodsShowNum},
             update_time = now(),
             update_user = #{updateUser},
-            version = version + 1
-        where version = #{version}
-        and dict_name = 'hot_goods_show_num'
+        where
+            dict_name = 'hot_goods_show_num'
     </update>
 
     <!--删除热门位商品-->

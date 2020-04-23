@@ -45,7 +45,13 @@ public interface UserDao {
      * @return 修改结果
      */
     int updateUser(UserInfo userInfo);
-
+    /**
+     * 获取当前登录用户的密码
+     *
+     * @param userId
+     * @return
+     */
+    String getUserPassword(@Param("userId") String userId);
     /**
      * 查询用户信息
      *

@@ -151,7 +151,7 @@ public class GoodService {
         List<String> listGoodsId = Arrays.asList(goodInfo.getGoodsId().split(","));
         List<String> listVersion = Arrays.asList(goodInfo.getVersion().split(","));
         List<GoodInfo> listUpdate = new ArrayList<>();
-        int goodStatusId = goodInfo.getGoodsStateId();
+        String goodStatusId = goodInfo.getGoodsStateId();
         String updateUser =goodInfo.getUpdateUser();
         for (int i = 0 ; i < listGoodsId.size() ; i++){
             GoodInfo goodInfo1 = new GoodInfo();

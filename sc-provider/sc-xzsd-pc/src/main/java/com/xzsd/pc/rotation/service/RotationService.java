@@ -111,8 +111,8 @@ public class RotationService {
      */
     public AppResponse listSlideshowHome(RotationInfo rotationInfo)  {
         PageHelper.startPage(rotationInfo.getPageNum(), rotationInfo.getPageSize());
-        List<RotationInfo> RotationInfoList = rotationDao.listSlideshowHome(rotationInfo);
-        PageInfo<RotationInfo> pageData = new PageInfo<RotationInfo>(RotationInfoList);
+        List<RotationInfo> slideshowHomeList = rotationDao.listSlideshowHome(rotationInfo);
+        PageInfo<RotationInfo> pageData = new PageInfo<RotationInfo>(slideshowHomeList);
         return AppResponse.success("查询成功！", pageData);
 
     }

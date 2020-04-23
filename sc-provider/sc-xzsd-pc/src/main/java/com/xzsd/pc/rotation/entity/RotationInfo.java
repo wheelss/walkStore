@@ -16,21 +16,57 @@ public class RotationInfo {
      */
     private int pageNum;
     /**
-     * 轮播图id
+     * 首页轮播图编号
      */
     private String slideshowId;
     /**
-     * 轮播图路径
-     */
-    private String slideshowPath;
-    /**
-     * 排序
+     * 首页轮播图序号
      */
     private int slideshowNum;
     /**
-     * 状态
+     * 首页轮播图图片url
+     */
+    private String slideshowPath;
+    /**
+     * 有效期开始时间
+     */
+    private String startTime;
+    /**
+     * 有效期结束时间
+     */
+    private String endTime;
+    /**
+     * 对应的商品编号
+     */
+    private String goodsId;
+    /**
+     * 首页轮播图状态
      */
     private String slideshowStateId;
+    /**
+     * 删除标记
+     */
+    private int isDelete;
+    /**
+     * 创作时间
+     */
+    private String createTime;
+    /**
+     * 创作者
+     */
+    private String createUser;
+    /**
+     * 更新时间
+     */
+    private String updateTime;
+    /**
+     * 更新者
+     */
+    private String updateUser;
+    /**
+     * 版本号
+     */
+    private String version;
 
     public int getPageSize() {
         return pageSize;
@@ -152,52 +188,4 @@ public class RotationInfo {
         this.version = version;
     }
 
-    /**
-     * 有效期起
-     */
-    private String startTime;
-    /**
-     * 有效期止
-     */
-    private String endTime;
-    /**
-     * 商品选择
-     */
-    private String goodsId;
-    /**
-     * 作废标记 0为存在，1为作废
-     */
-    private int isDelete;
-    /**
-     * 创建时间
-     */
-    private String createTime;
-    /**
-     * 创建者
-     */
-    private String createUser;
-    /**
-     * 更新时间
-     */
-    private String updateTime;
-    /**
-     * 更新者
-     */
-    private String updateUser;
-    /**
-     * 版本号
-     */
-    private String version;
-    /**
-     * 展示数量
-     */
-    private String hotGoodsShowNum;
-
-    public String getHotGoodsShowNum() {
-        return hotGoodsShowNum;
-    }
-
-    public void setHotGoodsShowNum(String hotGoodsShowNum) {
-        this.hotGoodsShowNum = hotGoodsShowNum;
-    }
 }

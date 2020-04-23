@@ -24,7 +24,7 @@ public class OrderService {
      * @return
      */
     public AppResponse listOrderPage(OrderInfo orderInfo) {
-        if(orderInfo.getRole() == 0 || orderInfo.getRole() == 1) {
+        if(Integer.valueOf(orderInfo.getRole()) == 0 || Integer.valueOf(orderInfo.getRole()) == 1) {
             //当角色是管理员时查看全部订单
             PageHelper.startPage(orderInfo.getPageNum(), orderInfo.getPageSize());
             List<OrderInfo> goodInfoList = orderDao.listOrderPage(orderInfo);
@@ -49,7 +49,7 @@ public class OrderService {
         List<String> listOrderId = Arrays.asList(orderInfo.getOrderId().split(","));
         List<String> listVersion = Arrays.asList(orderInfo.getVersion().split(","));
         List<OrderInfo> listUpdate = new ArrayList<>();
-        int orderStateId = orderInfo.getOrderState();
+        String orderStateId = orderInfo.getOrderState();
         String updateUser = orderInfo.getUpdateUser();
         for (int i = 0; i < listOrderId.size(); i++) {
             OrderInfo orderInfo1 = new OrderInfo();

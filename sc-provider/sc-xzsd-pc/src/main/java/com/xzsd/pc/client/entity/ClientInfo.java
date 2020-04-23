@@ -43,11 +43,11 @@ public class ClientInfo {
     /**
      * 电子邮件
      */
-    private String email;
+    private String mail;
     /**
      * 当前登录角色 超级管理员0，管理员1，店长2，司机3，客户4
      */
-    private int role;
+    private String role;
 
     /**
      * 当前登录人
@@ -142,14 +142,6 @@ public class ClientInfo {
         this.idCard = idCard;
     }
 
-    public int getSex() {
-        return sex;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -158,19 +150,27 @@ public class ClientInfo {
         this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    public int getRole() {
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

@@ -79,20 +79,21 @@
     <!--轮播图列表-->
     <select id="listSlideshowHome" parameterType="com.xzsd.pc.rotation.entity.RotationInfo"
             resultType="com.xzsd.pc.rotation.entity.RotationInfo">
-        select
-            slideshow_num slideshowNum,
-            slideshow_path slideshowPath,
-            slideshow_state_id slideshowStateId,
-            start_time startTime,
-            end_time endTime,
-            slideshow_id slideshowId,
-            version
-        from t_info_slideshow_home
-        where is_delete = 0
-        <if test="slideshowStateId != null and slideshowStateId != ''">
-            and slideshow_state_id like concat('%', #{slideshowStateId}, '%')
+        SELECT
+           slideshow_num slideshowNum,
+           slideshow_path slideshowPath,
+           slideshow_state_id slideshowStateId,
+           start_time startTime,
+           end_time endTime,
+           slideshow_id slideshowId,
+           version
+        FROM t_info_slideshow_home
+        WHERE
+        is_delete = 0
+        <if test="slideshowStateId != null and slideshowStateId != '' ">
+            AND slideshow_state_id = #{slideshowStateId}
         </if>
-        order by slideshow_num desc
+        order by slideshow_num,create_time desc
     </select>
 
     <!--商品列表-->
@@ -117,7 +118,7 @@
         <if test="goodsId != null and goodsId != ''">
             and a.goods_id like concat('%', #{goodsId}, '%')
         </if>
-        order by a.slideshow_num desc
+        order by a.create_time desc
     </select>
 
 </mapper>

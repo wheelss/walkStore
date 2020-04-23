@@ -88,7 +88,7 @@ public class GoodInfo {
     /**
      * 商品状态编号：0售罄、1在售、2已下架、3未发布
      */
-    private int goodsStateId;
+    private String goodsStateId;
     /**
      * 上架时间
      */
@@ -258,11 +258,11 @@ public class GoodInfo {
         this.goodsSales = goodsSales;
     }
 
-    public int getGoodsStateId() {
+    public String getGoodsStateId() {
         return goodsStateId;
     }
 
-    public void setGoodsStateId(int goodsStateId) {
+    public void setGoodsStateId(String goodsStateId) {
         this.goodsStateId = goodsStateId;
     }
 

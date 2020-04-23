@@ -3,12 +3,22 @@
 <mapper namespace="com.xzsd.pc.user.dao.UserDao">
     <!--统计用户账号数量-->
     <select id="countUserAcct" parameterType="com.xzsd.pc.user.entity.UserInfo" resultType="int">
-        select count(*)
+        select count(user_acct)
         from t_sys_user
         where is_delete = 0
         and user_acct = #{userAcct}
+        <if test="userId != null and userId != '' ">
+            and user_id != #{userId}
+        </if>
     </select>
-
+    <!--获取当前登录用户的密码-->
+    <select id="getUserPassword" parameterType="java.lang.String"
+            resultType="java.lang.String">
+        select
+            user_password
+        from t_sys_user
+        where user_id = #{userId}
+    </select>
     <!--新增用户-->
     <insert id="addUser" parameterType="com.xzsd.pc.user.entity.UserInfo">
         insert into t_sys_user
@@ -33,14 +43,14 @@
         #{userPassword},
         #{sex},
         #{phone},
-        #{email},
+        #{mail},
         #{idCard},
         #{role},
         0,
         #{createUser},
         now(),
         0,
-        #{imagePath})
+        #{userImage})
     </insert>
 
     <!--删除用户-->
@@ -65,10 +75,11 @@
             user_name = #{userName},
             sex = #{sex},
             phone = #{phone},
-            mail = #{email},
+            is_delete = 0,
+            mail = #{mail},
             id_card = #{idCard},
             role = #{role},
-            user_image = #{imagePath},
+            user_image = #{userImage},
             update_time = now(),
             update_user = #{updateUser},
             version = version + 1
@@ -99,16 +110,18 @@
     <select id="listUsersPage" parameterType="com.xzsd.pc.user.entity.UserInfo"
             resultType="com.xzsd.pc.user.entity.UserInfo">
         select
-        a.user_id userId,
         a.user_acct userAcct,
         a.user_name userName,
-        a.role,
+        a.role role,
         a.sex sex,
-        a.phone,
-        a.mail,
-        a.id_card idCard
+        a.phone phone,
+        a.mail mail,
+        a.id_card idCard,
+        a.user_id userId,
+        a.version
         from t_sys_user a
         where a.is_delete = 0
+        and a.role in (0,1,2)
         <if test="userAcct != null and userAcct != ''">
             and a.user_acct like concat('%', #{userAcct}, '%')
         </if>
@@ -118,7 +131,7 @@
         <if test="role != null and role != ''">
             and a.role like concat('%', #{role}, '%')
         </if>
-        order by update_time desc
+        order by a.update_time desc
     </select>
 
 </mapper>

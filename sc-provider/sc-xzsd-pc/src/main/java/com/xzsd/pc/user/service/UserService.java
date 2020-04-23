@@ -35,11 +35,12 @@ public class UserService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addUser(UserInfo userInfo) {
-        userInfo.setUserId(StringUtil.getCommonCode(2));
+
         int countUserAcct = userDao.countUserAcct(userInfo);
         if (0 != countUserAcct) {
             return AppResponse.versionError("用户账号已存在，请重新输入！");
         }
+        userInfo.setUserId(StringUtil.getCommonCode(2));
         //密码加密
         String pwd = PasswordUtils.generatePassword(userInfo.getUserPassword());
         userInfo.setUserPassword(pwd);
@@ -86,9 +87,11 @@ public class UserService {
         if (0 != countUserAcct) {
             return AppResponse.versionError("用户账号已存在，请重新输入！");
         }
-        //密码加密
-        String pwd = PasswordUtils.generatePassword(userInfo.getUserPassword());
-        userInfo.setUserPassword(pwd);
+        if(!(userInfo.getUserPassword().equals(userDao.getUserPassword(userInfo.getUserId())))) {
+            //密码加密
+            String pwd = PasswordUtils.generatePassword(userInfo.getUserPassword());
+            userInfo.setUserPassword(pwd);
+        }
         // 修改用户信息
         int count = userDao.updateUser(userInfo);
         if (0 == count) {
@@ -100,7 +103,6 @@ public class UserService {
 
     /**
      * 查询用户详情
-     *
      * @param userId
      * @return
      * @Author xiekai
@@ -109,6 +111,7 @@ public class UserService {
     public AppResponse getUser(String userId) {
         UserInfo userInfo = userDao.getUser(userId);
         return AppResponse.success("查询成功！", userInfo);
+
     }
 
     /**
@@ -121,9 +124,9 @@ public class UserService {
      */
     public AppResponse listUsersPage(UserInfo userInfo) {
         PageHelper.startPage(userInfo.getPageNum(), userInfo.getPageSize());
-        List<UserInfo> userInfoList = userDao.listUsersPage(userInfo);
+        List<UserInfo> list = userDao.listUsersPage(userInfo);
         // 包装Page对象
-        PageInfo<UserInfo> pageData = new PageInfo<UserInfo>(userInfoList);
+        PageInfo<UserInfo> pageData = new PageInfo<UserInfo>(list);
         return AppResponse.success("查询成功！", pageData);
     }
 

@@ -23,15 +23,15 @@ public class OrderInfo {
     /**
      * 订单总价
      */
-    private double orderAllCost;
+    private String orderAllCost;
     /**
      * 客户id
      */
-    private String clientId;
+    private String userId;
     /**
      * 0表示已下单，1订单取消，2申请退货，3已取货，4表示已完成未评价，5已完成已评价
      */
-    private int orderState;
+    private String orderState;
     /**
      * 确认付款时间，全0表示未付款
      */
@@ -55,11 +55,66 @@ public class OrderInfo {
     /**
      * 当前登录角色
      */
-    private int role;
+    private String role;
     /**
      * 当前登录人
      */
     private String nowUserId;
+    /**
+     * 用户名
+     */
+    private String userName;
+    /**
+     * 电话
+     */
+    private String phone;
+    /**
+     * 订单状态id
+     */
+    private String orderStateId;
+    private String payTimeStart;
+    private String payTimeEnd;
+
+    public String getPayTimeStart() {
+        return payTimeStart;
+    }
+
+    public void setPayTimeStart(String payTimeStart) {
+        this.payTimeStart = payTimeStart;
+    }
+
+    public String getPayTimeEnd() {
+        return payTimeEnd;
+    }
+
+    public void setPayTimeEnd(String payTimeEnd) {
+        this.payTimeEnd = payTimeEnd;
+    }
+
+    public String getOrderStateId() {
+        return orderStateId;
+    }
+
+    public void setOrderStateId(String orderStateId) {
+        this.orderStateId = orderStateId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getNowUserId() {
         return nowUserId;
@@ -69,13 +124,6 @@ public class OrderInfo {
         this.nowUserId = nowUserId;
     }
 
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
-    }
 
     public int getPageSize() {
         return pageSize;
@@ -109,28 +157,36 @@ public class OrderInfo {
         this.storeId = storeId;
     }
 
-    public double getOrderAllCost() {
+    public String getOrderAllCost() {
         return orderAllCost;
     }
 
-    public void setOrderAllCost(double orderAllCost) {
+    public void setOrderAllCost(String orderAllCost) {
         this.orderAllCost = orderAllCost;
     }
 
-    public String getClientId() {
-        return clientId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public int getOrderState() {
+    public String getOrderState() {
         return orderState;
     }
 
-    public void setOrderState(int orderState) {
+    public void setOrderState(String orderState) {
         this.orderState = orderState;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getPayTime() {

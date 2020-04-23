@@ -19,13 +19,13 @@ public class MenuInfo {
     /**
      * 当前登录角色
      */
-    private int role;
+    private String role;
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

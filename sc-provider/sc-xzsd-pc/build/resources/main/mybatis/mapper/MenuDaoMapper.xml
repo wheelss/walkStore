@@ -49,16 +49,17 @@
 
     <!--修改菜单信息-->
     <update id="updateMenu" parameterType="com.xzsd.pc.menu.entity.MenuInfo">
-        update t_sys_menu
-        set
+        UPDATE t_sys_menu
+        SET
             menu_name = #{menuName},
             menu_path = #{menuPath},
             menu_comment = #{menuComment},
-            update_time = now(),
+            is_delete = 0,
+            update_time = NOW(),
             update_user = #{updateUser},
             version = version + 1
-        where menu_id = #{menuId}
-        and version = #{version}
+        WHERE menu_id = #{menuId}
+        AND   version = #{version}
     </update>
 
     <!--删除菜单-->
@@ -76,7 +77,8 @@
             resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
         a.menu_id menuId,
-        a.menu_name menuName
+        a.menu_name menuName,
+        a.menu_path menuPath
         from t_sys_menu a
         where a.is_delete = 0
         order by update_time desc
@@ -87,10 +89,11 @@
             resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
         a.menu_id menuId,
-        a.menu_name menuName
+        a.menu_name menuName,
+        a.menu_path menuPath
         from t_sys_menu a
         where a.is_delete = 0
-        and menu_name in ('客户管理','订单管理','门店信息管理')
+        and menu_name in ('客户管理','订单管理','门店管理','司机管理')
         order by update_time desc
     </select>
 </mapper>

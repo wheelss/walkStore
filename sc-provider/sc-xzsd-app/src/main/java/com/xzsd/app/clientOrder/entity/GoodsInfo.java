@@ -48,6 +48,18 @@ public class GoodsInfo {
      * 总价
      */
     private float sumPrice;
+    /**
+     * 商品平均星级
+     */
+    private int evaluateScoreAvg;
+
+    public int getEvaluateScoreAvg() {
+        return evaluateScoreAvg;
+    }
+
+    public void setEvaluateScoreAvg(int evaluateScoreAvg) {
+        this.evaluateScoreAvg = evaluateScoreAvg;
+    }
 
     public float getSumPrice() {
         return sumPrice;

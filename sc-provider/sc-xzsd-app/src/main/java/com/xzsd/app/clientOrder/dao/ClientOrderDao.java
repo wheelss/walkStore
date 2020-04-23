@@ -1,6 +1,8 @@
 package com.xzsd.app.clientOrder.dao;
 
 import com.xzsd.app.clientOrder.entity.ClientOrderInfo;
+import com.xzsd.app.clientOrder.entity.EvaluationImages;
+import com.xzsd.app.clientOrder.entity.EvaluationOrder;
 import com.xzsd.app.clientOrder.entity.GoodsInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -70,4 +72,33 @@ public interface ClientOrderDao {
      * @return
      */
     ClientOrderInfo listOrderDeepen(@Param("orderId") String orderId);
+    /**
+     * 新增订单商品评价
+     * @param evaluationOrderList
+     * @return
+     */
+    int addGoodsEvaluate(@Param("evaluationOrderList") List<EvaluationOrder> evaluationOrderList);
+    /**
+     * 新增订单商品图片
+     * @param evaluationImagesList
+     * @return
+     */
+    int addGoodsEvaluateImages(@Param("evaluationImagesList") List<EvaluationImages> evaluationImagesList);
+    /**
+     * 修改已评价订单状态
+     * @return
+     */
+    int updateOrderStates();
+    /**
+     * 查询每个商品的评价等级的平均数
+     * @param listGoodsId
+     * @return
+     */
+    List<GoodsInfo> getEvaluateScore(@Param("listGoodsId") List<String> listGoodsId);
+    /**
+     * 更新商品星级
+     * @param goodsInfo
+     * @return
+     */
+    int updateGoodsEvaluateScore(@Param("goodsInfo") List<GoodsInfo> goodsInfo);
 }

@@ -28,7 +28,7 @@ public class ClientController {
      * @author xiekai
      * @Date 2020-4-8
      */
-    @RequestMapping(value = "listClient")
+    @RequestMapping(value = "listClients")
     public AppResponse listClient(ClientInfo clientInfo) {
         String userId = SecurityUtils.getCurrentUserId();
         clientInfo.setNowUserId(userId);

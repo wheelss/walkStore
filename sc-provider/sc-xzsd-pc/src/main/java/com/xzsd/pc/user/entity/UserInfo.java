@@ -17,64 +17,59 @@ public class UserInfo {
      */
     private int pageNum;
     /**
-     * 用户编码
+     * 用户编号
      */
     private String userId;
     /**
-     * 用户姓名
+     * 用户头像
+     */
+    private String userImage;
+    /**
+     * 用户账号
+     */
+    private String userAcct;
+    /**
+     * 用户名称
      */
     private String userName;
     /**
-     * 用户登录名
+     * 用户性别
      */
-    private String userAcct;
+    private int sex;
+    /**
+     * 手机号
+     */
+    private String phone;
+    /**
+     * 用户邮箱
+     */
+    private String mail;
+    /**
+     * 身份证
+     */
+    private String idCard;
     /**
      * 用户密码
      */
     private String userPassword;
     /**
-     * 身份证号码
+     * 用户角色编号
      */
-    private String idCard;
+    private String role;
     /**
-     * 性别 0 男 1 女
+     * 用户角色名称
      */
-    private int sex;
+    private String roleName;
     /**
-     * 手机号码
-     */
-    private String phone;
-    /**
-     * 电子邮件
-     */
-    private String email;
-    /**
-     * 角色 超级管理员0，管理员1，店长2，司机3，客户4
-     */
-    private int role;
-    /**
-     * 图片路径
-     */
-    private String imagePath;
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    /**
-     * 作废标记 0为存在，1为作废
+     * 删除标记
      */
     private int isDelete;
     /**
-     * 创建时间
+     * 创作时间
      */
     private String createTime;
     /**
-     * 创建者
+     * 创作者
      */
     private String createUser;
     /**
@@ -89,6 +84,26 @@ public class UserInfo {
      * 版本号
      */
     private String version;
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
     public int getPageSize() {
         return pageSize;
@@ -150,10 +165,6 @@ public class UserInfo {
         return sex;
     }
 
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -162,19 +173,19 @@ public class UserInfo {
         this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

@@ -19,44 +19,7 @@
         where is_delete = 0
         and goods_id = #{goodsId}
     </select>
-    <!--查询商品评价映射(未完成)-->
-    <resultMap id="goodsEvaluation" type="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo">
-        <result  column="user_acct" property="userAcct"/>
-        <result property="evaluate_content" column="evaluateContent"/>
-        <result property="evaluate_score" column="evaluateScore"/>
-        <result property="create_time" column="createTime"/>
-        <collection property="imageList" ofType="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo">
-            <result property="image_path" column="imagePath"/>
-        </collection>
-    </resultMap>
-    <!--查询商品评价列表(未完成)-->
-    <select id="listGoodsEvaluates" parameterType="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo"
-            resultMap="goodsEvaluation">
-        select
-        b.user_acct userAcct,
-        a.evaluate_content evaluateContent,
-        a.evaluate_score evaluateScore,
-        a.create_time createTime,
-        c.image_path imagePath
-        from t_info_goods_evaluate a,
-             t_sys_user b,
-             t_info_evaluate_image c
-        where a.user_id = b.user_id
-        and a.goods_id = #{goodsId}
-        and a.is_delete = 0
-        and c.is_delete = 0
-        and a.evaluate_id = c.evaluate_id
-        <if test="evaluateScore == 1">
-            and a.evaluate_score in(0,1)
-        </if>
-        <if test="evaluateScore == 3">
-            and a.evaluate_score in(2,3)
-        </if>
-        <if test="evaluateScore == 5">
-            and a.evaluate_score in(4,5)
-        </if>
-        order by a.create_time desc
-    </select>
+
     <!--查询一级商品分类-->
     <select id="listOneGoodsClassify" resultType="com.xzsd.app.clientGoods.entity.GoodSortInfo">
         select
@@ -103,5 +66,50 @@
         FROM t_info_goods a
         WHERE a.two_classify_id = #{twoClassifyId}
         and a.is_delete = 0
+    </select>
+    <!--查询商品评价列表-->
+    <resultMap id="GoodsEvaluateMap" type="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo">
+        <id property="evaluateId" column="evaluate_id"/>
+        <result property="user_acct" column="userAcct"/>
+        <result property="evaluateScore" column="evaluate_score"/>
+        <result property="evaluateContent" column="evaluate_content"/>
+        <result property="createTime" column="create_time"/>
+        <collection property="listImagePath" ofType="com.xzsd.app.clientGoods.entity.ImageInfo" select="listImage" column="evaluate_id">
+            <result property="evaluateId" column="evaluate_id"/>
+            <result property="imagePath" column="image_path"/>
+            <result property="imageNum" column="image_num"/>
+        </collection>
+    </resultMap>
+    <select id="listGoodsEvaluates" parameterType="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo" resultMap="GoodsEvaluateMap">
+        select
+        a.evaluate_id evaluateId,
+        b.user_acct userAcct,
+        a.evaluate_score evaluateScore,
+        a.evaluate_content evaluateContent,
+        a.create_time createTime
+        from t_info_goods_evaluate a
+        left join t_sys_user b on (a.user_id = b.user_id)
+        where a.is_delete = 0
+        and a.goods_id = #{goodsId}
+        <if test="evaluateScore == 1">
+            AND a.evaluate_score in (0,1)
+        </if>
+        <if test="evaluateScore == 3">
+            AND a.evaluate_score in (2,3)
+        </if>
+        <if test="evaluateClass == 5">
+            AND a.evaluate_score in(4,5)
+        </if>
+        order by a.create_time desc
+    </select>
+    <select id="listImage" parameterType="java.lang.String" resultType="com.xzsd.app.clientGoods.entity.ImageInfo">
+        select
+        a.evaluate_id evaluateId,
+        a.image_path as imagePath,
+        a.image_num as imageNum
+        from t_info_evaluate_image a
+        where a.is_delete = 0
+        and a.evaluate_id = #{evaluateId}
+        order by a.image_num asc
     </select>
 </mapper>

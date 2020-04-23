@@ -45,11 +45,11 @@ public class OrderDeepenInfo {
     /**
      *优惠金额
      */
-    private double reducedPrice;
+    private String reducedPrice;
     /**
      * 这种书的总价
      */
-    private double theGoodsAllPrice;
+    private String theGoodsAllPrice;
     /**
      * 作废标记 0为存在，1为作废
      */
@@ -132,19 +132,19 @@ public class OrderDeepenInfo {
         this.goodsCount = goodsCount;
     }
 
-    public double getReducedPrice() {
+    public String getReducedPrice() {
         return reducedPrice;
     }
 
-    public void setReducedPrice(double reducedPrice) {
+    public void setReducedPrice(String reducedPrice) {
         this.reducedPrice = reducedPrice;
     }
 
-    public double getTheGoodsAllPrice() {
+    public String getTheGoodsAllPrice() {
         return theGoodsAllPrice;
     }
 
-    public void setTheGoodsAllPrice(double theGoodsAllPrice) {
+    public void setTheGoodsAllPrice(String theGoodsAllPrice) {
         this.theGoodsAllPrice = theGoodsAllPrice;
     }
 

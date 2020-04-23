@@ -10,8 +10,8 @@
             a.user_name userName,
             a.sex sex,
             a.phone,
-            a.email,
-            a.idcard idCard
+            a.mail,
+            a.id_card idCard
         from t_sys_user a,
              t_info_client b
         where a.is_delete = 0
@@ -33,8 +33,8 @@
         a.user_name userName,
         a.sex sex,
         a.phone,
-        a.email,
-        a.idcard idCard
+        a.mail,
+        a.id_card idCard
         from t_sys_user a,
         t_info_client b,
         t_info_store c

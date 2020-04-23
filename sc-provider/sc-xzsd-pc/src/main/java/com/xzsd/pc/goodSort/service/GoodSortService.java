@@ -96,6 +96,11 @@ public class GoodSortService {
         if(counts != 0){
             appResponse = AppResponse.notFound("删除失败，删除目录有二级分类");
         }
+        //查看二级分类下是否有商品
+        int countG = goodSortDao.countGoods(classifyId);
+        if(countG != 0){
+            appResponse = AppResponse.notFound("删除失败，删除目录有二级分类");
+        }
         // 删除分类
         int count = goodSortDao.deleteGoodsClassify(classifyId,userId);
         if (0 == count) {

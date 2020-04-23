@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.pc.driver.dao.DriverDao">
+    <!--统计用户账号数量-->
+    <select id="countUserAcct" parameterType="com.xzsd.pc.user.entity.UserInfo" resultType="int">
+        select count(*)
+        from t_sys_user
+        where is_delete = 0
+        and user_acct = #{userAcct}
+    </select>
     <!--新增司机到司机表-->
     <insert id="addDriver" parameterType="com.xzsd.pc.driver.entity.DriverInfo">
         insert into t_info_driver
@@ -67,6 +74,9 @@
             b.area_name provinceName,
             c.area_name cityName,
             d.area_name areaName,
+            a.province_id provinceId,
+            a.city_id cityId,
+            a.area_id areaId,
             e.driver_id driverId,
             e.version
         from t_sys_user a,

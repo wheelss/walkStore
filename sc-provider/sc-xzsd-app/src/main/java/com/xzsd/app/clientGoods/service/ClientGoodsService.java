@@ -8,7 +8,6 @@ import com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo;
 import com.xzsd.app.clientGoods.entity.GoodsInfo;
 import com.xzsd.app.util.AppResponse;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -38,9 +37,9 @@ public class ClientGoodsService {
      */
     public AppResponse listGoodsEvaluates(GoodsEvaluateInfo goodsEvaluateInfo){
         PageHelper.startPage(goodsEvaluateInfo.getPageNum(), goodsEvaluateInfo.getPageSize());
-        List<GoodsEvaluateInfo> listGoodsEvaluates = clientGoodsDao.listGoodsEvaluates(goodsEvaluateInfo);
-        PageInfo<GoodsEvaluateInfo> pageData = new PageInfo<GoodsEvaluateInfo>(listGoodsEvaluates);
-        return AppResponse.success("查询商品评价成功",pageData);
+        List<GoodsEvaluateInfo> goodsEvaluateList = clientGoodsDao.listGoodsEvaluates(goodsEvaluateInfo);
+        PageInfo<GoodsEvaluateInfo> pageData = new PageInfo<>(goodsEvaluateList);
+        return AppResponse.success("查询商品评价列表成功！",pageData);
     }
     /**
      * 查询一级商品分类
