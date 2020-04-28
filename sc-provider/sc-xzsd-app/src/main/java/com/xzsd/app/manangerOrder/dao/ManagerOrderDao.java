@@ -23,17 +23,18 @@ public interface ManagerOrderDao {
      */
     ManagerOrderInfo getStore(@Param("userId") String userId);
     /**
-     * 查询订单列表
+     * 查询店长订单列表
      * @param clientOrderInfo
      * @return
      */
-    List<ClientOrderInfo> listManagerOrders(ClientOrderInfo clientOrderInfo);
+    List<ClientOrderInfo> getListManagerOrder(ClientOrderInfo clientOrderInfo);
+
     /**
-     * 商品列表
+     * 查询订单下的所有商品
      * @param clientOrderInfo
      * @return
      */
-    List<GoodsInfo> orderGoods(ClientOrderInfo clientOrderInfo);
+    List<GoodsInfo> getListOrderGoods(ClientOrderInfo clientOrderInfo);
     /**
      * 查询订单详情
      * @param orderId

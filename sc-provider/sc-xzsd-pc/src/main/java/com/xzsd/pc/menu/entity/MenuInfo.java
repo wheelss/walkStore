@@ -9,17 +9,49 @@ public class MenuInfo {
      */
     private String menuId;
     /**
-     * 菜单名字
+     * 菜单名称
      */
     private String menuName;
     /**
-     * 菜单备注
+     * 菜单路由
+     */
+    private String menuPath;
+    /**
+     * 是否菜单（默认是菜单，不能修改）
+     */
+    private String isMenu;
+    /**
+     * 角色编号
+     */
+    private String role;
+    /**
+     * 删除标记（0存在，1删除）
+     */
+    private String isDelete;
+    /**
+     * 备注
      */
     private String menuComment;
     /**
-     * 当前登录角色
+     * 创建人
      */
-    private String role;
+    private String createUser;
+    /**
+     * 创建时间
+     */
+    private String  createTime;
+    /**
+     * 修改人
+     */
+    private String updateUser;
+    /**
+     * 修改时间
+     */
+    private String updateTime;
+    /**
+     * 版本
+     */
+    private String version;
 
     public String getRole() {
         return role;
@@ -28,36 +60,6 @@ public class MenuInfo {
     public void setRole(String role) {
         this.role = role;
     }
-
-    /**
-     * 作废标记 0为存在，1为作废
-     */
-    private int isDelete;
-    /**
-     * 创建时间
-     */
-    private String createTime;
-    /**
-     * 创建者
-     */
-    private String createUser;
-    /**
-     * 更新时间
-     */
-    private String updateTime;
-    /**
-     * 更新者
-     */
-    private String updateUser;
-    /**
-     * 版本号
-     */
-    private String version;
-
-    /**
-     *菜单路由
-     */
-    private String menuPath;
 
     public String getMenuPath() {
         return menuPath;
@@ -91,11 +93,19 @@ public class MenuInfo {
         this.menuComment = menuComment;
     }
 
-    public int getIsDelete() {
+    public String getIsMenu() {
+        return isMenu;
+    }
+
+    public void setIsMenu(String isMenu) {
+        this.isMenu = isMenu;
+    }
+
+    public String getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(int isDelete) {
+    public void setIsDelete(String isDelete) {
         this.isDelete = isDelete;
     }
 

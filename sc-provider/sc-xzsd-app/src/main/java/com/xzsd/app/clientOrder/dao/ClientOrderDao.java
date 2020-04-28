@@ -1,9 +1,6 @@
 package com.xzsd.app.clientOrder.dao;
 
-import com.xzsd.app.clientOrder.entity.ClientOrderInfo;
-import com.xzsd.app.clientOrder.entity.EvaluationImages;
-import com.xzsd.app.clientOrder.entity.EvaluationOrder;
-import com.xzsd.app.clientOrder.entity.GoodsInfo;
+import com.xzsd.app.clientOrder.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -55,17 +52,18 @@ public interface ClientOrderDao {
      */
     List<GoodsInfo> listGoodsForEvaluate(@Param("orderId") String orderId);
     /**
-     * 查询订单列表
+     * 查询订单列表（分页）
      * @param clientOrderInfo
      * @return
      */
-    List<ClientOrderInfo> listOrder(ClientOrderInfo clientOrderInfo);
+    List<ClientOrderInfo> getListCustomerOrder(ClientOrderInfo clientOrderInfo);
+
     /**
-     * 查询商品
+     * 查询订单列表下的商品
      * @param clientOrderInfo
      * @return
      */
-    List<GoodsInfo> orderGoods(ClientOrderInfo clientOrderInfo);
+    List<GoodsInfo> getListOrderGoods(ClientOrderInfo clientOrderInfo);
     /**
      * 查询订单详情
      * @param orderId
@@ -73,32 +71,32 @@ public interface ClientOrderDao {
      */
     ClientOrderInfo listOrderDeepen(@Param("orderId") String orderId);
     /**
-     * 新增订单商品评价
-     * @param evaluationOrderList
-     * @return
-     */
-    int addGoodsEvaluate(@Param("evaluationOrderList") List<EvaluationOrder> evaluationOrderList);
-    /**
      * 新增订单商品图片
-     * @param evaluationImagesList
+     * @param evaluateList
      * @return
      */
-    int addGoodsEvaluateImages(@Param("evaluationImagesList") List<EvaluationImages> evaluationImagesList);
+    int addGoodsEvaluate(@Param("evaluateList") List<EvaluateInfo> evaluateList);
+
     /**
-     * 修改已评价订单状态
+     * 更新评价后状态
+     * @param orderId
+     * @param updateUser
+     * @param goodsIds
      * @return
      */
-    int updateOrderStates();
+    int updateEvaluateState(@Param("orderId") String orderId, @Param("updateUser")String updateUser,@Param("goodsIds")List<String> goodsIds);
     /**
-     * 查询每个商品的评价等级的平均数
-     * @param listGoodsId
+     * 删除购物车
+     * @param listShopCartId
      * @return
      */
-    List<GoodsInfo> getEvaluateScore(@Param("listGoodsId") List<String> listGoodsId);
+    int deleteShoppingCart(@Param("listShopCartId") List<String> listShopCartId);
     /**
-     * 更新商品星级
-     * @param goodsInfo
-     * @return
+     * 获取商品信息
      */
-    int updateGoodsEvaluateScore(@Param("goodsInfo") List<GoodsInfo> goodsInfo);
+    List<GoodsInfo> getDeepen(@Param("listOrderId") List<String> listOrderId);
+    /**
+     * 取消订单更新商品库存,销售量,状态
+     */
+    int backUpdate(@Param("listDeepen") List<GoodsInfo> listDeepen);
 }

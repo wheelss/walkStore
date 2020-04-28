@@ -2,6 +2,7 @@ package com.xzsd.pc.area.service;
 
 import com.xzsd.pc.area.dao.AreaDao;
 import com.xzsd.pc.area.entity.AreaInfo;
+import com.xzsd.pc.area.entity.AreaList;
 import com.xzsd.pc.util.AppResponse;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,9 @@ public class AreaService {
      * @Date 2020-4-13
      */
     public AppResponse listArea(AreaInfo areaInfo){
-            List<AreaInfo> areaInfoList = areaDao.listArea(areaInfo);
-            return AppResponse.success("查询成功！", areaInfoList);
+        List<AreaInfo> areaInfoList = areaDao.listArea(areaInfo);
+        AreaList areaList = new AreaList();
+        areaList.setAreaList(areaInfoList);
+        return AppResponse.success("查询成功！", areaList);
     }
 }

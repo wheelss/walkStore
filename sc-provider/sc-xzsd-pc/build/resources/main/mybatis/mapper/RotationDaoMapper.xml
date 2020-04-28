@@ -35,7 +35,7 @@
         values
         (#{slideshowId},
         #{slideshowNum},
-        #{slideshowPath},
+        #{imagePath},
         #{startTime},
         #{endTime},
         #{goodsId},
@@ -89,7 +89,7 @@
            version
         FROM t_info_slideshow_home
         WHERE
-        is_delete = 0
+            is_delete = 0
         <if test="slideshowStateId != null and slideshowStateId != '' ">
             AND slideshow_state_id = #{slideshowStateId}
         </if>

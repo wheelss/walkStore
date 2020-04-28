@@ -53,6 +53,19 @@ public class GoodsInfo {
      */
     private int evaluateScoreAvg;
 
+    /**
+     *当前登录人
+     */
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public int getEvaluateScoreAvg() {
         return evaluateScoreAvg;
     }

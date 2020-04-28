@@ -28,9 +28,9 @@ public class DriverHomeController {
      */
     @PostMapping("listDriverStores")
     public AppResponse listDriverStores(DriverHomeInfo driverHomeInfo){
+        String userId = SecurityUtils.getCurrentUserId();
+        driverHomeInfo.setUserId(userId);
         try {
-            String userId = SecurityUtils.getCurrentUserId();
-            driverHomeInfo.setUserId(userId);
             return driverHomeService.listDriverStores(driverHomeInfo);
         }catch (Exception e){
             logger.error("查询司机负责门店失败");

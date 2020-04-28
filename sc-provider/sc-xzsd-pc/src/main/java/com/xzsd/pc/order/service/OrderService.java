@@ -2,8 +2,10 @@ package com.xzsd.pc.order.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xzsd.pc.goodSort.entity.OneClassifyList;
 import com.xzsd.pc.order.dao.OrderDao;
 import com.xzsd.pc.order.entity.OrderDeepenInfo;
+import com.xzsd.pc.order.entity.OrderDeepenList;
 import com.xzsd.pc.order.entity.OrderInfo;
 import com.xzsd.pc.util.AppResponse;
 import org.springframework.stereotype.Service;
@@ -39,7 +41,7 @@ public class OrderService {
         }
     }
     /**
-     * demo 修改轮播图状态
+     * demo 修改订单状态
      * @return
      * @Author xiekai
      * @Date 2020-04-02
@@ -49,13 +51,13 @@ public class OrderService {
         List<String> listOrderId = Arrays.asList(orderInfo.getOrderId().split(","));
         List<String> listVersion = Arrays.asList(orderInfo.getVersion().split(","));
         List<OrderInfo> listUpdate = new ArrayList<>();
-        String orderStateId = orderInfo.getOrderState();
+        String orderStateId = orderInfo.getOrderStateId();
         String updateUser = orderInfo.getUpdateUser();
         for (int i = 0; i < listOrderId.size(); i++) {
             OrderInfo orderInfo1 = new OrderInfo();
             orderInfo1.setOrderId(listOrderId.get(i));
             orderInfo1.setVersion(listVersion.get(i));
-            orderInfo1.setOrderState(orderStateId);
+            orderInfo1.setOrderStateId(orderStateId);
             orderInfo1.setUpdateUser(updateUser);
             listUpdate.add(orderInfo1);
         }
@@ -76,7 +78,9 @@ public class OrderService {
      * @Date 2020-03-26
      */
     public AppResponse getListOrder(String orderId) {
-        OrderDeepenInfo orderDeepenInfo = orderDao.getListOrder(orderId);
-        return AppResponse.success("查询成功！", orderDeepenInfo);
+        List<OrderDeepenInfo> orderDeepenInfo = orderDao.getListOrder(orderId);
+        OrderDeepenList orderDeepenList =new OrderDeepenList();
+        orderDeepenList.setOrderDeepenList(orderDeepenInfo);
+        return AppResponse.success("查询成功！", orderDeepenList);
     }
 }

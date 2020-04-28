@@ -80,7 +80,7 @@ public class DriverController {
     }
 
     /**
-     * 修改门店
+     * 修改司机
      *
      * @return AppResponse
      * @author xiekai
@@ -88,8 +88,8 @@ public class DriverController {
      */
     @PostMapping("updateDriver")
     public AppResponse updateDriver(DriverInfo driverInfo) {
-        String userId = SecurityUtils.getCurrentUserId();
-        driverInfo.setUpdateUser(userId);
+        String userIds = SecurityUtils.getCurrentUserId();
+        driverInfo.setUpdateUser(userIds);
         try {
             return driverService.updateDriver(driverInfo);
         } catch (Exception e) {

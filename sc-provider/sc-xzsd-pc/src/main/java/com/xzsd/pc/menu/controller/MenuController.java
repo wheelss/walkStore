@@ -42,20 +42,18 @@ public class MenuController {
             throw e;
         }
     }
-
     /**
      * 菜单列表
-     * @param menuInfo
      * @return AppResponse
      * @author xiekai
      * @Date 2020-4-9
      */
-    @RequestMapping(value = "listMenu")
-    public AppResponse listMenu(MenuInfo menuInfo) {
+    @PostMapping("listMenu")
+    public AppResponse listMenu(){
         try {
-            return menuService.listMenu(menuInfo);
-        } catch (Exception e) {
-            logger.error("查询菜单列表异常", e);
+            return menuService.listMenu();
+        }catch (Exception e){
+            logger.error("查询失败");
             System.out.println(e.toString());
             throw e;
         }
@@ -79,7 +77,6 @@ public class MenuController {
             throw e;
         }
     }
-
     /**
      * 修改菜单
      *
@@ -99,7 +96,6 @@ public class MenuController {
             throw e;
         }
     }
-
     /**
      * 删除菜单
      *
@@ -121,17 +117,17 @@ public class MenuController {
 
     /**
      * 角色菜单列表
-     * @param menuInfo
+     * @param role
      * @return AppResponse
      * @author xiekai
      * @Date 2020-4-13
      */
-    @RequestMapping(value = "listMenuHome")
-    public AppResponse listMenuHome(MenuInfo menuInfo) {
+    @PostMapping("listMenuHome")
+    public AppResponse listMenuHome(String role){
         try {
-            return menuService.listMenuHome(menuInfo);
-        } catch (Exception e) {
-            logger.error("查询菜单列表异常", e);
+            return menuService.listMenuHome(role);
+        }catch (Exception e){
+            logger.error("根据角色查询菜单失败");
             System.out.println(e.toString());
             throw e;
         }

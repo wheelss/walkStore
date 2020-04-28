@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xzsd.pc.good.dao.GoodDao;
 import com.xzsd.pc.good.entity.GoodInfo;
+import com.xzsd.pc.good.entity.GoodsClassifyList;
 import com.xzsd.pc.goodSort.entity.GoodSortInfo;
 import com.xzsd.pc.util.AppResponse;
 import com.xzsd.pc.util.RedisOperator;
@@ -88,7 +89,6 @@ public class GoodService {
         if (0 == count) {
             appResponse = AppResponse.notFound("删除失败，请重试！");
         }
-
         return appResponse;
     }
 
@@ -180,6 +180,8 @@ public class GoodService {
      */
     public AppResponse listGoodsClassify(GoodSortInfo goodSortInfo) {
         List<GoodSortInfo> goodSortInfoList = goodDao.listGoodsClassify(goodSortInfo);
-        return AppResponse.success("查询成功！",goodSortInfoList);
+        GoodsClassifyList goodsClassifyList = new GoodsClassifyList();
+        goodsClassifyList.setGoodsClassifyList(goodSortInfoList);
+        return AppResponse.success("查询成功！",goodsClassifyList);
     }
 }

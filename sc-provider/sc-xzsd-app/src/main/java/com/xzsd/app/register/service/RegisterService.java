@@ -38,7 +38,7 @@ public class RegisterService {
         //检验是否有此店铺邀请码
         if(registerInfo.getInviteCode() != null){
             int countInviteCode = registerDao.countInviteCode(registerInfo);
-            if (0 != countInviteCode) {
+            if (0 == countInviteCode) {
                 return AppResponse.bizError("无此店铺邀请码");
             }
         }

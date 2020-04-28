@@ -19,11 +19,9 @@ public interface MenuDao {
     /**
      * 获取所有菜单信息
      *
-     * @param menuInfo 菜单信息
      * @return 所有菜单信息
      */
-    List<MenuInfo> listMenu(MenuInfo menuInfo);
-
+    List<MenuInfo> listMenu();
     /**
      * 查询菜单信息
      *
@@ -49,17 +47,9 @@ public interface MenuDao {
     int deleteMenu(@Param("menuId") String menuId, @Param("updateUser") String updateUser);
 
     /**
-     * 店长获取部分菜单信息
-     *
-     * @param menuInfo 菜单信息
-     * @return 所有菜单信息
+     * 根据角色查询首页菜单显示的功能
+     * @param role
+     * @return
      */
-    List<MenuInfo> listMenuHome(MenuInfo menuInfo);
-    /**
-     * 管理员获取所有菜单信息
-     *
-     * @param menuInfo 菜单信息
-     * @return 所有菜单信息
-     */
-    List<MenuInfo> listMenuHomeAdmin(MenuInfo menuInfo);
+    List<MenuInfo> getPageHomeMenu(@Param("role") String role);
 }

@@ -67,20 +67,8 @@
         WHERE a.two_classify_id = #{twoClassifyId}
         and a.is_delete = 0
     </select>
-    <!--查询商品评价列表-->
-    <resultMap id="GoodsEvaluateMap" type="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo">
-        <id property="evaluateId" column="evaluate_id"/>
-        <result property="user_acct" column="userAcct"/>
-        <result property="evaluateScore" column="evaluate_score"/>
-        <result property="evaluateContent" column="evaluate_content"/>
-        <result property="createTime" column="create_time"/>
-        <collection property="listImagePath" ofType="com.xzsd.app.clientGoods.entity.ImageInfo" select="listImage" column="evaluate_id">
-            <result property="evaluateId" column="evaluate_id"/>
-            <result property="imagePath" column="image_path"/>
-            <result property="imageNum" column="image_num"/>
-        </collection>
-    </resultMap>
-    <select id="listGoodsEvaluates" parameterType="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo" resultMap="GoodsEvaluateMap">
+    <!--查询商品评价-->
+    <select id="listGoodsEvaluates" parameterType="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo" resultType="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo">
         select
         a.evaluate_id evaluateId,
         b.user_acct userAcct,
@@ -97,19 +85,12 @@
         <if test="evaluateScore == 3">
             AND a.evaluate_score in (2,3)
         </if>
-        <if test="evaluateClass == 5">
+        <if test="evaluateScore == 5">
             AND a.evaluate_score in(4,5)
         </if>
         order by a.create_time desc
     </select>
-    <select id="listImage" parameterType="java.lang.String" resultType="com.xzsd.app.clientGoods.entity.ImageInfo">
-        select
-        a.evaluate_id evaluateId,
-        a.image_path as imagePath,
-        a.image_num as imageNum
-        from t_info_evaluate_image a
-        where a.is_delete = 0
-        and a.evaluate_id = #{evaluateId}
-        order by a.image_num asc
-    </select>
+
+
+
 </mapper>

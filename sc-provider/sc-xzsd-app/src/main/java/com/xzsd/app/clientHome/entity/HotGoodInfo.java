@@ -51,9 +51,9 @@ public class HotGoodInfo {
     private String version;
 
     /**
-     *展示数量
+     * 展示数量
      */
-    private int hotGoodsShowNum;
+    private int hotGoodsShowNums;
     /**
      * 商品名称
      */
@@ -66,7 +66,7 @@ public class HotGoodInfo {
     /**
      * 售价
      */
-    private double goodsPrice;
+    private String goodsPrice;
     /**
      * 页码
      */
@@ -75,6 +75,18 @@ public class HotGoodInfo {
      * 页数
      */
     private int pageNum;
+    /**
+     * 商品图片地址
+     */
+    private String goodsImagePath;
+
+    public String getGoodsImagePath() {
+        return goodsImagePath;
+    }
+
+    public void setGoodsImagePath(String goodsImagePath) {
+        this.goodsImagePath = goodsImagePath;
+    }
 
     public int getPageSize() {
         return pageSize;
@@ -180,12 +192,12 @@ public class HotGoodInfo {
         this.version = version;
     }
 
-    public int getHotGoodsShowNum() {
-        return hotGoodsShowNum;
+    public int getHotGoodsShowNums() {
+        return hotGoodsShowNums;
     }
 
-    public void setHotGoodsShowNum(int hotGoodsShowNum) {
-        this.hotGoodsShowNum = hotGoodsShowNum;
+    public void setHotGoodsShowNums(int hotGoodsShowNums) {
+        this.hotGoodsShowNums = hotGoodsShowNums;
     }
 
     public String getGoodsName() {
@@ -200,15 +212,15 @@ public class HotGoodInfo {
         return goodsDescribe;
     }
 
-    public void setGoodsDescribe(String goodsDescribe) {
-        this.goodsDescribe = goodsDescribe;
-    }
-
-    public double getGoodsPrice() {
+    public String getGoodsPrice() {
         return goodsPrice;
     }
 
-    public void setGoodsPrice(double goodsPrice) {
+    public void setGoodsPrice(String goodsPrice) {
         this.goodsPrice = goodsPrice;
+    }
+
+    public void setGoodsDescribe(String goodsDescribe) {
+        this.goodsDescribe = goodsDescribe;
     }
 }

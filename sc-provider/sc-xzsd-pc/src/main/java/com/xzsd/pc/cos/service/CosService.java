@@ -41,7 +41,7 @@ public class CosService {
         System.out.println(url);
         CosInfo cosInfo = new CosInfo();
         cosInfo.setImagePath(url);
-        String imagrPath = url;
-        return AppResponse.success("图片上传成功！", imagrPath);
+        String imagePath = url;
+        return AppResponse.success("图片上传成功！", cosInfo);
     }
 }

@@ -6,6 +6,7 @@ import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.driver.dao.DriverDao;
 import com.xzsd.pc.driver.entity.DriverInfo;
 import com.xzsd.pc.util.AppResponse;
+import com.xzsd.pc.util.PasswordUtils;
 import com.xzsd.pc.util.StringUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,9 @@ public class DriverService {
         if (0 != countUserAcct) {
             return AppResponse.versionError("用户账号已存在，请重新输入！");
         }
+        //密码加密
+        String pwd = PasswordUtils.generatePassword(driverInfo.getUserPassword());
+        driverInfo.setUserPassword(pwd);
         // 新增司机到司机表
         int count = driverDao.addDriver(driverInfo);
         if (0 == count) {
@@ -94,6 +98,16 @@ public class DriverService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateDriver(DriverInfo driverInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
+        //获取密码
+        String userPassword = driverDao.getUserPassword(driverInfo.getUserId());
+        //判断密码是否相同
+        boolean bool = PasswordUtils.equalPassword(driverInfo.getUserPassword(), userPassword);
+        if(!bool){
+            //密码加密
+            String userNewPassword = driverInfo.getUserPassword();
+            String pwd = PasswordUtils.generatePassword(userNewPassword);
+            driverInfo.setUserPassword(pwd);
+        }
         // 修改司机表信息
         int count = driverDao.updateDriver(driverInfo);
         if (0 == count) {

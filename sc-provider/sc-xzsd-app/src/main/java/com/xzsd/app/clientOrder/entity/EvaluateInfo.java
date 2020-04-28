@@ -3,25 +3,41 @@ package com.xzsd.app.clientOrder.entity;
 import java.util.List;
 
 /**
- * 评价商品实体类
+*   评价实体类
  */
-public class EvaluationGoods {
+public class EvaluateInfo {
     /**
-     * 商品id
+     * 商品评价编号
+     */
+    private String evaluateId;
+    /**
+     * 商品编号
      */
     private String goodsId;
+    /**
+     * 用户编号
+     */
+    private String userId;
     /**
      * 评价内容
      */
     private String evaluateContent;
     /**
-     * 评价星级
+     * 商品评价等级
      */
     private int evaluateScore;
     /**
-     * 评价图片集合
+     * 评价图片列表
      */
-    private List<EvaluationImages> imageList;
+    private List<ImageInfo> imageList;
+
+    public String getEvaluateId() {
+        return evaluateId;
+    }
+
+    public void setEvaluateId(String evaluateId) {
+        this.evaluateId = evaluateId;
+    }
 
     public String getGoodsId() {
         return goodsId;
@@ -29,6 +45,14 @@ public class EvaluationGoods {
 
     public void setGoodsId(String goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getEvaluateContent() {
@@ -47,11 +71,13 @@ public class EvaluationGoods {
         this.evaluateScore = evaluateScore;
     }
 
-    public List<EvaluationImages> getImageList() {
+    public List<ImageInfo> getImageList() {
         return imageList;
     }
 
-    public void setImageList(List<EvaluationImages> imageList) {
+    public void setImageList(List<ImageInfo> imageList) {
         this.imageList = imageList;
     }
+
+
 }

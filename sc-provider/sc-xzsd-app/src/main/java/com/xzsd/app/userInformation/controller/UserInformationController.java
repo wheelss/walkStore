@@ -28,16 +28,15 @@ public class UserInformationController {
      */
     @RequestMapping(value = "getUser")
     public AppResponse getUser() {
-        String userId = SecurityUtils.getCurrentUserId();
         try {
+            String userId = SecurityUtils.getCurrentUserId();
             return userInformationService.getUser(userId);
         } catch (Exception e) {
-            logger.error("用户查询错误", e);
+            logger.error("获取用户个人信息失败");
             System.out.println(e.toString());
             throw e;
         }
     }
-
     /**
      * 修改密码
      * @param userInformationInfo

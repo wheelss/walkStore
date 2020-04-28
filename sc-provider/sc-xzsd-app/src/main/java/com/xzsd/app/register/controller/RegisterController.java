@@ -29,8 +29,6 @@ public class RegisterController {
      */
     @PostMapping("clientRegister")
     public AppResponse clientRegister(RegisterInfo registerInfo) {
-        String userId = SecurityUtils.getCurrentUserId();
-        registerInfo.setCreateUser(userId);
         try {
             AppResponse appResponse = registerService.clientRegister(registerInfo);
             return appResponse;

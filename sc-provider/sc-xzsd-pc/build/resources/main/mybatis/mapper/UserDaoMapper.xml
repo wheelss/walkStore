@@ -118,7 +118,8 @@
         a.mail mail,
         a.id_card idCard,
         a.user_id userId,
-        a.version
+        a.version,
+        a.user_image userImage
         from t_sys_user a
         where a.is_delete = 0
         and a.role in (0,1,2)

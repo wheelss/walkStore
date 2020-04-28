@@ -80,5 +80,12 @@ public interface DriverDao {
      * @return
      */
     int deleteDriverUser(@Param("listCode") List<String> listCode, @Param("updateUser") String updateUser);
+    /**
+     * 获取当前登录用户的密码
+     *
+     * @param driverId
+     * @return
+     */
+    String getUserPassword(@Param("driverId") String driverId);
 }
 

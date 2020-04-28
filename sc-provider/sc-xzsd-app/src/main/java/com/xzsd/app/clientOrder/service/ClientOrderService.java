@@ -167,15 +167,15 @@ public class ClientOrderService {
      */
     public AppResponse listOrder(ClientOrderInfo clientOrderInfo){
         PageHelper.startPage(clientOrderInfo.getPageNum(), clientOrderInfo.getPageSize());
-        List<ClientOrderInfo> listCustomerOrder = clientOrderDao.getListCustomerOrder(clientOrderInfo);
-        PageInfo<ClientOrderInfo> pageData = new PageInfo<>(listCustomerOrder);
+        List<ClientOrderInfo> listOrder = clientOrderDao.getListCustomerOrder(clientOrderInfo);
+        PageInfo<ClientOrderInfo> pageData = new PageInfo<>(listOrder);
         //查询订单列表下的商品
         List<GoodsInfo> listOrderGoods = clientOrderDao.getListOrderGoods(clientOrderInfo);
-        for (int i = 0; i < listCustomerOrder.size(); i++) {
+        for (int i = 0; i < listOrder.size(); i++) {
             List<GoodsInfo> list = new ArrayList<>();
             for(int j = 0; j < listOrderGoods.size(); j++){
                 //判断当前用户下的订单id是否相等
-                if(listCustomerOrder.get(i).getOrderId().equals(listOrderGoods.get(j).getOrderId())){
+                if(listOrder.get(i).getOrderId().equals(listOrderGoods.get(j).getOrderId())){
                     list.add(listOrderGoods.get(j));
                 }
             }

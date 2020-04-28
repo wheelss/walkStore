@@ -21,7 +21,7 @@
         version
         )
         values
-        (#{driver_id},
+        (#{driverId},
         #{provinceId},
         #{cityId},
         #{areaId},
@@ -48,7 +48,7 @@
         version
         )
         values
-        (#{driver_id},
+        (#{driverId},
         #{userName},
         #{phone},
         #{userAcct},
@@ -65,7 +65,7 @@
     <!--获取司机信息-->
     <select id="getDriver" parameterType="java.lang.String" resultType="com.xzsd.pc.driver.entity.DriverInfo">
         select
-            a.user_name driverName,
+            a.user_name userName,
             a.phone phone,
             a.user_acct userAcct,
             a.user_password userPassword,
@@ -74,9 +74,9 @@
             b.area_name provinceName,
             c.area_name cityName,
             d.area_name areaName,
-            a.province_id provinceId,
-            a.city_id cityId,
-            a.area_id areaId,
+            e.province_id provinceId,
+            e.city_id cityId,
+            e.area_id areaId,
             e.driver_id driverId,
             e.version
         from t_sys_user a,
@@ -89,7 +89,7 @@
         and e.province_id = b.area_id
         and e.city_id= c.area_id
         and e.area_id = d.area_id
-        and e.user_id = a.user_id
+        and e.driver_id = a.user_id
     </select>
 
     <!--司机列表-->
@@ -170,10 +170,17 @@
         where driver_id = #{driverId}
         and version = #{version}
     </update>
-
+    <!--获取当前登录用户的密码-->
+    <select id="getUserPassword" parameterType="java.lang.String"
+            resultType="java.lang.String">
+        select
+            user_password
+        from t_sys_user
+        where user_id = #{driverId}
+    </select>
     <!--修改user表信息-->
     <update id="updateDriverUser" parameterType="com.xzsd.pc.driver.entity.DriverInfo">
-        update t_info_driver
+        update t_sys_user
         set
             user_name = #{userName},
             phone = #{phone},
@@ -184,7 +191,7 @@
             update_time = now(),
             update_user = #{updateUser},
             version = version + 1
-        where driver_id = #{driverId}
+        where user_id = #{driverId}
         and version = #{version}
     </update>
 

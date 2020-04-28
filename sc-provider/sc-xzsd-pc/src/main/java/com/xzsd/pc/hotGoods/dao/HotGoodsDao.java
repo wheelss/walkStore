@@ -62,7 +62,7 @@ public interface HotGoodsDao {
      * 修改热门位商品展示数量
      * @return 修改结果
      */
-    int getHotGoodsShowNum();
+    HotGoodsInfo getHotGoodsShowNum();
 
     /**
      * 修改热门位商品展示数量

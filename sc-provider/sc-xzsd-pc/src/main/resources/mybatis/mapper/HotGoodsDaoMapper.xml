@@ -95,9 +95,10 @@
     </update>
 
     <!--获取热门位商品展示数量-->
-    <select id="getHotGoodsShowNum" resultType="int">
+    <select id="getHotGoodsShowNum" resultType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo">
         select
-           public_type hotGoodsShowNum
+           public_type hotGoodsShowNum,
+           version
         from t_sys_dictionary
         where dict_name = 'hot_goods_show_num'
     </select>
@@ -109,8 +110,10 @@
             public_type = #{hotGoodsShowNum},
             update_time = now(),
             update_user = #{updateUser},
+            version = version + 1
         where
             dict_name = 'hot_goods_show_num'
+        and version = #{version}
     </update>
 
     <!--删除热门位商品-->

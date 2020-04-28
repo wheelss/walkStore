@@ -5,6 +5,70 @@ package com.xzsd.pc.order.entity;
  */
 public class OrderInfo {
     /**
+     * 订单编号
+     */
+    private String orderId;
+    /**
+     * 门店编号
+     */
+    private String storeId;
+    /**
+     * 订单总价
+     */
+    private String orderAllCost;
+    /**
+     * 订单状态编号
+     */
+    private String userId;
+    /**
+     * 客户编号
+     */
+    private String orderStateId;
+    /**
+     * 付款时间
+     */
+    private String payTime;
+    /**
+     * 优惠金额
+     */
+    private String reducedAllPrice;
+    /**
+     * 订单备注
+     */
+    private String orderComment;
+    /**
+     * 收件人姓名
+     */
+    private String userName;
+    /**
+     * 收件人电话
+     */
+    private String phone;
+    /**
+     * 删除标记
+     */
+    private int isDelete;
+    /**
+     * 创作时间
+     */
+    private String createTime;
+    /**
+     * 创作者
+     */
+    private String createUser;
+    /**
+     * 更新时间
+     */
+    private String updateTime;
+    /**
+     * 更新者
+     */
+    private String updateUser;
+    /**
+     * 版本号
+     */
+    private String version;
+    /**
      * 页码
      */
     private int pageSize;
@@ -12,38 +76,6 @@ public class OrderInfo {
      * 页数
      */
     private int pageNum;
-    /**
-     * 订单id
-     */
-    private String orderId;
-    /**
-    *门店id
-    */
-    private String storeId;
-    /**
-     * 订单总价
-     */
-    private String orderAllCost;
-    /**
-     * 客户id
-     */
-    private String userId;
-    /**
-     * 0表示已下单，1订单取消，2申请退货，3已取货，4表示已完成未评价，5已完成已评价
-     */
-    private String orderState;
-    /**
-     * 确认付款时间，全0表示未付款
-     */
-    private String  payTime;
-    /**
-     * 优惠金额
-     */
-    private double reducedAllPrice;
-    /**
-     * 订单备注
-     */
-    private String orderComment;
     /**
      * 收件人姓名
      */
@@ -61,85 +93,14 @@ public class OrderInfo {
      */
     private String nowUserId;
     /**
-     * 用户名
+     * 开始时间
      */
-    private String userName;
-    /**
-     * 电话
-     */
-    private String phone;
-    /**
-     * 订单状态id
-     */
-    private String orderStateId;
     private String payTimeStart;
+    /**
+     * 结束时间
+     */
     private String payTimeEnd;
 
-    public String getPayTimeStart() {
-        return payTimeStart;
-    }
-
-    public void setPayTimeStart(String payTimeStart) {
-        this.payTimeStart = payTimeStart;
-    }
-
-    public String getPayTimeEnd() {
-        return payTimeEnd;
-    }
-
-    public void setPayTimeEnd(String payTimeEnd) {
-        this.payTimeEnd = payTimeEnd;
-    }
-
-    public String getOrderStateId() {
-        return orderStateId;
-    }
-
-    public void setOrderStateId(String orderStateId) {
-        this.orderStateId = orderStateId;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getNowUserId() {
-        return nowUserId;
-    }
-
-    public void setNowUserId(String nowUserId) {
-        this.nowUserId = nowUserId;
-    }
-
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
-    }
 
     public String getOrderId() {
         return orderId;
@@ -173,20 +134,12 @@ public class OrderInfo {
         this.userId = userId;
     }
 
-    public String getOrderState() {
-        return orderState;
+    public String getOrderStateId() {
+        return orderStateId;
     }
 
-    public void setOrderState(String orderState) {
-        this.orderState = orderState;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setOrderStateId(String orderStateId) {
+        this.orderStateId = orderStateId;
     }
 
     public String getPayTime() {
@@ -197,11 +150,11 @@ public class OrderInfo {
         this.payTime = payTime;
     }
 
-    public double getReducedAllPrice() {
+    public String getReducedAllPrice() {
         return reducedAllPrice;
     }
 
-    public void setReducedAllPrice(double reducedAllPrice) {
+    public void setReducedAllPrice(String reducedAllPrice) {
         this.reducedAllPrice = reducedAllPrice;
     }
 
@@ -213,20 +166,20 @@ public class OrderInfo {
         this.orderComment = orderComment;
     }
 
-    public String getRecipientName() {
-        return recipientName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setRecipientName(String recipientName) {
-        this.recipientName = recipientName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getRecipientPhone() {
-        return recipientPhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setRecipientPhone(String recipientPhone) {
-        this.recipientPhone = recipientPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public int getIsDelete() {
@@ -277,53 +230,67 @@ public class OrderInfo {
         this.version = version;
     }
 
-    /**
-     * 作废标记 0为存在，1为作废
-     */
-    private int isDelete;
-    /**
-     * 创建时间
-     */
-    private String createTime;
-    /**
-     * 创建者
-     */
-    private String createUser;
-    /**
-     * 更新时间
-     */
-    private String updateTime;
-    /**
-     * 更新者
-     */
-    private String updateUser;
-
-    /**
-     * 版本号
-     */
-    private String version;
-    /**
-    * 开始时间
-    */
-    private  String beginTime;
-    /**
-     * 结束时间
-     */
-    private String endTime;
-
-    public String getEndTime() {
-        return endTime;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public String getBeginTime() {
-        return beginTime;
+    public int getPageNum() {
+        return pageNum;
     }
 
-    public void setBeginTime(String beginTime) {
-        this.beginTime = beginTime;
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
+    }
+
+    public String getRecipientPhone() {
+        return recipientPhone;
+    }
+
+    public void setRecipientPhone(String recipientPhone) {
+        this.recipientPhone = recipientPhone;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getNowUserId() {
+        return nowUserId;
+    }
+
+    public void setNowUserId(String nowUserId) {
+        this.nowUserId = nowUserId;
+    }
+
+    public String getPayTimeStart() {
+        return payTimeStart;
+    }
+
+    public void setPayTimeStart(String payTimeStart) {
+        this.payTimeStart = payTimeStart;
+    }
+
+    public String getPayTimeEnd() {
+        return payTimeEnd;
+    }
+
+    public void setPayTimeEnd(String payTimeEnd) {
+        this.payTimeEnd = payTimeEnd;
     }
 }

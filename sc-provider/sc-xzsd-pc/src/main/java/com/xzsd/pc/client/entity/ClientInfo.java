@@ -35,7 +35,7 @@ public class ClientInfo {
     /**
      * 性别 0 男 1 女
      */
-    private int sex;
+    private String sex;
     /**
      * 手机号码
      */
@@ -158,11 +158,11 @@ public class ClientInfo {
         this.mail = mail;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

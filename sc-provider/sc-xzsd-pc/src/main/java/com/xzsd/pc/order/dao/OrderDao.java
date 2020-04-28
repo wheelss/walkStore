@@ -34,6 +34,6 @@ public interface OrderDao {
      * @param orderId 订单id
      * @return 修改结果
      */
-    OrderDeepenInfo getListOrder(@Param("orderId") String orderId);
+    List<OrderDeepenInfo> getListOrder(@Param("orderId") String orderId);
 
 }

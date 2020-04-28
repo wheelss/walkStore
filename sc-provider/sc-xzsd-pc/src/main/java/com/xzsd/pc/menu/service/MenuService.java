@@ -2,6 +2,7 @@ package com.xzsd.pc.menu.service;
 
 import com.xzsd.pc.menu.dao.MenuDao;
 import com.xzsd.pc.menu.entity.MenuInfo;
+import com.xzsd.pc.menu.entity.MenuList;
 import com.xzsd.pc.util.AppResponse;
 import com.xzsd.pc.util.StringUtil;
 import org.springframework.stereotype.Service;
@@ -35,16 +36,20 @@ public class MenuService {
     }
 
     /**
-     * demo 查询菜单列表（分页）
-     *
-     * @param menuInfo
+     * demo 查询菜单列表
      * @return
      * @Author xiekai
      * @Date 2020-04-09
      */
-    public AppResponse listMenu(MenuInfo menuInfo) {
-        List<MenuInfo> menuInfoList = menuDao.listMenu(menuInfo);
-        return AppResponse.success("查询成功！", menuInfoList);
+    public AppResponse listMenu(){
+        List<MenuInfo> listMenu = menuDao.listMenu();
+        if(listMenu.size() == 0){
+            return AppResponse.versionError("查询菜单列表失败！");
+        }
+        //封装成接口文档对应的list名称
+        MenuList menuList = new MenuList();
+        menuList.setMenuList(listMenu);
+        return AppResponse.success("查询菜单列表成功！", menuList);
     }
 
     /**
@@ -100,20 +105,19 @@ public class MenuService {
 
     /**
      * 角色菜单列表
-     *
-     * @param menuInfo
+     * @param role
      * @return
      * @Author xiekai
      * @Date 2020-04-13
      */
-    public AppResponse listMenuHome(MenuInfo menuInfo) {
-        if( Integer.valueOf(menuInfo.getRole()) == 0 || Integer.valueOf(menuInfo.getRole()) == '1'){
-            List<MenuInfo> menuList = menuDao.listMenuHomeAdmin(menuInfo);
-            return AppResponse.success("查询成功！",menuList);
-        }else{
-            List<MenuInfo> menuList = menuDao.listMenuHome(menuInfo);
-            return AppResponse.success("查询成功！",menuList);
+    public AppResponse listMenuHome(String role) {
+            List<MenuInfo> pageHomeMenu = menuDao.getPageHomeMenu(role);
+            if(pageHomeMenu.size() == 0){
+                return AppResponse.versionError("根据角色查询菜单失败");
+            }
+            //封装数据
+            MenuList menuList = new MenuList();
+            menuList.setMenuList(pageHomeMenu);
+            return AppResponse.success("根据角色查询菜单成功", menuList);
         }
-
-    }
 }

@@ -11,6 +11,7 @@
             a.sex sex,
             a.phone,
             a.mail,
+            a.user_id,
             a.id_card idCard
         from t_sys_user a,
              t_info_client b
@@ -34,6 +35,7 @@
         a.sex sex,
         a.phone,
         a.mail,
+        a.user_id,
         a.id_card idCard
         from t_sys_user a,
         t_info_client b,

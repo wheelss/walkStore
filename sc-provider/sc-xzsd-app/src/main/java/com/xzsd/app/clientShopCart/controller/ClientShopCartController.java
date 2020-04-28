@@ -29,10 +29,10 @@ public class ClientShopCartController {
      */
     @PostMapping("addShoppingCart")
     public AppResponse addShoppingCart(ClientShopCartInfo clientShopCartInfo){
+        //获取当前登录人id
+        String userId = SecurityUtils.getCurrentUserId();
+        clientShopCartInfo.setUserId(userId);
         try {
-            //获取当前登录人id
-            String userId = SecurityUtils.getCurrentUserId();
-            clientShopCartInfo.setUserId(userId);
             return clientShopCartService.addShoppingCart(clientShopCartInfo);
         }catch (Exception e){
             logger.error("新增购物车失败");
@@ -49,10 +49,10 @@ public class ClientShopCartController {
      */
     @PostMapping("listShoppingCarts")
     public AppResponse listShoppingCarts(ClientShopCartInfo clientShopCartInfo){
+        //获取当前登录人id
+        String userId = SecurityUtils.getCurrentUserId();
+        clientShopCartInfo.setUserId(userId);
         try {
-            //获取当前登录人id
-            String userId = SecurityUtils.getCurrentUserId();
-            clientShopCartInfo.setUserId(userId);
             return clientShopCartService.listShoppingCarts(clientShopCartInfo);
         }catch (Exception e){
             logger.error("查询购物车列表失败");
@@ -69,10 +69,10 @@ public class ClientShopCartController {
      */
     @PostMapping("updateShoppingCart")
     public AppResponse updateShoppingCart(ClientShopCartInfo clientShopCartInfo){
+        //获取当前登录人id
+        String userId = SecurityUtils.getCurrentUserId();
+        clientShopCartInfo.setUserId(userId);
         try {
-            //获取当前登录人id
-            String userId = SecurityUtils.getCurrentUserId();
-            clientShopCartInfo.setUserId(userId);
             return clientShopCartService.updateShoppingCart(clientShopCartInfo);
         }catch (Exception e){
             logger.error("修改购物车商品购买数量失败");
@@ -89,9 +89,9 @@ public class ClientShopCartController {
      */
     @PostMapping("deleteShoppingCart")
     public AppResponse deleteShoppingCart(String shopCartId){
+        //获取当前登录人id
+        String userId = SecurityUtils.getCurrentUserId();
         try {
-            //获取当前登录人id
-            String userId = SecurityUtils.getCurrentUserId();
             return clientShopCartService.deleteShoppingCart(shopCartId, userId);
         } catch (Exception e){
             logger.error("删除购物车失败");

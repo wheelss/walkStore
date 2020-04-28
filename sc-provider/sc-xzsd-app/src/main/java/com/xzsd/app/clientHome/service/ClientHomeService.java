@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xzsd.app.clientHome.dao.ClientHomeDao;
 import com.xzsd.app.clientHome.entity.HotGoodInfo;
+import com.xzsd.app.clientHome.entity.Lists;
 import com.xzsd.app.clientHome.entity.RotationInfo;
+import com.xzsd.app.clientHome.entity.SlideshowList;
 import com.xzsd.app.util.AppResponse;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +25,9 @@ public class ClientHomeService {
      */
     public AppResponse listRotationCharHome(){
         List<RotationInfo> listSlideshow = clientHomeDao.listRotationCharHome();
-        if(listSlideshow.size() == 0){
-            return AppResponse.bizError("查询首页轮播图失败");
-        }
-        return AppResponse.success("查询首页轮播图成功", listSlideshow);
+        SlideshowList slideshowList = new SlideshowList();
+        slideshowList.setSlideshowList(listSlideshow);
+        return AppResponse.success("查询首页轮播图成功", slideshowList);
     }
     /**
      * 查询热门位商品
@@ -37,9 +38,11 @@ public class ClientHomeService {
     public AppResponse listHotGoods(HotGoodInfo hotGoodInfo){
         //获取热门位商品展示数量
         int num = clientHomeDao.getSlideshowNumber();
-        hotGoodInfo.setHotGoodsShowNum(num);
+        hotGoodInfo.setHotGoodsShowNums(num);
         //查询热门位商品
         List<HotGoodInfo> listHotGoods = clientHomeDao.listHotGoods(hotGoodInfo);
-        return AppResponse.success("查询热门位商品成功", listHotGoods);
+        Lists list = new Lists();
+        list.setList(listHotGoods);
+        return AppResponse.success("查询热门位商品成功", list);
     }
 }

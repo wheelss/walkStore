@@ -10,7 +10,7 @@
     </select>
     <!--统计手机数量-->
     <select id="countPhone" parameterType="com.xzsd.app.register.entity.RegisterInfo" resultType="int">
-        select count(phone)
+        select count(*)
         from t_sys_user
         where is_delete = 0
         and phone = #{phone}
@@ -18,23 +18,23 @@
     </select>
     <!--统计店铺邀请码数量-->
     <select id="countInviteCode" parameterType="com.xzsd.app.register.entity.RegisterInfo" resultType="int">
-        select count(invite_code)
+        select count(*)
         from t_info_store
         where is_delete = 0
         and invite_code = #{inviteCode}
     </select>
 
     <!--新增用户到user表-->
-    <insert id="addUser" parameterType="com.xzsd.app.register.entity.RegisterInfo">
+    <insert id="addUser" parameterType="com.xzsd.app.register.entity.RegisterInfo" >
         insert into t_sys_user
         (user_id,
         user_acct,
         user_name,
-        user_password,
         sex,
         phone,
         mail,
-        idcard,
+        id_card,
+        user_password,
         role,
         is_delete,
         create_user,
@@ -45,11 +45,11 @@
         (#{userId},
         #{userAcct},
         #{userName},
-        #{userPassword},
         #{sex},
         #{phone},
-        #{email},
+        #{mail},
         #{idCard},
+        #{userPassword},
         4,
         0,
         #{createUser},

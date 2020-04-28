@@ -23,7 +23,6 @@ public interface ClientGoodsDao {
      * @return
      */
     List<GoodsEvaluateInfo> listGoodsEvaluates(GoodsEvaluateInfo goodsEvaluateInfo);
-    List<ImageInfo> listImage(@Param("evaluateId") String  evaluateId);
     /**
      * 查询一级商品分类
      * @return

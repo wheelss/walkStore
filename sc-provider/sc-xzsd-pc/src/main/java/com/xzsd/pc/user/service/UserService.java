@@ -35,7 +35,6 @@ public class UserService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addUser(UserInfo userInfo) {
-
         int countUserAcct = userDao.countUserAcct(userInfo);
         if (0 != countUserAcct) {
             return AppResponse.versionError("用户账号已存在，请重新输入！");
@@ -87,9 +86,14 @@ public class UserService {
         if (0 != countUserAcct) {
             return AppResponse.versionError("用户账号已存在，请重新输入！");
         }
-        if(!(userInfo.getUserPassword().equals(userDao.getUserPassword(userInfo.getUserId())))) {
+        //获取密码
+        String userPassword = userDao.getUserPassword(userInfo.getUserId());
+        //判断密码是否相同
+        boolean bool = PasswordUtils.equalPassword(userInfo.getUserPassword(), userPassword);
+        if(!bool){
             //密码加密
-            String pwd = PasswordUtils.generatePassword(userInfo.getUserPassword());
+            String userNewPassword = userInfo.getUserPassword();
+            String pwd = PasswordUtils.generatePassword(userNewPassword);
             userInfo.setUserPassword(pwd);
         }
         // 修改用户信息

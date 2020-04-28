@@ -119,19 +119,17 @@ public class ClientOrderController {
     }
     /**
      *新增评价列表
-     * @param jsonObject
+     * @param evaluateOrder
      * @return
      * @author xiekai
      * @time 2020-4-21
      */
     @PostMapping("addGoodsEvaluate")
-    public AppResponse addGoodsEvaluate(@RequestBody JSONObject jsonObject){
-        //获取登录id
-        String userId = SecurityUtils.getCurrentUserId();
-        try {
-            return clientOrderService.addGoodsEvaluate(jsonObject, userId);
+    public AppResponse addGoodsEvaluate(@RequestBody JSONObject evaluateOrder){
+        try{
+            return clientOrderService.addGoodsEvaluate(evaluateOrder);
         }catch (Exception e){
-            logger.error("新增订单评价失败");
+            logger.error("新增订单商品评价失败",e);
             System.out.println(e.toString());
             throw e;
         }

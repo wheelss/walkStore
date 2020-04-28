@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/manangerInformation")
+@RequestMapping("/managerInformation")
 public class ManagerInfoController {
     @Resource
     private ManagerInfoService managerInfoService;
@@ -24,7 +24,7 @@ public class ManagerInfoController {
      * @author xiekai
      * @time 2020-4-15
      */
-    @PostMapping("listManangerDrivers")
+    @PostMapping("listManagerDrivers")
     public AppResponse listManangerDrivers(){
         try {
             String userId = SecurityUtils.getCurrentUserId();

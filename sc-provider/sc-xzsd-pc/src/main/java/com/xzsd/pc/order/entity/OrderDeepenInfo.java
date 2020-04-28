@@ -22,44 +22,37 @@ public class OrderDeepenInfo {
      */
     private String goodsName;
 
-    public String getGoodsName() {
-        return goodsName;
-    }
-
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
-    }
-
     /**
-     * 订单详情编号
-     */
-    private String orderGoodsId;
-    /**
-     *商品编号
+     * 商品编号
      */
     private String goodsId;
     /**
-     *书的数量
+     * 商品数量
      */
     private int goodsCount;
     /**
-     *优惠金额
-     */
-    private String reducedPrice;
-    /**
-     * 这种书的总价
+     * 商品总价
      */
     private String theGoodsAllPrice;
     /**
-     * 作废标记 0为存在，1为作废
+     * 商品售价
+     */
+
+    private String goodsPrice;
+    /**
+     * 商品定价
+     */
+    private String goodsShelfCost;
+    /**
+     * 删除标记
      */
     private int isDelete;
     /**
-     * 创建时间
+     * 创作时间
      */
     private String createTime;
     /**
-     * 创建者
+     * 创作者
      */
     private String createUser;
     /**
@@ -70,11 +63,19 @@ public class OrderDeepenInfo {
      * 更新者
      */
     private String updateUser;
-
     /**
      * 版本号
      */
     private String version;
+
+    /**
+     * 订单详情编号
+     */
+    private String orderGoodsId;
+    /**
+     *优惠金额
+     */
+    private String reducedPrice;
 
     public int getPageSize() {
         return pageSize;
@@ -96,6 +97,10 @@ public class OrderDeepenInfo {
         return orderId;
     }
 
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -104,16 +109,12 @@ public class OrderDeepenInfo {
         this.userId = userId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public String getOrderGoodsId() {
-        return orderGoodsId;
-    }
-
-    public void setOrderGoodsId(String orderGoodsId) {
-        this.orderGoodsId = orderGoodsId;
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
     public String getGoodsId() {
@@ -132,20 +133,28 @@ public class OrderDeepenInfo {
         this.goodsCount = goodsCount;
     }
 
-    public String getReducedPrice() {
-        return reducedPrice;
-    }
-
-    public void setReducedPrice(String reducedPrice) {
-        this.reducedPrice = reducedPrice;
-    }
-
     public String getTheGoodsAllPrice() {
         return theGoodsAllPrice;
     }
 
     public void setTheGoodsAllPrice(String theGoodsAllPrice) {
         this.theGoodsAllPrice = theGoodsAllPrice;
+    }
+
+    public String getGoodsPrice() {
+        return goodsPrice;
+    }
+
+    public void setGoodsPrice(String goodsPrice) {
+        this.goodsPrice = goodsPrice;
+    }
+
+    public String getGoodsShelfCost() {
+        return goodsShelfCost;
+    }
+
+    public void setGoodsShelfCost(String goodsShelfCost) {
+        this.goodsShelfCost = goodsShelfCost;
     }
 
     public int getIsDelete() {
@@ -194,5 +203,21 @@ public class OrderDeepenInfo {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public String getOrderGoodsId() {
+        return orderGoodsId;
+    }
+
+    public void setOrderGoodsId(String orderGoodsId) {
+        this.orderGoodsId = orderGoodsId;
+    }
+
+    public String getReducedPrice() {
+        return reducedPrice;
+    }
+
+    public void setReducedPrice(String reducedPrice) {
+        this.reducedPrice = reducedPrice;
     }
 }

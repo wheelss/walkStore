@@ -27,9 +27,9 @@ public class ClientInfoController {
      */
     @PostMapping("updateClientInvite")
     public AppResponse updateClientInvite(ClientInfo clientInfo){
+        String userId = SecurityUtils.getCurrentUserId();
+        clientInfo.setUserId(userId);
         try {
-            String userId = SecurityUtils.getCurrentUserId();
-            clientInfo.setUserId(userId);
             return clientInfoService.updateClientInvite(clientInfo);
         }catch (Exception e){
             logger.error("修改邀请码失败");

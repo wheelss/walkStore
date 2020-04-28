@@ -43,8 +43,11 @@
     <!--获取商品分类信息-->
     <select id="getGoodsClassify" parameterType="java.lang.String" resultType="com.xzsd.pc.goodSort.entity.GoodSortInfo">
         select
-            classify_name,
-            classify_comment
+            classify_id classifyId,
+            classify_name classifyName,
+            classify_comment classifyComment,
+            classify_parent classifyParent,
+            version
         from t_info_goods_classify
         where classify_id = #{classifyId}
         and is_delete = 0
@@ -59,7 +62,6 @@
         <collection column="classify_id" property="twoClassifyList" javaType="java.util.ArrayList"
                     ofType="com.xzsd.pc.goodSort.entity.GoodSortInfo" select="getNextNodeTree"/>
     </resultMap>
-
     <resultMap id="NextTreeResultMap" type="com.xzsd.pc.goodSort.entity.GoodSortInfo">
         <result column="classify_id" property="classifyId"/>
         <result column="classify_name" property="classifyName"/>
@@ -68,7 +70,6 @@
         <collection column="classify_id" property="twoClassifyList" javaType="java.util.ArrayList"
                     ofType="com.xzsd.pc.goodSort.entity.GoodSortInfo" select="getNextNodeTree"/>
     </resultMap>
-
     <select id="getNextNodeTree" resultMap="NextTreeResultMap">
         SELECT
         classify_id,
@@ -78,7 +79,6 @@
         WHERE classify_parent = #{classifyId}
         and is_delete = 0
     </select>
-
     <select id="getNodeTree" resultMap="BaseTreeResultMap">
         SELECT
         classify_id,

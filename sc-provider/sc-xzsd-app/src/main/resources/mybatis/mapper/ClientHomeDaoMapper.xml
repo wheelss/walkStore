@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.app.clientHome.dao.ClientHomeDao">
     <!--获取热门位商品展示数量-->
-    <select id="getHotGoodsShowNum" resultType="int">
+    <select id="getSlideshowNumber" resultType="int">
         select
            public_type hotGoodsShowNum
         from t_sys_dictionary
@@ -10,18 +10,19 @@
     </select>
 
     <!--查询首页轮播图-->
-    <select id="getListSlideshow" resultType="com.xzsd.app.clientHome.entity.RotationInfo">
+    <select id="listRotationCharHome" resultType="com.xzsd.app.clientHome.entity.RotationInfo">
         select
             slideshow_path slideshowPath,
             goods_id goodsId
         from t_info_slideshow_home
         where slideshow_state_id = 1
         and is_delete = 0
+        and slideshow_state_id = 1
         and now() between start_time and end_time
     </select>
 
     <!--查询热门位商品-->
-    <select id="getListHotGoods" parameterType="com.xzsd.app.clientHome.entity.HotGoodInfo"
+    <select id="listHotGoods" parameterType="com.xzsd.app.clientHome.entity.HotGoodInfo"
             resultType="com.xzsd.app.clientHome.entity.HotGoodInfo">
         select
         a.goods_id goodsId,
@@ -31,7 +32,9 @@
         from t_info_hot_goods a,
              t_info_goods b
         where a.goods_id = b.goods_id
-        order by a.slideshow_num asc
-        limit #{hotGoodsShowNum}
+        and b.is_delete = 0
+        and a.is_delete = 0
+        order by a.hot_goods_num asc
+        limit #{hotGoodsShowNums}
     </select>
 </mapper>

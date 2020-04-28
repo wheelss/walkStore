@@ -3,9 +3,7 @@ package com.xzsd.app.clientGoods.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xzsd.app.clientGoods.dao.ClientGoodsDao;
-import com.xzsd.app.clientGoods.entity.GoodSortInfo;
-import com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo;
-import com.xzsd.app.clientGoods.entity.GoodsInfo;
+import com.xzsd.app.clientGoods.entity.*;
 import com.xzsd.app.util.AppResponse;
 import org.springframework.stereotype.Service;
 
@@ -48,11 +46,9 @@ public class ClientGoodsService {
      * @time 2020-4-15
      */
     public AppResponse listOneGoodsClassify(){
-        List<GoodSortInfo> oneClassifyList = clientGoodsDao.listOneGoodsClassify();
-        if(oneClassifyList.size() == 0){
-            return AppResponse.bizError("查询一级商品分类失败");
-        }
-
+        List<GoodSortInfo> oneClassifyLists = clientGoodsDao.listOneGoodsClassify();
+        OneClassifyList oneClassifyList = new OneClassifyList();
+        oneClassifyList.setOneClassifyList(oneClassifyLists);
         return AppResponse.success("查询一级商品分类成功", oneClassifyList);
     }
     /**
@@ -62,10 +58,9 @@ public class ClientGoodsService {
      * @time 2020-4-16
      */
     public AppResponse listGetClassGoods(String classifyId){
-        List<GoodSortInfo> twoClassifyList = clientGoodsDao.listGetClassGoods(classifyId);
-        if(twoClassifyList.size() == 0){
-            return AppResponse.bizError("查询二级商品分类及商品失败");
-        }
+        List<GoodSortInfo> twoClassifyLists = clientGoodsDao.listGetClassGoods(classifyId);
+        TwoClassifyList twoClassifyList = new TwoClassifyList();
+        twoClassifyList.setTwoClassifyList(twoClassifyLists);
         return AppResponse.success("查询二级商品分类及商品成功", twoClassifyList);
     }
 

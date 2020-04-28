@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xzsd.pc.goodSort.dao.GoodSortDao;
 import com.xzsd.pc.goodSort.entity.GoodSortInfo;
+import com.xzsd.pc.goodSort.entity.OneClassifyList;
 import com.xzsd.pc.util.AppResponse;
 import com.xzsd.pc.util.StringUtil;
 import org.springframework.stereotype.Service;
@@ -61,7 +62,9 @@ public class GoodSortService {
      * @Date 2020-03-26
      */
     public AppResponse listAllGoodsClassify(GoodSortInfo goodSortInfo) {
-        List<GoodSortInfo> oneClassifyList = goodSortDao.getNodeTree(goodSortInfo);
+        List<GoodSortInfo> oneClassifyLists = goodSortDao.getNodeTree(goodSortInfo);
+        OneClassifyList oneClassifyList = new OneClassifyList();
+        oneClassifyList.setOneClassifyList(oneClassifyLists);
         return AppResponse.success("查询成功！", oneClassifyList);
     }
 

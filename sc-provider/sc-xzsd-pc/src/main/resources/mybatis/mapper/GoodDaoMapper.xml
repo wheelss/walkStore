@@ -120,7 +120,7 @@
             a.isbn isbn,
             b.classify_name oneClassifyName,
             c.classify_name twoClassifyName,
-            a.goods_describe goodsDescibe,
+            a.goods_describe goodsDescribe,
             a.supplier_name supplierName,
             a.goods_inventory goodsInventory,
             a.goods_original_cost goodsOriginalCost,

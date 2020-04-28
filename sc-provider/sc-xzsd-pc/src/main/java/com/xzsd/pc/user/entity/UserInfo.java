@@ -35,7 +35,7 @@ public class UserInfo {
     /**
      * 用户性别
      */
-    private int sex;
+    private String sex;
     /**
      * 手机号
      */
@@ -93,9 +93,7 @@ public class UserInfo {
         this.userImage = userImage;
     }
 
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
+
 
     public String getRoleName() {
         return roleName;
@@ -161,8 +159,12 @@ public class UserInfo {
         this.idCard = idCard;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getPhone() {

@@ -39,6 +39,11 @@ public class UserInformationService {
         return AppResponse.success("查询用户个人信息成功", userInformationInfo);
     }
 
+    /**
+     * 修改密码
+     * @param userInformationInfo
+     * @return
+     */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateUserPassword(UserInformationInfo userInformationInfo){
         //获取密码

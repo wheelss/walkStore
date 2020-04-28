@@ -33,8 +33,8 @@
         b.goods_name goodsName,
         b.goods_image_path goodsImagePath,
         b.goods_price goodsPrice,
-        b.shop_cart_id shopCartId,
-        b.cart_goods_count cartGoodsCount
+        a.shop_cart_id shopCartId,
+        a.cart_goods_count cartGoodsCount
         from t_info_shopping_cart a,
              t_info_goods b
         where a.goods_id = b.goods_id

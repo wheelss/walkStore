@@ -25,15 +25,14 @@ public class RegisterInfo {
      * 用户名字
      */
     private String userName;
-
     /**
      * 性别 0 男 1 女
      */
-    private int  sex;
+    private String  sex;
     /**
      * 手机号码
      */
-    private int phone;
+    private String phone;
     /**
      * 电子邮件
      */
@@ -151,19 +150,19 @@ public class RegisterInfo {
         this.userName = userName;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

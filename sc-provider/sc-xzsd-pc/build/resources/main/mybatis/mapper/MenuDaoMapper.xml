@@ -23,21 +23,20 @@
         0)
     </insert>
 
-    <!--菜单列表-->
-    <select id="listMenu" parameterType="com.xzsd.pc.menu.entity.MenuInfo"
-            resultType="com.xzsd.pc.menu.entity.MenuInfo">
+    <select id="listMenu" resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
-        a.menu_id menuId,
-        a.menu_name menuName,
-        version
-        from t_sys_menu a
-        where a.is_delete = 0
-        order by update_time desc
+        menu_id menuId,
+        menu_name menuName,
+        version version
+        from t_sys_menu
+        where is_delete = 0
+        order by create_time asc
     </select>
 
     <!--获取菜单信息-->
     <select id="getMenu" parameterType="java.lang.String" resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
+        menu_id menuId,
         menu_name menuName,
         menu_path menuPath,
         menu_comment menuComment,
@@ -47,19 +46,16 @@
         and is_delete = 0
     </select>
 
-    <!--修改菜单信息-->
+    <!--更新菜单信息-->
     <update id="updateMenu" parameterType="com.xzsd.pc.menu.entity.MenuInfo">
-        UPDATE t_sys_menu
-        SET
+        update t_sys_menu
+        set
             menu_name = #{menuName},
             menu_path = #{menuPath},
             menu_comment = #{menuComment},
-            is_delete = 0,
-            update_time = NOW(),
-            update_user = #{updateUser},
             version = version + 1
-        WHERE menu_id = #{menuId}
-        AND   version = #{version}
+        where menu_id = #{menuId}
+        and version = #{version}
     </update>
 
     <!--删除菜单-->
@@ -72,28 +68,16 @@
         where menu_id = #{menuId}
     </update>
 
-    <!--管理员菜单列表-->
-    <select id="listMenuHomeAdmin" parameterType="com.xzsd.pc.menu.entity.MenuInfo"
-            resultType="com.xzsd.pc.menu.entity.MenuInfo">
+    <!--根据角色查询首页菜单显示的功能-->
+    <select id="getPageHomeMenu" parameterType="java.lang.String" resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
-        a.menu_id menuId,
-        a.menu_name menuName,
-        a.menu_path menuPath
-        from t_sys_menu a
-        where a.is_delete = 0
-        order by update_time desc
-    </select>
-
-    <!--店长菜单列表-->
-    <select id="listMenuHome" parameterType="com.xzsd.pc.menu.entity.MenuInfo"
-            resultType="com.xzsd.pc.menu.entity.MenuInfo">
-        select
-        a.menu_id menuId,
-        a.menu_name menuName,
-        a.menu_path menuPath
-        from t_sys_menu a
-        where a.is_delete = 0
-        and menu_name in ('客户管理','订单管理','门店管理','司机管理')
-        order by update_time desc
+            menu_id menuId,
+            menu_name menuName,
+            menu_Path menuPath
+        from t_sys_menu
+        where is_delete = 0
+        <if test="role == 2">
+            and is_manager = 1
+        </if>
     </select>
 </mapper>

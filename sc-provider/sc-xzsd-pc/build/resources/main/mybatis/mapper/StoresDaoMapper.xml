@@ -72,8 +72,8 @@
             d.area_name areaName,
             a.address address,
             e.user_name userName,
-            a.inviteCode inviteCode,
-            a.version
+            a.invite_code inviteCode,
+            a.version,
             a.store_id storeId
         from t_info_store a,
         t_info_area_level b,

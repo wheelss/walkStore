@@ -67,6 +67,18 @@ public class RotationInfo {
      * 版本号
      */
     private String version;
+    /**
+     * 图片
+     */
+    private String imagePath;
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 
     public int getPageSize() {
         return pageSize;

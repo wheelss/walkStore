@@ -96,6 +96,44 @@ public class ClientOrderInfo {
      */
     private String managerId;
 
+    /**
+     *门店名称
+     */
+    private String storeName;
+
+    /**
+     *购物车id
+     */
+    private String shopCartId;
+    /**
+     * 商品状态
+     */
+    private int goodsStateId;
+
+    public int getGoodsStateId() {
+        return goodsStateId;
+    }
+
+    public void setGoodsStateId(int goodsStateId) {
+        this.goodsStateId = goodsStateId;
+    }
+
+    public String getShopCartId() {
+        return shopCartId;
+    }
+
+    public void setShopCartId(String shopCartId) {
+        this.shopCartId = shopCartId;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
     public String getManagerId() {
         return managerId;
     }
