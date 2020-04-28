@@ -162,44 +162,44 @@
             resultType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
         select
         distinct
-        t1.order_id as orderId,
-        t1.order_state as orderStateId,
-        t1.order_all_cost as orderAllCost,
-        t1.order_all_goods_count as orderAllGoodsCount,
-        t1.version as version
-        from t_info_order t1,
-             t_info_order_deepen t2,
-             t_info_goods t3,
-             t_sys_user t4
-        where t1.order_id = t2.order_id
-        and t2.goods_id = t3.goods_id
-        and t1.user_id = t4.user_id
-        and t1.user_id = #{userId}
-        and t1.is_delete = 0
-        and t2.is_delete = 0
+        a.order_id orderId,
+        a.order_state orderStateId,
+        a.order_all_cost orderAllCost,
+        a.order_all_goods_count orderAllGoodsCount,
+        a.version version
+        from t_info_order a,
+             t_info_order_deepen b,
+             t_info_goods c,
+             t_sys_user d
+        where a.order_id = b.order_id
+        and b.goods_id = c.goods_id
+        and a.user_id = d.user_id
+        and a.user_id = #{userId}
+        and a.is_delete = 0
+        and b.is_delete = 0
         <if test="orderStateId != null and orderStateId != ''">
-            and t1.order_state = #{orderStateId}
+            and a.order_state = #{orderStateId}
         </if>
     </select>
     <!--查询订单列表下的商品-->
     <select id="getListOrderGoods" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo"
             resultType="com.xzsd.app.clientOrder.entity.GoodsInfo">
         select
-        t3.goods_name as goodsName,
-        t3.goods_image_path as goodsImagePath,
-        t3.goods_describe as goodsDescribe,
-        t3.goods_price as goodsPrice,
-        t3.goods_id as goodsId,
-        t2.goods_count as cartGoodsCount,
-        t2.order_id as orderId
-        from t_info_order t1,
-             t_info_order_deepen t2,
-             t_info_goods t3
-        where t2.goods_id = t3.goods_id
-        and t1.user_id = #{userId}
-        and t1.order_id = t2.order_id
-        and t2.is_delete = 0
-        and t3.is_delete = 0
+        c.goods_name goodsName,
+        c.goods_image_path goodsImagePath,
+        c.goods_describe goodsDescribe,
+        c.goods_price goodsPrice,
+        c.goods_id goodsId,
+        b.goods_count cartGoodsCount,
+        b.order_id orderId
+        from t_info_order a,
+             t_info_order_deepen b,
+             t_info_goods c
+        where b.goods_id = c.goods_id
+        and a.user_id = #{userId}
+        and a.order_id = b.order_id
+        and b.is_delete = 0
+        and c.is_delete = 0
     </select>
     <!--查询订单详情映射-->
     <resultMap id="orderDetailsById" type="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
@@ -226,33 +226,33 @@
     <!--查询订单详情-->
         <select id="listOrderDeepen" parameterType="java.lang.String" resultMap="orderDetailsById">
         select
-        t1.order_id as orderId,
-        t1.order_state as orderStateId,
-        t1.order_all_cost as orderAllGoodsCount,
-        t1.order_all_goods_count as orderAllCost,
-        t1.create_time as crateTime,
-        t2.goods_count as cartGoodsCount,
-        t3.goods_id as goodsId,
-        t3.goods_name as goodsName,
-        t3.goods_price as goodsPrice,
-        t3.goods_image_path as goodsImagePath,
-        t3.goods_describe as goodsDescribe,
-        t4.store_name as storeName,
-        t4.address as address,
-        t5.area_name as provinceName,
-        t6.area_name as cityName,
-        t7.area_name as areaName,
-        t1.version as version
-        from t_info_order t1
-        left join t_info_order_deepen t2 on (t1.order_id = t2.order_id)
-        left join t_info_goods t3 on t2.goods_id = t3.goods_id
-        left join t_info_store t4 on t1.store_id = t4.store_id
-        left join t_info_area_level t5 on t4.province_id = t5.area_id
-        left join t_info_area_level t6 on t4.city_id = t6.area_id
-        left join t_info_area_level t7 on t4.area_id = t7.area_id
-        where t1.order_id = #{orderId}
-        and t1.is_delete = 0
-        and t2.is_delete = 0
+        a.order_id orderId,
+        a.order_state orderStateId,
+        a.order_all_cost orderAllGoodsCount,
+        a.order_all_goods_count orderAllCost,
+        a.create_time crateTime,
+        b.goods_count cartGoodsCount,
+        c.goods_id goodsId,
+        c.goods_name goodsName,
+        c.goods_price goodsPrice,
+        c.goods_image_path goodsImagePath,
+        c.goods_describe goodsDescribe,
+        d.store_name storeName,
+        d.address address,
+        e.area_name provinceName,
+        f.area_name cityName,
+        g.area_name areaName,
+        a.version version
+        from t_info_order a
+        left join t_info_order_deepen b on (a.order_id = b.order_id)
+        left join t_info_goods c on b.goods_id = c.goods_id
+        left join t_info_store d on a.store_id = d.store_id
+        left join t_info_area_level e on d.province_id = e.area_id
+        left join t_info_area_level f on d.city_id = f.area_id
+        left join t_info_area_level g on d.area_id = g.area_id
+        where a.order_id = #{orderId}
+        and a.is_delete = 0
+        and b.is_delete = 0
     </select>
 
     <!--查询订单评价列表-->
@@ -298,16 +298,7 @@
                 0 )
         </foreach>
     </insert>
-    <!--修改已评价订单状态-->
-    <update id="updateOrderStates" parameterType="java.lang.String">
-        update t_info_order
-        set
-            order_state = 5,
-            update_time = now(),
-            version = version + 1
-        where order_id = #{orderId}
-    </update>
-    <!--更新评价成功相关信息-->
+    <!--评价成功后更新状态 星级-->
     <update id="updateEvaluateState" parameterType="java.lang.String">
         UPDATE t_info_order
         SET

@@ -207,13 +207,13 @@ public class ClientOrderService {
     public AppResponse addGoodsEvaluate(JSONObject evaluateOrder){
         //将json数据转实体类
         EvaluateOrder evaluateOrder1 = new GsonBuilder().create().fromJson(evaluateOrder.toJSONString(),EvaluateOrder.class);
-        List<String> goodsIds = new ArrayList<>();
+        List<String> goodsId = new ArrayList<>();
         String userId = SecurityUtils.getCurrentUserId();
         //生成id
         for (EvaluateInfo evaluateInfo : evaluateOrder1.getEvaluateInfoList()){
             evaluateInfo.setEvaluateId(StringUtil.getCommonCode(2));
             evaluateInfo.setUserId(userId);
-            goodsIds.add(evaluateInfo.getGoodsId());
+            goodsId.add(evaluateInfo.getGoodsId());
         }
         //新增商品评价,更新星级
         int count = clientOrderDao.addGoodsEvaluate(evaluateOrder1.getEvaluateInfoList());
@@ -221,7 +221,7 @@ public class ClientOrderService {
             return AppResponse.versionError("新增商品评价失败！");
         }
         //修改订单状态和商品评价评分
-        int countUpdateEvaluate = clientOrderDao.updateEvaluateState(evaluateOrder1.getOrderId(),userId,goodsIds);
+        int countUpdateEvaluate = clientOrderDao.updateEvaluateState(evaluateOrder1.getOrderId(),userId,goodsId);
         if (countUpdateEvaluate == 0){
             return AppResponse.versionError("订单状态修改失败或者商品评分更新失败！");
         }
