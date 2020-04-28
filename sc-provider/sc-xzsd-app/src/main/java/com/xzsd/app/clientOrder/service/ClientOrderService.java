@@ -56,7 +56,7 @@ public class ClientOrderService {
             listInventory.get(i).setGoodsInventory(listInventory.get(i).getGoodsInventory() - Integer.valueOf(listGoodsCount.get(i)));
             //库存为0时,设置商品状态为售罄
             if(listInventory.get(i).getGoodsInventory() == 0){
-                listInventory.get(i).setGoodsStateId(0);
+                listInventory.get(i).setGoodsStateId(1);
             }
             //赋值为当前商品购买数量
             listInventory.get(i).setCartGoodsCount(Integer.valueOf(listGoodsCount.get(i)));
@@ -100,13 +100,10 @@ public class ClientOrderService {
             return AppResponse.bizError("新增订单失败");
         }
         //如果从购物车里来 删除购物车
-        if(clientOrderInfo.getShopCartId() != null) {
+        if(!(clientOrderInfo.getShopCartId().equals("") || clientOrderInfo.getShopCartId().equals("Null"))) {
             //分割商品id字符
             List<String> listShopCartId = Arrays.asList(clientOrderInfo.getShopCartId().split(","));
             int coun = clientOrderDao.deleteShoppingCart(listShopCartId,clientOrderInfo.getUserId());
-            if(0 == coun){
-                return AppResponse.bizError("删除购物车失败");
-            }
         }
         return AppResponse.success("新增订单成功");
     }

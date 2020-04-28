@@ -3,7 +3,7 @@ package com.xzsd.app.clientOrder.entity;
 import java.util.List;
 
 /**
-*   评价实体类
+ * 评价实体类
  */
 public class EvaluateInfo {
     /**
