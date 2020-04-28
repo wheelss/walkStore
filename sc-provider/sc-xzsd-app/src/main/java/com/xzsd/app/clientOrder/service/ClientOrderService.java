@@ -99,10 +99,11 @@ public class ClientOrderService {
         if(0 == count || 0 == counts){
             return AppResponse.bizError("新增订单失败");
         }
+        //如果从购物车里来 删除购物车
         if(clientOrderInfo.getShopCartId() != null) {
             //分割商品id字符
             List<String> listShopCartId = Arrays.asList(clientOrderInfo.getShopCartId().split(","));
-            int coun = clientOrderDao.deleteShoppingCart(listShopCartId);
+            int coun = clientOrderDao.deleteShoppingCart(listShopCartId,clientOrderInfo.getUserId());
             if(0 == coun){
                 return AppResponse.bizError("删除购物车失败");
             }

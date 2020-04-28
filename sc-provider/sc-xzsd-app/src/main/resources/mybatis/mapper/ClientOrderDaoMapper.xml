@@ -302,7 +302,7 @@
     <update id="updateEvaluateState" parameterType="java.lang.String">
         UPDATE t_info_order
         SET
-        order_state_id = 5,
+        order_state = 5,
         update_time = NOW(),
         update_user = #{updateUser},
         version = version + 1

@@ -30,6 +30,5 @@
         and e.province_id = b.area_id
         and e.city_id= c.area_id
         and e.area_id = d.area_id
-        and e.user_id = a.user_id
     </select>
 </mapper>

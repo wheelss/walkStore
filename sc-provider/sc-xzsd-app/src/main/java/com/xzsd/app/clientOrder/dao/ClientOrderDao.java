@@ -90,13 +90,19 @@ public interface ClientOrderDao {
      * @param listShopCartId
      * @return
      */
-    int deleteShoppingCart(@Param("listShopCartId") List<String> listShopCartId);
+    int deleteShoppingCart(@Param("listShopCartId") List<String> listShopCartId,@Param("userId") String userId);
+
     /**
      * 获取商品信息
+     * @param listOrderId
+     * @return
      */
     List<GoodsInfo> getDeepen(@Param("listOrderId") List<String> listOrderId);
+
     /**
      * 取消订单更新商品库存,销售量,状态
+     * @param listDeepen
+     * @return
      */
     int backUpdate(@Param("listDeepen") List<GoodsInfo> listDeepen);
 }
