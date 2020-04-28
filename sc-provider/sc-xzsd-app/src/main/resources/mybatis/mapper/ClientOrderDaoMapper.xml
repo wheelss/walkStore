@@ -116,7 +116,7 @@
         a.goods_state_id goodsStateId
         from t_info_goods a,
              t_info_order_deepen b
-        where is_delete = 0
+        where b.is_delete = 0
         and a.goods_id = b.goods_id
         and b.order_id in
         <foreach item="item" index="index" collection="listOrderId" open="(" separator="," close=")">
@@ -128,18 +128,18 @@
         <foreach collection="listDeepen" item="item" index="index" open="" separator=";" close="">
             update t_info_goods
             <set>
-                <if test="goodsStateId == 1">
-                    goods_state_id = #{goodsStateId,jdbcType=VARCHAR},
+                <if test="item.goodsStateId == 1">
+                    goods_state_id = #{item.goodsStateId},
                 </if>
-                goods_inventory = goods_inventory + #{cartGoodsCount},
-                goods_sales = goods_sales - #{cartGoodsCount},
-                update_user = #{userId,jdbcType=VARCHAR},
+                goods_inventory = goods_inventory + #{item.cartGoodsCount},
+                goods_sales = goods_sales - #{item.cartGoodsCount},
+                update_user = #{item.userId,jdbcType=VARCHAR},
                 update_time = now(),
                 version = version + 1
             </set>
             <where>
                 is_delete = 0
-                and goods_id = #{goodsId,jdbcType=VARCHAR}
+                and goods_id = #{item.goodsId,jdbcType=VARCHAR}
             </where>
         </foreach>
     </update>

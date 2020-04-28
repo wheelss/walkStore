@@ -13,28 +13,28 @@
     <select id="getStore" parameterType="java.lang.String"
             resultType="com.xzsd.app.userInformation.entity.UserInformationInfo">
         select
-        t1.user_name userName,
-        t1.user_image userImage,
-        t1.role role,
-        t3.area_name provinceName,
-        t4.area_name cityName,
-        t5.area_name areaName,
-        t2.address address,
-        t1.version version,
-        t2.store_id storeId,
-        t2.invite_code inviteCode,
-        t2.store_name storeName
-        from t_sys_user t1,
-        t_info_store t2,
-        t_info_area_level t3,
-        t_info_area_level t4,
-        t_info_area_level t5
-        where t1.user_id = t2.user_id
-        and t2.province_id = t3.area_id
-        and t2.city_id = t4.area_id
-        and t2.area_id = t5.area_id
-        and t1.user_id = #{userId}
-        and t1.is_delete = 0
+        a.user_name userName,
+        a.user_image userImage,
+        a.role role,
+        c.area_name provinceName,
+        d.area_name cityName,
+        e.area_name areaName,
+        b.address address,
+        a.version version,
+        b.store_id storeId,
+        b.invite_code inviteCode,
+        b.store_name storeName
+        from t_sys_user a,
+             t_info_store b,
+             t_info_area_level c,
+             t_info_area_level d,
+             t_info_area_level e
+        where a.user_id = b.user_id
+        and b.province_id = c.area_id
+        and b.city_id = d.area_id
+        and b.area_id = e.area_id
+        and a.user_id = #{userId}
+        and a.is_delete = 0
     </select>
 
     <!--查询司机个人信息-->
@@ -56,20 +56,20 @@
     <select id="getCustomer" parameterType="java.lang.String"
             resultType="com.xzsd.app.userInformation.entity.UserInformationInfo">
         select
-        t1.user_name userName,
-        t1.user_image userImage,
-        t1.role role,
-        t3.store_name storeName,
-        t3.store_id storeId,
-        t1.version version
+        a.user_name userName,
+        a.user_image userImage,
+        a.role role,
+        c.store_name storeName,
+        c.store_id storeId,
+        a.version version
         from
-        t_info_client t2,
-        t_info_store t3,
-        t_sys_user t1
-        where t1.user_id = #{userId}
-        and t1.user_id = t2.user_id
-        and t2.invite_code = t3.invite_code
-        and t1.is_delete = 0
+        t_info_client b,
+        t_info_store c,
+        t_sys_user a
+        where a.user_id = #{userId}
+        and a.user_id = b.user_id
+        and b.invite_code = c.invite_code
+        and a.is_delete = 0
     </select>
 
     <!--获取当前登录用户的密码-->

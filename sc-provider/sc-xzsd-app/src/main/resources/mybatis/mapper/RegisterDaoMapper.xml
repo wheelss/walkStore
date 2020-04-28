@@ -63,7 +63,9 @@
     <insert id="addUserClient" parameterType="com.xzsd.app.register.entity.RegisterInfo">
         insert into t_info_client
         (user_id,
-        invite_code,
+        <if test="inviteCode != null and inviteCode != ''">
+            invite_code,
+        </if>
         is_delete,
         create_user,
         create_time,
@@ -71,7 +73,9 @@
         )
         values
         (#{userId},
-        #{inviteCode},
+        <if test="inviteCode != null and inviteCode != ''">
+         #{inviteCode},
+        </if>
         0,
         #{createUser},
         now(),

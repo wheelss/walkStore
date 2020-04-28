@@ -71,7 +71,7 @@ public interface ClientOrderDao {
      */
     ClientOrderInfo listOrderDeepen(@Param("orderId") String orderId);
     /**
-     * 新增订单商品图片
+     * 新增评价
      * @param evaluateList
      * @return
      */

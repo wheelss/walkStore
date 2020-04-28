@@ -116,11 +116,10 @@ public class ClientOrderService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateOrderState(ClientOrderInfo clientOrderInfo){
-        int count = clientOrderDao.updateOrderState(clientOrderInfo);
         //如若取消订单
         if( "1".equals(clientOrderInfo.getOrderStateId()) ){
             //分割商品id字符
-            List<String> listOrderId = Arrays.asList(clientOrderInfo.getGoodsId().split(","));
+            List<String> listOrderId = Arrays.asList(clientOrderInfo.getOrderId().split(","));
             //获取商品订单购买数量信息
             List<GoodsInfo> listDeepen = clientOrderDao.getDeepen(listOrderId);
             //判断状态为售馨时 更改状态为1(在售)
@@ -135,6 +134,7 @@ public class ClientOrderService {
                 return AppResponse.bizError("订单取消失败");
             }
         }
+        int count = clientOrderDao.updateOrderState(clientOrderInfo);
         if(0 == count){
             return AppResponse.bizError("修改订单状态失败");
         }
