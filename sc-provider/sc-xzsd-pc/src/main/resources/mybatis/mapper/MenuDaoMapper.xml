@@ -25,9 +25,9 @@
 
     <select id="listMenu" resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
-        menu_id menuId,
-        menu_name menuName,
-        version version
+            menu_id menuId,
+            menu_name menuName,
+            version version
         from t_sys_menu
         where is_delete = 0
         order by create_time asc
@@ -36,11 +36,11 @@
     <!--获取菜单信息-->
     <select id="getMenu" parameterType="java.lang.String" resultType="com.xzsd.pc.menu.entity.MenuInfo">
         select
-        menu_id menuId,
-        menu_name menuName,
-        menu_path menuPath,
-        menu_comment menuComment,
-        version
+            menu_id menuId,
+            menu_name menuName,
+            menu_path menuPath,
+            menu_comment menuComment,
+            version
         from t_sys_menu
         where menu_id = #{menuId}
         and is_delete = 0
@@ -62,9 +62,9 @@
     <update id="deleteMenu" parameterType="com.xzsd.pc.menu.entity.MenuInfo">
         update t_sys_menu
         set
-        is_delete = 1,
-        update_time = now(),
-        update_user = #{updateUser}
+            is_delete = 1,
+            update_time = now(),
+            update_user = #{updateUser}
         where menu_id = #{menuId}
     </update>
 

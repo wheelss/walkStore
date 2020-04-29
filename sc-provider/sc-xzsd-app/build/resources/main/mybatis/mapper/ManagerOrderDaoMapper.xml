@@ -12,6 +12,51 @@
         where order_id = #{orderId}
         and version = #{version}
     </update>
+    <!--修改订单状态-->
+    <update id="updateOrderState" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
+        update t_info_order
+        set
+            order_state = #{orderStateId},
+            update_user = #{userId},
+            update_time = now(),
+            version = version + 1
+        where order_id = #{orderId}
+    </update>
+    <!--取消订单获取订单详情信息-->
+    <select id="getDeepen" parameterType="java.util.List" resultType="com.xzsd.app.clientOrder.entity.GoodsInfo">
+        select
+        b.goods_id goodsId,
+        b.goods_count cartGoodsCount,
+        a.goods_state_id goodsStateId
+        from t_info_goods a,
+        t_info_order_deepen b
+        where b.is_delete = 0
+        and a.goods_id = b.goods_id
+        and b.order_id in
+        <foreach item="item" index="index" collection="listOrderId" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <!--取消订单时更新商品库存,销售量,商品状态-->
+    <update id="backUpdate" parameterType="java.util.List">
+        <foreach collection="listDeepen" item="item" index="index" open="" separator=";" close="">
+            update t_info_goods
+            <set>
+                <if test="item.goodsStateId == 1">
+                    goods_state_id = #{item.goodsStateId},
+                </if>
+                goods_inventory = goods_inventory + #{item.cartGoodsCount},
+                goods_sales = goods_sales - #{item.cartGoodsCount},
+                update_user = #{item.userId,jdbcType=VARCHAR},
+                update_time = now(),
+                version = version + 1
+            </set>
+            <where>
+                is_delete = 0
+                and goods_id = #{item.goodsId,jdbcType=VARCHAR}
+            </where>
+        </foreach>
+    </update>
     <!--查询门店详情-->
     <select id="getStore" parameterType="java.lang.String" resultType="com.xzsd.app.manangerOrder.entity.ManagerOrderInfo">
         select
@@ -25,51 +70,57 @@
             resultType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
         select
         distinct
-        t2.order_id as orderId,
-        t2.order_state as orderStateId,
-        t6.user_name as userName,
-        t6.phone as phone,
-        t2.order_all_cost as orderAllCost,
-        t2.order_all_goods_count as orderAllGoodsCount,
-        t2.version as version,
-        t5.user_id as userId
-        from t_info_store t1,
-        t_info_order t2,
-        t_info_order_deepen t3,
-        t_info_goods t4,
-        t_info_client t5,
-        t_sys_user t6
-        where t1.user_id = #{userId}
-        and t1.store_id = t2.store_id
-        and t2.order_id = t3.order_id
-        and t3.goods_id = t4.goods_id
-        and t1.invite_code = t5.invite_code
-        and t5.user_id = t6.user_id
-        and t2.user_id = t6.user_id
-        and t2.is_delete = 0
-        and t3.is_delete = 0
-        <if test="orderStateId != null and orderStateId != ''">
-            and t2.order_state = #{orderStateId}
+            b.order_id orderId,
+            b.order_state orderStateId,
+            f.user_name userName,
+            f.phone phone,
+            b.order_all_cost orderAllCost,
+            b.order_all_goods_count orderAllGoodsCount,
+            b.version version,
+            e.user_id userId
+        from t_info_store a,
+             t_info_order b,
+             t_info_order_deepen c,
+             t_info_goods d,
+             t_info_client e,
+             t_sys_user f
+        where a.user_id = #{managerId}
+        and a.store_id = b.store_id
+        and b.order_id = c.order_id
+        and c.goods_id = d.goods_id
+        and a.invite_code = e.invite_code
+        and e.user_id = f.user_id
+        and b.user_id = f.user_id
+        and b.is_delete = 0
+        and c.is_delete = 0
+        <if test="orderStateId == 0">
+            and b.order_state = '0'
+        </if>
+        <if test="orderStateId == 2">
+            and b.order_state = '2'
+        </if>
+        <if test="orderStateId == 4">
+            and b.order_state in(4,5)
         </if>
     </select>
     <!--查询店长订单下的商品-->
     <select id="getListOrderGoods" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo"
             resultType="com.xzsd.app.clientOrder.entity.GoodsInfo">
         select
-        t2.order_id as orderId,
-        t4.goods_id as goodsId,
-        t4.goods_image_path as goodsImagePath,
-        t4.goods_name as goodsName,
-        t4.goods_price as goodsPrice,
-        t4.goods_describe as goodsDescribe,
-        t3.goods_count as cartGoodsCount
-        from t_info_store t1
-        left join t_info_order t2 on t1.store_id = t2.store_id
-        left join t_info_order_deepen t3 on t2.order_id = t3.order_id
-        left join t_info_goods t4 on t3.goods_id = t4.goods_id
-        where t1.user_id = #{userId}
-        and t2.is_delete = 0
-        and t3.is_delete = 0
+            b.order_id orderId,
+            d.goods_id goodsId,
+            d.goods_image_path goodsImagePath,
+            d.goods_name goodsName,
+            d.goods_price goodsPrice,
+            d.goods_describe goodsDescribe,
+            c.goods_count cartGoodsCount
+        from t_info_store a
+        left join t_info_order b on a.store_id = b.store_id
+        left join t_info_order_deepen c on b.order_id = c.order_id
+        left join t_info_goods d on c.goods_id = d.goods_id
+        where a.user_id = #{managerId}
+        and b.is_delete = 0
+        and c.is_delete = 0
     </select>
 
     <!--查询订单详情映射-->
@@ -100,34 +151,34 @@
     <select id="listManagerOrderDeepen" parameterType="java.lang.String"
             resultMap="orderDeepen">
         select
-        t1.order_id as orderId,
-        t1.order_state as orderStateId,
-        t1.order_all_goods_count as orderAllGoodsCount,
-        t1.order_all_cost as orderAllCost,
-        t1.create_time as crateTime,
-        t2.goods_count as cartGoodsCount,
-        t3.goods_id as goodsId,
-        t3.goods_name as goodsName,
-        t3.goods_price as goodsPrice,
-        t3.goods_image_path as goodsImagePath,
-        t3.goods_describe as goodsDescribe,
-        t4.store_name as storeName,
-        t4.address as address,
-        t5.area_name as provinceName,
-        t6.area_name as cityName,
-        t7.area_name as areaName,
-        t8.user_name as userName,
-        t8.phone as phone
-        from t_order_info t1
-        left join t_info_order_deepen t2 on t1.order_id = t2.order_id
-        left join t_info_goods t3 on t2.goods_id = t3.goods_id
-        left join t_info_store t4 on t1.store_id = t4.store_id
-        left join t_info_area_level t5 on t4.province_id = t5.area_id
-        left join t_info_area_level t6 on t4.city_id = t6.area_id
-        left join t_info_area_level t7 on t4.area_id = t7.area_id
-        left join t_sys_user t8 on t1.user_id = t8.user_id
-        where t1.order_id = #{orderId}
-        and t1.is_delete = 0
-        and t2.is_delete = 0
+        a.order_id orderId,
+        a.order_state orderStateId,
+        a.order_all_goods_count orderAllGoodsCount,
+        a.order_all_cost orderAllCost,
+        a.create_time crateTime,
+        b.goods_count cartGoodsCount,
+        c.goods_id goodsId,
+        c.goods_name goodsName,
+        c.goods_price goodsPrice,
+        c.goods_image_path goodsImagePath,
+        c.goods_describe goodsDescribe,
+        d.store_name storeName,
+        d.address address,
+        e.area_name provinceName,
+        f.area_name cityName,
+        g.area_name areaName,
+        h.user_name userName,
+        h.phone phone
+        from t_order_info a
+        left join t_info_order_deepen b on a.order_id = b.order_id
+        left join t_info_goods c on b.goods_id = c.goods_id
+        left join t_info_store d on a.store_id = d.store_id
+        left join t_info_area_level e on d.province_id = e.area_id
+        left join t_info_area_level f on d.city_id = f.area_id
+        left join t_info_area_level g on d.area_id = g.area_id
+        left join t_sys_user h on a.user_id = h.user_id
+        where a.order_id = #{orderId}
+        and a.is_delete = 0
+        and b.is_delete = 0
     </select>
 </mapper>

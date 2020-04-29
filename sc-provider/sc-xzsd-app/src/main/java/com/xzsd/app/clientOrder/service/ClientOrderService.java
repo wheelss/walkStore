@@ -45,7 +45,7 @@ public class ClientOrderService {
         //这个商品总数量
         int goodsCount = 0;
         //这个商品总价格
-        int theGoodsAllPrice = 0;
+        double theGoodsAllPrice = 0;
         //遍历商品,计算出商品价格和购买数量
         for (int i = 0; i < listGoodsId.size() ; i++) {
             //判断当前商品购买数量是否超过商品库存
@@ -69,7 +69,7 @@ public class ClientOrderService {
             //总数量
             goodsCount = goodsCount + Integer.valueOf(listGoodsCount.get(i));
             //总价格
-            theGoodsAllPrice = theGoodsAllPrice + Integer.valueOf(listGoodsPrice.get(i)) * Integer.valueOf(listGoodsCount.get(i));
+            theGoodsAllPrice = theGoodsAllPrice + Double.valueOf(listGoodsPrice.get(i)) * Double.valueOf(listGoodsCount.get(i));
             //初始化设置订单明细表数据
             ClientOrderInfo orderInfo = new ClientOrderInfo();
             //生成订单明细表Id
@@ -83,15 +83,15 @@ public class ClientOrderService {
             //给订单明细表订单数量赋值为当前商数量
             orderInfo.setClientGoodsNum(listGoodsCount.get(i));
             ////给订单明细表订单总价赋值为当前商品数量乘与价格
-            int totalPrice = Integer.valueOf(listGoodsPrice.get(i)) * Integer.valueOf(listGoodsCount.get(i));
+            double totalPrice = Double.valueOf(listGoodsPrice.get(i)) * Double.valueOf(listGoodsCount.get(i));
             //给订单明细表总价赋值
             orderInfo.setTheGoodsAllPrice(String.valueOf(totalPrice));
             clientOrderInfoList.add(orderInfo);
         }
         //设置订单总数
         clientOrderInfo.setOrderAllGoodsCount(goodsCount);
-        //设置订单总价
-        clientOrderInfo.setOrderAllCost(String.valueOf(theGoodsAllPrice));
+        //设置订单总价,保留一位小数
+        clientOrderInfo.setOrderAllCost(String.format("%.2f", theGoodsAllPrice));
         //增加数据到订单表
         int count = clientOrderDao.addOrder(clientOrderInfo);
         //增加数据到订单明细表
@@ -100,7 +100,7 @@ public class ClientOrderService {
             return AppResponse.bizError("新增订单失败");
         }
         //如果从购物车里来 删除购物车
-        if(!(clientOrderInfo.getShopCartId().equals("") || clientOrderInfo.getShopCartId().equals("Null"))) {
+        if(!(clientOrderInfo.getShopCartId().equals("") || clientOrderInfo.getShopCartId() == null)) {
             //分割商品id字符
             List<String> listShopCartId = Arrays.asList(clientOrderInfo.getShopCartId().split(","));
             int coun = clientOrderDao.deleteShoppingCart(listShopCartId,clientOrderInfo.getUserId());

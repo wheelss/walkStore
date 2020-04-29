@@ -3,6 +3,9 @@ package com.xzsd.pc.client.entity;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * 客户实体类
+ */
 public class ClientInfo {
     /**
      * 页码

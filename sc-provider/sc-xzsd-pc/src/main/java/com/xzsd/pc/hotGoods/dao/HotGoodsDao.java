@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 热门位商品
+ * 热门位商品模块
  */
 @Mapper
 public interface HotGoodsDao {

@@ -3,7 +3,9 @@ package com.xzsd.pc.topColumn.dao;
 import com.xzsd.pc.topColumn.entity.TopColumnInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
+/**
+ * 顶部栏模块
+ */
 @Mapper
 public interface TopColumnDao {
     /**

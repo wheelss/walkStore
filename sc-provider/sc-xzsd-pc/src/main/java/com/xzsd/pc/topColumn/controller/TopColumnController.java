@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 顶部栏模块
+ */
 @RestController
 @RequestMapping("topOfColumn")
 public class TopColumnController {

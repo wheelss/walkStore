@@ -11,8 +11,7 @@ import java.util.List;
 public interface AreaDao {
     /**
      * 获取所有省市区
-     *
-     * @param areaInfo 获取所有省市区
+     * @param areaInfo 省区市id
      * @return 获取所有省市区
      */
     List<AreaInfo> listArea(AreaInfo areaInfo);

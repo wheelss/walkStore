@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 /**
- * 热门位商品
+ * 热门位商品模块
  */
 @Service
 public class HotGoodsService {

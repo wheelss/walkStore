@@ -13,7 +13,6 @@ public interface ClientDao {
 
     /**
      * 获取所有客户信息
-     *
      * @param clientInfo 客户信息
      * @return 所有客户信息
      */
@@ -21,7 +20,6 @@ public interface ClientDao {
 
     /**
      * 获取店长客户信息
-     *
      * @param clientInfo 客户信息
      * @return 所有客户信息
      */

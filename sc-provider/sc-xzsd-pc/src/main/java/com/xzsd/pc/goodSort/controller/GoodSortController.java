@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * 商品分类增删改查
+ * 商品分类模块
  */
 @RestController
 @RequestMapping("/goodsClassify")
@@ -117,6 +117,4 @@ public class GoodSortController {
             throw e;
         }
     }
-
-
 }

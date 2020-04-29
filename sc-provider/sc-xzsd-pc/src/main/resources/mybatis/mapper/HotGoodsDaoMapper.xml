@@ -120,9 +120,9 @@
     <update id="deleteHotGoods" parameterType="com.xzsd.pc.good.entity.GoodInfo">
         update t_info_hot_goods
         set
-        is_delete = 1,
-        update_time = now(),
-        update_user = #{updateUser}
+            is_delete = 1,
+            update_time = now(),
+            update_user = #{updateUser}
         where hot_goods_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}

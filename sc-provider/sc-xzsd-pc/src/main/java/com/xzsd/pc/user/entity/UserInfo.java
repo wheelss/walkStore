@@ -84,6 +84,18 @@ public class UserInfo {
      * 版本号
      */
     private String version;
+    /**
+     * 当前登录角色
+     */
+    private String nowRole;
+
+    public String getNowRole() {
+        return nowRole;
+    }
+
+    public void setNowRole(String nowRole) {
+        this.nowRole = nowRole;
+    }
 
     public String getUserImage() {
         return userImage;

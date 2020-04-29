@@ -2,6 +2,9 @@ package com.xzsd.pc.order.entity;
 
 import java.util.List;
 
+/**
+ * 封装文档名
+ */
 public class OrderDeepenList {
 
     private List<OrderDeepenInfo> orderDeepenList;

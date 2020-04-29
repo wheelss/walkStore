@@ -1,5 +1,7 @@
 package com.xzsd.pc.store.entity;
-
+/**
+ * 门店实体类
+ */
 public class StoresInfo {
     /**
      * 页码

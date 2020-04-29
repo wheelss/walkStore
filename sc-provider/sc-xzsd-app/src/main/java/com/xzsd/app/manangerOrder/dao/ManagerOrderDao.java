@@ -41,4 +41,17 @@ public interface ManagerOrderDao {
      * @return
      */
     ClientOrderInfo listManagerOrderDeepen(@Param("orderId") String orderId);
+    /**
+     * 获取商品信息
+     * @param listOrderId
+     * @return
+     */
+    List<GoodsInfo> getDeepen(@Param("listOrderId") List<String> listOrderId);
+
+    /**
+     * 取消订单更新商品库存,销售量,状态
+     * @param listDeepen
+     * @return
+     */
+    int backUpdate(@Param("listDeepen") List<GoodsInfo> listDeepen);
 }

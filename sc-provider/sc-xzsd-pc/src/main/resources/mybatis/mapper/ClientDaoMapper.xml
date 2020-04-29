@@ -30,16 +30,16 @@
     <select id="listClientStore" parameterType="com.xzsd.pc.client.entity.ClientInfo"
             resultType="com.xzsd.pc.client.entity.ClientInfo">
         select
-        a.user_acct userAcct,
-        a.user_name userName,
-        a.sex sex,
-        a.phone,
-        a.mail,
-        a.user_id,
-        a.id_card idCard
+            a.user_acct userAcct,
+            a.user_name userName,
+            a.sex sex,
+            a.phone,
+            a.mail,
+            a.user_id,
+            a.id_card idCard
         from t_sys_user a,
-        t_info_client b,
-        t_info_store c
+             t_info_client b,
+             t_info_store c
         where a.is_delete = 0
         and a.user_id = b.user_id
         and b.invite_code = c.invite_code

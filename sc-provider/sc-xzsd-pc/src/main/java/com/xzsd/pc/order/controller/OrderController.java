@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 订单模块
+ */
 @RestController
 @RequestMapping("/order")
 public class OrderController {

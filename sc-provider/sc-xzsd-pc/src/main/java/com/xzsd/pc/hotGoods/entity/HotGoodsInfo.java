@@ -1,7 +1,7 @@
 package com.xzsd.pc.hotGoods.entity;
 
 /**
- * 热门位商品实例类
+ * 热门位商品实体类
  */
 public class HotGoodsInfo {
     /**

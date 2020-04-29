@@ -24,7 +24,7 @@ public class AreaController {
 
     /**
      * 省市区列表
-     * @param areaInfo
+     * @param areaInfo 省市区id
      * @return AppResponse
      * @author xiekai
      * @Date 2020-4-13

@@ -42,17 +42,17 @@
     <select id="listOrderPages" parameterType="com.xzsd.pc.order.entity.OrderInfo"
             resultType="com.xzsd.pc.order.entity.OrderInfo">
         select
-        a.order_id orderId,
-        a.order_all_cost orderAllCost,
-        a.order_state orderStateId,
-        a.store_id storeId,
-        c.user_name userName,
-        c.phone phone,
-        a.version,
-        a.pay_time payTime
+            a.order_id orderId,
+            a.order_all_cost orderAllCost,
+            a.order_state orderStateId,
+            a.store_id storeId,
+            c.user_name userName,
+            c.phone phone,
+            a.version,
+            a.pay_time payTime
         from t_info_order a,
-            t_info_store b,
-            t_sys_user c
+             t_info_store b,
+             t_sys_user c
         where a.is_delete = 0
         and b.is_delete = 0
         and c.is_delete = 0

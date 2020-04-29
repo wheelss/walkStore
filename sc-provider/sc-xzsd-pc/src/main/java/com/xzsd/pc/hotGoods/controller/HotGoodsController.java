@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 热门位商品模块
+ */
 @RestController
 @RequestMapping("/hotGoods")
 public class HotGoodsController {

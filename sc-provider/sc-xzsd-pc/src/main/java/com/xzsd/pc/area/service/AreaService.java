@@ -17,8 +17,7 @@ public class AreaService {
     private AreaDao areaDao;
     /**
      * demo 查询省市区列表
-     *
-     * @param areaInfo
+     * @param areaInfo 省市区id
      * @return
      * @Author xiekai
      * @Date 2020-4-13
@@ -26,6 +25,7 @@ public class AreaService {
     public AppResponse listArea(AreaInfo areaInfo){
         List<AreaInfo> areaInfoList = areaDao.listArea(areaInfo);
         AreaList areaList = new AreaList();
+        //封装文档名
         areaList.setAreaList(areaInfoList);
         return AppResponse.success("查询成功！", areaList);
     }

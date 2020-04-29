@@ -92,6 +92,10 @@ public class DriverInfo {
     *头像路径
     */
     private String imagePath;
+    /**
+     *当前登录角色
+     */
+    private int role;
 
     public String getImagePath() {
         return imagePath;
@@ -100,11 +104,6 @@ public class DriverInfo {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
-
-    /**
-     *当前登录角色
-     */
-    private int role;
 
     public String getUserName() {
         return userName;

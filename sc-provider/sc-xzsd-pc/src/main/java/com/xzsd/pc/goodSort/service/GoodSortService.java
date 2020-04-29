@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 /**
- * 商品分类增删改查
+ * 商品分类模块
  */
 @Service
 public class GoodSortService {

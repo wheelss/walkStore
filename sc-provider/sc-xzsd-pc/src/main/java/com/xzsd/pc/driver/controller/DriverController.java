@@ -43,7 +43,6 @@ public class DriverController {
     }
     /**
      * 查询司机详情
-     *
      * @param driverId
      * @return AppResponse
      * @author xiekai
@@ -62,7 +61,6 @@ public class DriverController {
 
     /**
      * demo 司机列表(分页)
-     *
      * @param driverInfo
      * @return AppResponse
      * @author xiekai
@@ -81,7 +79,6 @@ public class DriverController {
 
     /**
      * 修改司机
-     *
      * @return AppResponse
      * @author xiekai
      * @time 2020-4-10
@@ -100,7 +97,6 @@ public class DriverController {
     }
     /**
      * 删除司机
-     *
      * @return AppResponse
      * @author xiekai
      * @time 2020-4-12

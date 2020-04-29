@@ -177,8 +177,14 @@
         and a.user_id = #{userId}
         and a.is_delete = 0
         and b.is_delete = 0
-        <if test="orderStateId != null and orderStateId != ''">
-            and a.order_state = #{orderStateId}
+        <if test="orderStateId == 0">
+            and a.order_state = '0'
+        </if>
+        <if test="orderStateId == 2">
+            and a.order_state = '2'
+        </if>
+        <if test="orderStateId == 4">
+            and a.order_state in(4,5)
         </if>
     </select>
     <!--查询订单列表下的商品-->

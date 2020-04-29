@@ -6,7 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+/**
+ * 轮播图管理 增删查改 启用禁用 选择商品
+ *
+ * @author xiekai
+ * @time 2020-3-27
+ */
 @Mapper
 public interface RotationDao {
     /**

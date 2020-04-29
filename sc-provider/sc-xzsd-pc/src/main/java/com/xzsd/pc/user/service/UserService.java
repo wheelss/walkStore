@@ -115,7 +115,6 @@ public class UserService {
     public AppResponse getUser(String userId) {
         UserInfo userInfo = userDao.getUser(userId);
         return AppResponse.success("查询成功！", userInfo);
-
     }
 
     /**

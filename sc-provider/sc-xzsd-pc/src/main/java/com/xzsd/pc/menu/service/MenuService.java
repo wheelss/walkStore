@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+/**
+ * 菜单模块
+ */
 @Service
 public class MenuService {
     @Resource

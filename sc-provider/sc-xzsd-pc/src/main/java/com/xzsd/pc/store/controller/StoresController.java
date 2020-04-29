@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 门店模块
+ */
 @RestController
 @RequestMapping("/store")
 public class StoresController {

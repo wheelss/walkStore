@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -28,6 +29,24 @@ public class ManagerOrderService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateManangerOrderState(ManagerOrderInfo managerOrderInfo){
+        //如若取消订单
+        if( "1".equals(managerOrderInfo.getOrderStateId()) ){
+            //分割商品id字符
+            List<String> listOrderId = Arrays.asList(managerOrderInfo.getOrderId().split(","));
+            //获取商品订单购买数量信息
+            List<GoodsInfo> listDeepen = managerOrderDao.getDeepen(listOrderId);
+            //判断状态为售馨时 更改状态为1(在售)
+            for(int i = 0 ; i < listDeepen.size() ; i++){
+                if(listDeepen.get(i).getGoodsStateId() == 0){
+                    listDeepen.get(i).setGoodsStateId(1);
+                }
+            }
+            //取消订单更新商品库存,销售量,状态
+            int update = managerOrderDao.backUpdate(listDeepen);
+            if(0 == update){
+                return AppResponse.bizError("订单取消失败");
+            }
+        }
         int count = managerOrderDao.updateManangerOrderState(managerOrderInfo);
         if(count == 0){
             return AppResponse.bizError("修改订单状态失败");
@@ -55,7 +74,7 @@ public class ManagerOrderService {
                     list.add(listOrderGoods.get(j));
                 }
             }
-            pageData.getList().get(i).setGoodsList(list);
+            listMangerOrder.get(i).setGoodsList(list);
         }
         return AppResponse.success("查询店长订单列表成功", pageData);
     }

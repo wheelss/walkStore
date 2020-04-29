@@ -6,7 +6,9 @@ import com.xzsd.pc.topColumn.entity.TopColumnInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
+/**
+ * 顶部栏模块
+ */
 @Service
 public class TopColumnService {
     @Resource
