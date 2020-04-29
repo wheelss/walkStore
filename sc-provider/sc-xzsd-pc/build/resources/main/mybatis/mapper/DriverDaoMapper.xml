@@ -80,10 +80,10 @@
             e.driver_id driverId,
             e.version
         from t_sys_user a,
-        t_info_area_level b,
-        t_info_area_level c,
-        t_info_area_level d,
-        t_info_driver e
+             t_info_area_level b,
+             t_info_area_level c,
+             t_info_area_level d,
+             t_info_driver e
         where e.driver_id = #{driverId}
         and e.is_delete = 0
         and e.province_id = b.area_id
@@ -96,14 +96,14 @@
     <select id="listDrivers" parameterType="com.xzsd.pc.driver.entity.DriverInfo"
             resultType="com.xzsd.pc.driver.entity.DriverInfo">
         select
-        b.driver_id driverId,
-        a.user_name userName,
-        a.phone phone,
-        a.id_card idCard,
-        a.user_acct userAcct,
-        b.version
+            b.driver_id driverId,
+            a.user_name userName,
+            a.phone phone,
+            a.id_card idCard,
+            a.user_acct userAcct,
+            b.version
         from t_sys_user a,
-        t_info_driver b
+             t_info_driver b
         where b.is_delete = 0
         and a.user_id = b.driver_id
         <if test="driverId != null and driverId != ''">
@@ -128,14 +128,14 @@
     <select id="listDriver" parameterType="com.xzsd.pc.driver.entity.DriverInfo"
             resultType="com.xzsd.pc.driver.entity.DriverInfo">
         select
-        b.driver_id driverId,
-        a.user_name userName,
-        a.phone phone,
-        a.id_card idCard,
-        a.user_acct userAcct,
-        b.version
+            b.driver_id driverId,
+            a.user_name userName,
+            a.phone phone,
+            a.id_card idCard,
+            a.user_acct userAcct,
+            b.version
         from t_sys_user a,
-        t_info_driver b
+             t_info_driver b
         where b.is_delete = 0
         and a.user_id = b.driver_id
         and b.driver_id = #{driverId}
@@ -199,9 +199,9 @@
     <update id="deleteDriver" parameterType="com.xzsd.pc.driver.entity.DriverInfo">
         update t_info_driver
         set
-        is_delete = 1,
-        update_time = now(),
-        update_user = #{updateUser}
+            is_delete = 1,
+            update_time = now(),
+            update_user = #{updateUser}
         where driver_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}
@@ -212,9 +212,9 @@
     <update id="deleteDriverUser" parameterType="com.xzsd.pc.driver.entity.DriverInfo">
         update t_sys_user
         set
-        is_delete = 1,
-        update_time = now(),
-        update_user = #{updateUser}
+            is_delete = 1,
+            update_time = now(),
+            update_user = #{updateUser}
         where user_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}

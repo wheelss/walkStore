@@ -208,7 +208,7 @@
         and c.is_delete = 0
     </select>
     <!--查询订单详情映射-->
-    <resultMap id="orderDetailsById" type="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
+    <resultMap id="orderDeepen" type="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
         <id column="orderId" property="orderId"/>
         <result column="orderStateId" property="orderStateId"/>
         <result column="orderAllGoodsCount" property="orderAllGoodsCount"/>
@@ -230,7 +230,7 @@
         </collection>
     </resultMap>
     <!--查询订单详情-->
-        <select id="listOrderDeepen" parameterType="java.lang.String" resultMap="orderDetailsById">
+        <select id="listOrderDeepen" parameterType="java.lang.String" resultMap="orderDeepen">
         select
         a.order_id orderId,
         a.order_state orderStateId,

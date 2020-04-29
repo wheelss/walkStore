@@ -11,4 +11,11 @@ public interface ClientInfoDao {
      * @return
      */
     int updateClientInvite(ClientInfo clientInfo);
+
+    /**
+     * 获取未完成订单数量
+     * @param clientInfo
+     * @return
+     */
+    int getOrder(ClientInfo clientInfo);
 }

@@ -4,7 +4,7 @@
     <!--搜索轮播图表-->
     <select id="RgoodsIdList" parameterType="java.util.List" resultType="String">
         select
-        goods_id
+            goods_id
         from t_info_slideshow_home
         where is_delete = 0
         and goods_id in
@@ -15,7 +15,7 @@
     <!--搜索热门位商品表-->
     <select id="HgoodsIdList" parameterType="java.util.List" resultType="String">
         select
-        goods_id
+            goods_id
         from t_info_hot_goods
         where is_delete = 0
         and goods_id in

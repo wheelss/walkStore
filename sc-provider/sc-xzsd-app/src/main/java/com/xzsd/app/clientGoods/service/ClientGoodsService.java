@@ -24,6 +24,8 @@ public class ClientGoodsService {
      */
     public AppResponse getGoods(String goodsId){
         GoodsInfo goodsInfo = clientGoodsDao.getGoods(goodsId);
+        String score = String.format("%.2f", goodsInfo.getGoodsEvaluateScore());
+        goodsInfo.setGoodsEvaluateScore(Double.valueOf(score));
         return AppResponse.success("查询商品详情成功", goodsInfo);
     }
     /**

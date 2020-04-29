@@ -72,18 +72,18 @@
     </resultMap>
     <select id="getNextNodeTree" resultMap="NextTreeResultMap">
         SELECT
-        classify_id,
-        classify_name,
-        version
+            classify_id,
+            classify_name,
+            version
         FROM t_info_goods_classify
         WHERE classify_parent = #{classifyId}
         and is_delete = 0
     </select>
     <select id="getNodeTree" resultMap="BaseTreeResultMap">
         SELECT
-        classify_id,
-        classify_name,
-        version
+            classify_id,
+            classify_name,
+            version
         FROM t_info_goods_classify
         WHERE classify_parent = '0'
         and is_delete = 0
@@ -107,9 +107,9 @@
     <update id="deleteGoodsClassify" parameterType="com.xzsd.pc.goodSort.entity.GoodSortInfo">
         update t_info_goods_classify
         set
-        is_delete = 1,
-        update_time = now(),
-        update_user = #{userId}
+            is_delete = 1,
+            update_time = now(),
+            update_user = #{userId}
         where classify_id =#{classifyId}
     </update>
 </mapper>

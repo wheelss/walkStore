@@ -21,6 +21,10 @@ public class ClientInfoService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateClientInvite(ClientInfo clientInfo){
+        int counts = clientInfoDao.getOrder(clientInfo);
+        if(counts != 0){
+            return AppResponse.bizError("有未完成的订单,如若想更换请联系客服");
+        }
         int count = clientInfoDao.updateClientInvite(clientInfo);
         if(0 == count){
             return AppResponse.bizError("修改邀请码失败");

@@ -76,10 +76,10 @@
             a.version,
             a.store_id storeId
         from t_info_store a,
-        t_info_area_level b,
-        t_info_area_level c,
-        t_info_area_level d,
-        t_sys_user e
+             t_info_area_level b,
+             t_info_area_level c,
+             t_info_area_level d,
+             t_sys_user e
         where a.store_id = #{storeId}
         and a.is_delete = 0
         and a.province_id = b.area_id
@@ -92,16 +92,16 @@
     <select id="listStores" parameterType="com.xzsd.pc.store.entity.StoresInfo"
             resultType="com.xzsd.pc.store.entity.StoresInfo">
         select
-        a.store_id storeId,
-        a.store_name storeName,
-        a.phone phone,
-        a.address address,
-        b.user_name userName,
-        a.invite_code inviteCode,
-        b.user_acct userAcct,
-        a.version
+            a.store_id storeId,
+            a.store_name storeName,
+            a.phone phone,
+            a.address address,
+            b.user_name userName,
+            a.invite_code inviteCode,
+            b.user_acct userAcct,
+            a.version
         from t_info_store a,
-        t_sys_user b
+             t_sys_user b
         where a.is_delete = 0
         and a.user_id = b.user_id
         <if test="storeId != null and storeId != ''">
@@ -129,16 +129,16 @@
     <select id="listStoresManger" parameterType="com.xzsd.pc.store.entity.StoresInfo"
             resultType="com.xzsd.pc.store.entity.StoresInfo">
         select
-        a.store_id storeId,
-        a.store_name storeName,
-        a.phone phone,
-        a.address address,
-        b.user_name userName,
-        a.invite_code inviteCode,
-        b.user_acct userAcct,
-        a.version
+            a.store_id storeId,
+            a.store_name storeName,
+            a.phone phone,
+            a.address address,
+            b.user_name userName,
+            a.invite_code inviteCode,
+            b.user_acct userAcct,
+            a.version
         from t_info_store a,
-        t_sys_user b
+             t_sys_user b
         where a.is_delete = 0
         and a.user_id = b.user_id
         and a.user_id = #{userId}
@@ -186,9 +186,9 @@
     <update id="deleteStore" parameterType="com.xzsd.pc.store.entity.StoresInfo">
         update t_info_store
         set
-        is_delete = 1,
-        update_time = now(),
-        update_user = #{updateUser}
+            is_delete = 1,
+            update_time = now(),
+            update_user = #{updateUser}
         where store_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}

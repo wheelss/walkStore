@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.app.clientInfo.dao.ClientInfoDao">
+    <!--统计未完成订单数量-->
+    <select id="getOrder" parameterType="com.xzsd.app.clientInfo.entity.ClientInfo" resultType="int">
+        select count(*)
+        from t_info_order
+        where is_delete = 0
+        and order_state not in (4,5)
+        and user_id = #{userId}
+    </select>
+
+
     <!--修改邀请码-->
     <update id="updateInviteCode" parameterType="com.xzsd.app.clientInfo.entity.ClientInfo">
         update t_info_client
